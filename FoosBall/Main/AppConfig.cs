@@ -1,6 +1,7 @@
 ﻿namespace FoosBall.Main
 {
     using System.Configuration;
+    using System.Linq;
 
     using FoosBall.Models.Base;
     using FoosBall.Models.Domain;
@@ -11,7 +12,7 @@
         {
             var environment = GetEnvironment();
             var configCollection = new Db(environment).Dbh.GetCollection<Config>("Config");
-            var config = configCollection.FindOne();
+            var config = configCollection.FindAll().FirstOrDefault();
 
             if (config == null)
             {

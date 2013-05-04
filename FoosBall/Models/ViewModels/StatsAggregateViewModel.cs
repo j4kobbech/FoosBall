@@ -1,10 +1,12 @@
 ﻿namespace FoosBall.Models.ViewModels
 {
-    using FoosBall.Models.Custom;
-    using FoosBall.Models.Domain;
+    using Custom;
+    using Domain;
 
     public class StatsAggregateViewModel
     {
+        public long TotalNumberOfPlayedMatches { get; set; }
+
         public Player MostFights { get; set; }
 
         public Player MostWins { get; set; }

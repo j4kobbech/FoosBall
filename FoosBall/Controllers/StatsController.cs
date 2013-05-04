@@ -22,16 +22,25 @@
 
         public ActionResult Index()
         {
-            var viewModel = new StatsAggregateViewModel();
-
-            viewModel.MostFights = StatsControllerHelpers.GetStatMostFights();
-            viewModel.MostWins = StatsControllerHelpers.GetStatMostWins();
-            viewModel.MostLosses = StatsControllerHelpers.GetStatMostLosses();
-            viewModel.TopRanked = StatsControllerHelpers.GetStatTopRanked();
-            viewModel.BottomRanked = StatsControllerHelpers.GetStatBottomRanked();
+            var viewModel = new StatsAggregateViewModel
+                {
+                    MostFights = StatsControllerHelpers.GetStatMostFights(),
+                    MostWins = StatsControllerHelpers.GetStatMostWins(),
+                    MostLosses = StatsControllerHelpers.GetStatMostLosses(),
+                    TopRanked = StatsControllerHelpers.GetStatTopRanked(),
+                    BottomRanked = StatsControllerHelpers.GetStatBottomRanked()
+                };
 
             var matches = Dbh.GetCollection<Match>("Matches").FindAll();
             var matchesList = matches.SetSortOrder(SortBy.Ascending("GameOverTime")).ToList();
+
+            viewModel.TotalNumberOfPlayedMatches = matches.Count();
+
+            if (viewModel.TotalNumberOfPlayedMatches == 0)
+            {
+                return View(viewModel);
+            }
+
             var players = matches.Select(m => m.BluePlayer1).ToList();
             players.AddRange(matches.Select(m => m.BluePlayer2).ToList());
             players.AddRange(matches.Select(m => m.RedPlayer1).ToList());
@@ -52,6 +61,7 @@
             {
                 viewModel.BiggestRatingWin = StatsControllerHelpers.GetBiggestRatingWin();
             }
+
             return this.View(viewModel);
         }
 
@@ -82,6 +92,12 @@
                            .Where(match => match.GameOverTime != DateTime.MinValue);
 
                     var playedMatches = matches as List<Match> ?? matches.ToList();
+
+                    if (playedMatches.Count == 0)
+                    {
+                        return View(stats);
+                    }
+
                     stats.PlayedMatches = playedMatches.OrderByDescending(x => x.GameOverTime);
                     stats.LatestMatch = playedMatches.Last();
 

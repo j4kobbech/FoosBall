@@ -28,6 +28,7 @@
                 else
                 {
                     this.AggregatedStreaks.Add(playerId, 1);
+                    this.FinalStreaks.Add(playerId, 1); 
                 }
             }   
         }
@@ -57,8 +58,14 @@
 
         public Streak GetLongestStreak()
         {
-            var finalStreaksId = this.FinalStreaks.OrderByDescending(x => x.Value).First().Key;
-            var aggrStreaksId = this.AggregatedStreaks.OrderByDescending(x => x.Value).First().Key;
+            var finalStreaksId = string.Empty;
+            var aggrStreaksId = string.Empty;
+            
+            if (this.FinalStreaks.Any())
+            {
+                finalStreaksId = this.FinalStreaks.OrderByDescending(x => x.Value).First().Key;
+                aggrStreaksId = this.AggregatedStreaks.OrderByDescending(x => x.Value).First().Key;
+            }
 
             if (this.FinalStreaks.ContainsKey(finalStreaksId))
             {
@@ -68,7 +75,12 @@
                 }
             }
 
-            return new Streak { Player = new Player(aggrStreaksId), Count = this.AggregatedStreaks[aggrStreaksId] };
+            if (this.AggregatedStreaks.ContainsKey(aggrStreaksId))
+            {
+                return new Streak { Player = new Player(aggrStreaksId), Count = this.AggregatedStreaks[aggrStreaksId] };
+            }
+            
+            return new Streak();
         }
     }
 }

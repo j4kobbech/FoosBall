@@ -5,3 +5,4 @@ FoosBall/Migration/*.json
 *.cache
 *.suo
 *.orig
+*.ncrunchsolution

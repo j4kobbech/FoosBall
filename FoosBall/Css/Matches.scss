@@ -4,7 +4,7 @@
 
 /* Match View
 ----------------------------------------------------------*/
-#submit-match-form {
+#submit-match-form, #submit-challenge-form {
     display: none;
     margin-top: 20px;
 }
@@ -14,16 +14,27 @@
     width: 45%;
     text-align: center;
 }
+thead tr th {
+    letter-spacing: 3px;
+    text-transform: uppercase;
+}
+tbody tr td {
+    text-transform: uppercase;
+    font-size: 14px;
+}
 .red-team, #team-red-players {
     float: left;
     clear: left;
     .team-name {
         color: $team-red-color;
     }
+    select {
+        border-color: rgba(255,0,0,0.3);
+    }
 }
 .vs {
     float: left;
-    margin-top: 3px;
+    margin-top: 40px;
     text-align: center;
     vertical-align: middle;
     width: 10%;
@@ -33,6 +44,9 @@
     clear: right;
     .team-name {
         color: $team-blue-color;
+    }
+    select {
+        border-color: rgba(0,0,255,0.3);
     }
 }
 #create-match-button {

@@ -247,10 +247,11 @@
                                                      : stats.PlayedLast30Days;
                         stats.Ranking = playerCollection.FindAll()
                                             .SetSortOrder(SortBy.Descending("Rating"))
+                                            .Where(x => x.Played > 0)
                                             .ToList()
                                             .FindIndex(x => x.Id == playerId) + 1; // convert zero-based to 1-based index
 
-                        stats.TotalNumberOfPlayers = (int)playerCollection.Count();
+                        stats.TotalNumberOfPlayers = (int)playerCollection.Count(Query.GT("Played", 0));
                     }
 
                     stats.Bff = bff.OrderByDescending(x => x.Value.Occurrences)

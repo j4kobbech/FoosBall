@@ -14,11 +14,8 @@
     <div>
         <div>@Html.LabelFor(m => m.Email)</div>
         <div>
-            @Html.TextBoxFor(m => m.Email, new { placeholder = "Email", @class = Model.Settings.EnableDomainValidation ? "short" : "long" })
-            @if (Model.Settings.EnableDomainValidation)
-            {
-                <text>@@trustpilot.com</text>
-            }
+            @Html.TextBoxFor(m => m.Email, new { placeholder = "Email", @class = "short" })
+            <text>@@trustpilot.com</text>
         </div>
         <br>
         <div>@Html.LabelFor(m => m.Password)</div>

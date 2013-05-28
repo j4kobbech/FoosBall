@@ -3,8 +3,7 @@
     /* ******************************************************************
      * Admin View
      */
-    var $enableDomainValidation = $('#Settings_EnableDomainValidation'),
-        $selectPlayer = $('#select-player'),
+    var $selectPlayer = $('#select-player'),
         $copyProdToStaging = $('#copy-prod-to-staging'),
         $replayMatches = $('#replay-matches'),
         $listEmails = $('#list-player-emails'),
@@ -64,12 +63,6 @@
                 }
             }
         });
-    });
-
-    toggleDomainField($enableDomainValidation);
-    
-    $enableDomainValidation.on('change', function () {
-        toggleDomainField($enableDomainValidation);
     });
 
     $appNameTextBox.focus();

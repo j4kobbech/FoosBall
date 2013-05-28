@@ -55,10 +55,7 @@
         public ActionResult LogOn(LogOnViewModel model)
         {
             var email = model.Email.ToLower();
-            if (this.Settings.EnableDomainValidation)
-            {
-                email += "@" + this.Settings.Domain;
-            }
+            email += "@" + this.Settings.Domain;
 
             var playerCollection = this.Dbh.GetCollection<Player>("Players");
             var player = playerCollection.FindOne(Query.EQ("Email", email));
@@ -107,10 +104,7 @@
         public ActionResult Register(PlayerBaseDataViewModel viewModel)
         {
             var email = viewModel.Player.Email.ToLower();
-            if (this.Settings.EnableDomainValidation)
-            {
-                email += "@" + this.Settings.Domain;
-            }
+            email += "@" + this.Settings.Domain;
 
             var name = viewModel.Player.Name;
             var password = Md5.CalculateMd5(viewModel.Player.Password);
@@ -172,11 +166,7 @@
             if (ModelState.IsValid)
             {
                 var currentUser = (Player)Session["User"];
-
-                if (this.Settings.EnableDomainValidation)
-                {
-                    viewModel.Player.Email += "@" + this.Settings.Domain;
-                }
+                viewModel.Player.Email += "@" + this.Settings.Domain;
 
                 if (currentUser != null
                     && (currentUser.Id == viewModel.Player.Id || currentUser.Email == this.Settings.AdminAccount))

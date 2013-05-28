@@ -63,9 +63,6 @@
                 this.Settings.Name = viewModel.Settings.Name;
                 this.Settings.Domain = viewModel.Settings.Domain;
                 this.Settings.AdminAccount = viewModel.Settings.AdminAccount;
-                this.Settings.EnableDomainValidation = viewModel.Settings.EnableDomainValidation;
-                this.Settings.EnableOneOnOneMatches = viewModel.Settings.EnableOneOnOneMatches;
-                this.Settings.EnableGenderSpecificMatches = viewModel.Settings.EnableGenderSpecificMatches;
 
                 configCollection.Save(this.Settings);
             }
@@ -76,7 +73,7 @@
         [HttpPost]
         public JsonResult CopyProdData()
         {
-            var dbhTo = new Db(Environment.Staging).Dbh;
+            var dbhTo = new Db(AppConfig.GetEnvironment()).Dbh;
             var dbhFrom = new Db().Dbh;
 
             var allMatches = dbhFrom.GetCollection<Match>("Matches").FindAll();

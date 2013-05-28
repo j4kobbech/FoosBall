@@ -51,7 +51,7 @@
             return Dbh.GetCollection<Player>("Players")
                     .FindAll()
                     .SetSortOrder(SortBy.Ascending("Rating"))
-                    .FirstOrDefault();
+                    .FirstOrDefault(x => x.Played > 0);
         }
 
         public static Player GetStatHighestRatingEver(List<Player> players)

@@ -5,7 +5,7 @@
 <br/>
 <br/>
 @{
-    if (Model.Settings.EnableDomainValidation && !string.IsNullOrEmpty(Model.Player.Email))
+    if (!string.IsNullOrEmpty(Model.Player.Email))
     {
         Model.Player.Email = Regex.Replace(Model.Player.Email, "@" + Model.Settings.Domain, "");
     }
@@ -13,11 +13,8 @@
 
 @Html.LabelFor(m => Model.Player.Email, "Email")
 <br/>
-@Html.TextBoxFor(m => m.Player.Email, new { @id= "Email", placeholder = "Email", autocapitalize = "off", autocorrect = "off", @class = Model.Settings.EnableDomainValidation ? "short" : "long"})
-@if (Model.Settings.EnableDomainValidation)
-{
-    <string>@@</string>@Model.Settings.Domain
-}
+@Html.TextBoxFor(m => m.Player.Email, new { @id= "Email", placeholder = "Email", autocapitalize = "off", autocorrect = "off", @class = "short"})
+@@Model.Settings.Domain
 <br/><br/> 
 @Html.LabelFor(m => Model.Player.Name)
 @Html.TextBoxFor(m => Model.Player.Name, new { placeholder = "Name"})

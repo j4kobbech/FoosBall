@@ -2,7 +2,6 @@
 @using (Html.BeginForm("RegisterMatch", "Matches", FormMethod.Post))
 {   
     <input type="button" class="button" id="open-submit-match-form" value="Create a Match" />
-    <input type="hidden" id="gender-specific-matches" value="@Model.Settings.EnableGenderSpecificMatches.ToString()" />
     
     <fieldset id="submit-match-form" class="closed">
         <div id="team-red-players" class="team">

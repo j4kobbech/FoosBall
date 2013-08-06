@@ -430,3 +430,14 @@ html[xmlns] .clearfix {
     margin: 0 auto;
     color: Red;
 }
+#request-notification {
+    background-color: #fff;
+    display: none;
+    font-weight: bold;
+    padding: 15px;
+    text-align: center;
+    width: 100%;
+    .button {
+        margin-top: 15px;
+    }
+}

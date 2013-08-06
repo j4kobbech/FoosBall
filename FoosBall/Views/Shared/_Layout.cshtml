@@ -38,49 +38,55 @@
     </script>
 
 </head>
-<body>
-    <div id="page" class="@ViewContext.RouteData.Values["controller"]">
-        <header>
-            <div id="login-display">
-                @Html.Partial("_LogOnPartial")
-            </div>
-            <div id="app-title">
-                <span>
-                    @if (ViewBag.Settings.Environment.ToString() != "Production")
-                    {
-                        @ViewBag.Settings.Environment.ToString()  
-                    }
-                    @ViewBag.Settings.Name
-                </span>
-            </div>
-            <nav>
-                <ul id="main-menu">
-                    <li class="Home">@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li class="Players">@Html.ActionLink("Scoreboard", "Index", "Players")</li>
-                    <li class="Matches">@Html.ActionLink("Matches", "Index", "Matches")</li>
-                    <li class="Stats">@Html.ActionLink("Stats", "Index", "Stats")</li>
-                    @if (Session["IsLoggedIn"].ToString().ToLower() == "true")
-                    {
-                        if (Session["Admin"].ToString().ToLower() == "true")
+    <body>
+        <div id="request-notification">
+            Try the new Foosball Fighting desktop notifications - You'll love it!<br />
+            <input class="button" id="notify-me" value="Ok, off we go!" />
+        </div>
+        <div id="page" class="@ViewContext.RouteData.Values["controller"]">
+            <header>
+                <div id="login-display">
+                    @Html.Partial("_LogOnPartial")
+                </div>
+                <div id="app-title">
+                    <span>
+                        @if (ViewBag.Settings.Environment.ToString() != "Production")
                         {
-                            <li class="Admin">@Html.ActionLink("Admin", "Index", "Admin")</li>
-                        }                           
-                    }
+                            @ViewBag.Settings.Environment.ToString()  
+                        }
+                        @ViewBag.Settings.Name
+                    </span>
+                </div>
+                <nav>
+                    <ul id="main-menu">
+                        <li class="Home">@Html.ActionLink("Home", "Index", "Home")</li>
+                        <li class="Players">@Html.ActionLink("Scoreboard", "Index", "Players")</li>
+                        <li class="Matches">@Html.ActionLink("Matches", "Index", "Matches")</li>
+                        <li class="Stats">@Html.ActionLink("Stats", "Index", "Stats")</li>
+                        @if (Session["IsLoggedIn"].ToString().ToLower() == "true")
+                        {
+                            if (Session["Admin"].ToString().ToLower() == "true")
+                            {
+                                <li class="Admin">@Html.ActionLink("Admin", "Index", "Admin")</li>
+                            }                           
+                        }
 
-                </ul> 
-            </nav>
-        </header>
-        <section id="main">
-            @RenderBody()
-        </section>
-        <footer>
-            @RenderSection("Footer", false)
-            @Html.ActionLink("Features", "Features", "Home", null, new { @id = "feature-link" })
-        </footer>
-    </div>
-    <!-- Deferred Javascript -->
-    <script src="@Url.Content("~/Javascript/FoosBall.js")"></script>
-    @RenderSection("Javascript", false)
-    @MiniProfiler.RenderIncludes()    
-</body>
+                    </ul> 
+                </nav>
+            </header>
+            <section id="main">
+                @RenderBody()
+            </section>
+            <footer>
+                @RenderSection("Footer", false)
+                @Html.ActionLink("Features", "Features", "Home", null, new { @id = "feature-link" })
+            </footer>
+        </div>
+        <!-- Deferred Javascript -->
+        <script src="@Url.Content("~/Javascript/jquery.signalR-1.0.0.min.js")"></script>
+        <script src="/signalr/hubs"></script>
+        <script src="@Url.Content("~/Javascript/FoosBall.js")"></script>
+        @RenderSection("Javascript", false)
+        @MiniProfiler.RenderIncludes()    
+    </body>
 </html>

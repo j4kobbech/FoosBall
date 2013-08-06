@@ -8,8 +8,9 @@
 
     public static class Events
     {
-        public static void SubmitEvent(EventType eventType, object targetObject, string userId) 
+        public static void SubmitEvent(EventType eventType, object targetObject, string userId)
         {
+            EventHub.Send(targetObject);
             SaveEvent(eventType, targetObject, userId);
         }
 

@@ -66,10 +66,10 @@
 </head>
 <body>
     
-        <div id="request-notification">
-            Try the new Foosball Fighting desktop notifications - You'll love it!<br />
-            <input class="button" id="notify-me" value="Ok, off we go!" />
-        </div>
+    <div id="request-notification">
+        Try the new Foosball Fighting desktop notifications - You'll love it!<br />
+        <input class="button" id="notify-me" value="Ok, off we go!" />
+    </div>
 
     <img src="https://s3-eu-west-1.amazonaws.com/images.trustpilot.com/static/foosball/background.jpg" id="bg" class="bgwidth" />
     
@@ -77,12 +77,14 @@
         <div id="app-title">
             <div class="logo-picture">
                 <img src="https://s3-eu-west-1.amazonaws.com/images.trustpilot.com/static/foosball/icon_football.png" />
+            </div>
             <div class="logo-text">
                 @if (ViewBag.Settings.Environment.ToString() != "Production")
                 {
                     @ViewBag.Settings.Environment.ToString()  
                 }
                 @ViewBag.Settings.Name
+            </div>
         </div>
         <nav>
             <div class="menu-arrow"></div>
@@ -94,6 +96,7 @@
                 @if (Session["IsLoggedIn"].ToString().ToLower() == "true")
                 {
                     if (Session["Admin"].ToString().ToLower() == "true")
+                    {
                         <li class="Admin">@Html.ActionLink("Admin", "Index", "Admin")</li>
                     }                           
                 }

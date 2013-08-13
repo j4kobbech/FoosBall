@@ -1,107 +1,119 @@
-.list-of-matches {
-  font-size: .9em;
-  line-height: 1.0em; }
-
-table thead {
-  border-color: black;
-  border-bottom: 2px solid #222222; }
-table tbody tr:nth-child(even) {
-  background-color: #dddddd; }
-table th.team-names, table th.nicknames, table th.score, table td.team-names, table td.nicknames, table td.score {
-  text-align: left; }
-table th.rating, table th.played, table th.created, table td.rating, table td.played, table td.created {
-  text-align: right; }
-table th.rating, table td.rating {
-  padding-right: 10px; }
-table td {
-  color: #555555;
-  font-weight: normal; }
-  table td.score, table td.played, table td.created {
-    white-space: nowrap; }
-table th.red {
-  color: #cc0000; }
-table th.blue {
-  color: #0000aa; }
-table .winner {
-  color: #222222;
-  font-weight: bold; }
-
-#pending-matches .names, #pending-matches .odds, #pending-matches .created {
-  display: none; }
-#pending-matches .delete div, #pending-matches .resolve div {
-  width: 15px;
-  margin: 0 auto; }
-
-#legendary-matches .names, #legendary-matches .created, #legendary-matches .long-time {
-  display: none; }
-#legendary-matches .short-time, #legendary-matches .long-time {
-  float: right; }
-
-/* @MediaQuery: iPad / Tablet */
-@media only screen and (min-width: 750px) {
-  table thead {
-    border-color: black;
-    border-bottom: 2px solid #222222; }
-
-  .list-of-matches {
-    line-height: 1.0em; }
-
-  #pending-matches .nicknames {
-    display: none; }
-  #pending-matches .names, #pending-matches .created {
-    display: table-cell; }
-
-  #legendary-matches .nicknames, #legendary-matches .short-time {
-    display: none; }
-  #legendary-matches .names, #legendary-matches .created, #legendary-matches .long-time {
-    display: table-cell; } }
 /* Match View
 ----------------------------------------------------------*/
 #submit-match-form, #submit-challenge-form {
   display: none;
   margin-top: 20px; }
 
-.team {
-  margin-top: 3px;
-  width: 45%;
-  text-align: center; }
+.match {
+  margin: 40px 0 0 0; }
 
-thead tr th {
-  letter-spacing: 3px;
-  text-transform: uppercase; }
-
-tbody tr td {
-  text-transform: uppercase;
-  font-size: 14px; }
-
-.red-team, #team-red-players {
+.team-names {
+  position: relative;
+  background: none #fff;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+  width: 40%;
+  height: 90px;
   float: left;
-  clear: left; }
-  .red-team .team-name, #team-red-players .team-name {
-    color: #cc0000; }
-  .red-team select, #team-red-players select {
-    border-color: rgba(255, 0, 0, 0.3); }
+  padding: 10px 15px; }
+  .team-names.red {
+    text-align: left; }
+    .team-names.red .gravatars {
+      left: 10px; }
+      .team-names.red .gravatars img {
+        float: left;
+        margin-right: 5px; }
+  .team-names.blue {
+    text-align: right; }
+    .team-names.blue .gravatars {
+      right: 10px; }
+      .team-names.blue .gravatars img {
+        float: right;
+        margin-left: 5px; }
+  .team-names.winner {
+    font-weight: bold; }
+  .team-names .nicknames, .team-names .names {
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin: 35px 0 0 0;
+    display: block; }
+  .team-names .names {
+    display: none; }
+    @media only screen and (min-width: 350px) {
+      .team-names .names {
+        display: block; } }
+  .team-names .gravatars {
+    position: absolute;
+    top: -20px; }
+    .team-names .gravatars img {
+      border-radius: 50%;
+      width: 48px;
+      height: auto; }
+      @media only screen and (min-width: 350px) {
+        .team-names .gravatars img {
+          width: 52px; } }
 
-.vs {
+.team-scores {
   float: left;
-  margin-top: 40px;
+  width: 20%;
+  padding: 10px 15px;
   text-align: center;
-  vertical-align: middle;
-  width: 10%; }
-
-.blue-team, #team-blue-players, .blue-score {
-  float: right;
-  clear: right; }
-  .blue-team .team-name, #team-blue-players .team-name, .blue-score .team-name {
-    color: #0000aa; }
-  .blue-team select, #team-blue-players select, .blue-score select {
-    border-color: rgba(0, 0, 255, 0.3); }
+  color: white; }
+  .team-scores .score {
+    position: relative;
+    font-size: 2.5em; }
+    .team-scores .score .red, .team-scores .score .blue {
+      position: absolute;
+      width: 50px;
+      text-align: center;
+      top: 40px;
+      z-index: 10;
+      color: #222222; }
+      @media only screen and (min-width: 350px) {
+        .team-scores .score .red, .team-scores .score .blue {
+          position: relative;
+          color: white; } }
+    .team-scores .score .red {
+      left: -100px; }
+      @media only screen and (min-width: 350px) {
+        .team-scores .score .red {
+          top: 0;
+          left: 0; } }
+    .team-scores .score .blue {
+      right: -100px; }
+      @media only screen and (min-width: 350px) {
+        .team-scores .score .blue {
+          top: 0;
+          right: 0; } }
+  .team-scores .winner {
+    font-weight: bold; }
+  .team-scores .long-time {
+    display: none; }
+  @media only screen and (min-width: 350px) {
+    .team-scores .short-time {
+      display: none; }
+    .team-scores .long-time {
+      display: block; } }
 
 #create-match-button {
   margin-top: 10px; }
 
 /* SaveMatchResult View
 ----------------------------------------------------------*/
+#submit-match-form {
+  background: none #fff;
+  border-radius: 5px;
+  padding: 15px 20px; }
+
+.team {
+  width: 40%; }
+
+.team-scores {
+  width: 20%; }
+
 .team-score {
   height: 40px;
   width: 40px !important;
@@ -122,9 +134,8 @@ tbody tr td {
 
 #team-blue-players {
   float: right; }
-
-.team-scores {
-  display: none; }
+  #team-blue-players .team-name {
+    text-align: right; }
 
 #team-results {
   clear: both; }
@@ -143,8 +154,4 @@ tbody tr td {
 #fighting-team-blue {
   float: right;
   width: 45%; }
-
-.names sup, .nicknames sup {
-  font-weight: normal;
-  margin-left: 3px; }
 

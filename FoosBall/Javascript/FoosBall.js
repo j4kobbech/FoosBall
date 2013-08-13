@@ -17,6 +17,7 @@
      */
     var activeTab = $('#page').attr('class');
     var $menu = $('#main-menu');
+    var $menuarrow = $('.menu-arrow');
     
     if (!!activeTab !== false) {
         $menu.find('li').removeClass('selected');
@@ -25,7 +26,8 @@
 
     $('.menu-list-button').on('click', function(e) {
         e.preventDefault();
-        $menu.slideToggle(200);
+        $menu.toggle();
+        $menuarrow.toggle();
     });
 
     /* ******************************************************************

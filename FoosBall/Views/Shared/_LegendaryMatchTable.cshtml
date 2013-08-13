@@ -7,77 +7,77 @@
     <input type="hidden" value="@currentUser.Id" name="current-user-id" id="current-user-id"/>
 }
     
-<table id="legendary-matches">
-    <thead>
-        <tr>
-            <th class="red team-names">Red team</th>
-            <th class="blue team-names">Blue team</th>
-            <th class="score">Result</th>
-            <th class="played">Played</th>
-        </tr>
-    </thead>
-    <tbody>
         @foreach (var match in Model.Matches)
         {
             var gameTime = TimeZoneInfo.ConvertTime(match.GameOverTime.ToUniversalTime(), TimeZoneInfo.Utc, TimeZoneInfo.FindSystemTimeZoneById("Romance Standard Time"));
-            <tr>
-                @* Red Teams names and Nicknames *@
-                <td class="red team-names @if (match.RedScore > match.BlueScore) { <text>winner</text> }">
+            
+            <div class="match clearfix">
+                <div class="team-names red @if (match.RedScore > match.BlueScore) { <text>winner</text> }">
+                    <span class="gravatars">
+                        <a class="@match.RedPlayer1.Id" href="@Url.Action("Player","Stats", new {playerId = @match.RedPlayer1.Id })">
+                            <img class="gravatar" alt="Gravatar picture" src="@Html.GetGravatarEmailHash(@match.RedPlayer1.Email)?d=mm"/>
+                        </a>
+                        @if (match.CountBluePlayers() == 2)
+                        {
+                            <a class="@match.RedPlayer2.Id" href="@Url.Action("Player","Stats", new {playerId = @match.RedPlayer2.Id })">
+                                <img class="gravatar" alt="Gravatar picture" src="@Html.GetGravatarEmailHash(@match.RedPlayer2.Email)?d=mm"/>
+                            </a>
+                        }                        
+                    </span>
                     <span class="names">
-                        <a class="@match.RedPlayer1.Id" href="@Url.Action("Player","Stats", new {playerId = @match.RedPlayer1.Id })">@match.RedPlayer1.Name</a>
+                        <a class="@match.RedPlayer1.Id" href="@Url.Action("Player","Stats", new {playerId = @match.RedPlayer1.Id })">
+                            @match.RedPlayer1.Name
+                        </a>
                         @if (match.CountRedPlayers() == 2)
                         {
                             <br/>
-                            <a class="@match.RedPlayer2.Id" href="@Url.Action("Player","Stats", new {playerId = @match.RedPlayer2.Id })">@match.RedPlayer2.Name</a>
+                            <a class="@match.RedPlayer2.Id" href="@Url.Action("Player","Stats", new {playerId = @match.RedPlayer2.Id })">
+                                @match.RedPlayer2.Name
+                            </a>
                         }
                     </span>
-                    <span class="nicknames">
-                        <a class="@match.RedPlayer1.Id" href="@Url.Action("Player","Stats", new {playerId = @match.RedPlayer1.Id })">@match.RedPlayer1.NickName</a>
-                        @if (match.CountRedPlayers() == 2)
+                </div>
+                <div class="team-scores">
+                    <div class="score">
+                        <span class="red @if (match.RedScore > match.BlueScore) { <text>winner</text> }">
+                            @match.RedScore
+                        </span>
+                        -
+                        <span class="blue @if (match.BlueScore > match.RedScore) { <text>winner</text> }">
+                            @match.BlueScore
+                        </span>                    
+                    </div>
+                    <div class="played" title="@gameTime.ToString("d MMM yy, HH:mm", System.Globalization.CultureInfo.CreateSpecificCulture("en-gb"))">
+                        <span class="short-time">@gameTime.ToString("dd MMM", System.Globalization.CultureInfo.CreateSpecificCulture("en-gb"))</span>
+                        <span class="long-time" title="@gameTime.ToString("d MMM yy, HH:mm:ss", System.Globalization.CultureInfo.CreateSpecificCulture("en-gb"))">
+                            @gameTime.ToString("d MMM yy, HH:mm", System.Globalization.CultureInfo.CreateSpecificCulture("en-gb"))
+                        </span>
+                    </div>
+                </div>
+                <div class="team-names blue @if (match.BlueScore > match.RedScore) { <text>winner</text> }">
+                    <span class="gravatars">
+                        <a class="@match.BluePlayer1.Id" href="@Url.Action("Player","Stats", new {playerId = @match.BluePlayer1.Id })">
+                            <img class="gravatar" alt="Gravatar picture" src="@Html.GetGravatarEmailHash(@match.BluePlayer1.Email)?d=mm"/>
+                        </a>
+                        @if (match.CountBluePlayers() == 2)
                         {
-                            <br/>
-                            <a class="@match.RedPlayer2.Id" href="@Url.Action("Player","Stats", new {playerId = @match.RedPlayer2.Id })">@match.RedPlayer2.NickName</a>
-                        }
+                            <a class="@match.BluePlayer2.Id" href="@Url.Action("Player","Stats", new {playerId = @match.BluePlayer2.Id })">
+                                <img class="gravatar" alt="Gravatar picture" src="@Html.GetGravatarEmailHash(@match.BluePlayer2.Email)?d=mm"/>
+                            </a>
+                        }                        
                     </span>
-                </td>
-                
-                @* Blue Teams names and Nicknames *@
-                <td class="blue team-names @if (match.BlueScore > match.RedScore) { <text>winner</text> }">
                     <span class="names">
-                        <a class="@match.BluePlayer1.Id" href="@Url.Action("Player","Stats", new {playerId = @match.BluePlayer1.Id })">@match.BluePlayer1.Name</a>
+                        <a class="@match.BluePlayer1.Id" href="@Url.Action("Player","Stats", new {playerId = @match.BluePlayer1.Id })">
+                            @match.BluePlayer1.Name
+                        </a>
                         @if (match.CountBluePlayers() == 2)
                         {
                             <br/>
-                            <a class="@match.BluePlayer2.Id" href="@Url.Action("Player","Stats", new {playerId = @match.BluePlayer2.Id })">@match.BluePlayer2.Name</a>
+                            <a class="@match.BluePlayer2.Id" href="@Url.Action("Player","Stats", new {playerId = @match.BluePlayer2.Id })">
+                                @match.BluePlayer2.Name
+                            </a>
                         }
                     </span>
-                    <span class="nicknames">
-                        <a class="@match.BluePlayer1.Id" href="@Url.Action("Player","Stats", new {playerId = @match.BluePlayer1.Id })">@match.BluePlayer1.NickName</a>
-                        @if (match.CountBluePlayers() == 2)
-                        {
-                            <br/>
-                            <a class="@match.BluePlayer2.Id" href="@Url.Action("Player","Stats", new {playerId = @match.BluePlayer2.Id })">@match.BluePlayer2.NickName</a>
-                        }
-                    </span>
-                </td>
-                <td class="score">
-                    <span class="red @if (match.RedScore > match.BlueScore)
-                                     { <text>winner</text> }">
-                        @match.RedScore
-                    </span>
-                    -
-                    <span class="blue @if (match.BlueScore > match.RedScore)
-                                      { <text>winner</text> }">
-                        @match.BlueScore
-                    </span> 
-                </td>
-                <td class="played" title="@gameTime.ToString("d MMM yy, HH:mm", System.Globalization.CultureInfo.CreateSpecificCulture("en-gb"))">
-                    <span class="short-time">@gameTime.ToString("dd MMM", System.Globalization.CultureInfo.CreateSpecificCulture("en-gb"))</span>
-                    <span class="long-time" title="@gameTime.ToString("d MMM yy, HH:mm:ss", System.Globalization.CultureInfo.CreateSpecificCulture("en-gb"))">
-                        @gameTime.ToString("d MMM yy, HH:mm", System.Globalization.CultureInfo.CreateSpecificCulture("en-gb"))
-                    </span>
-                </td>
-            </tr>
+                </div>
+            </div>
         }
-    </tbody>
-</table>

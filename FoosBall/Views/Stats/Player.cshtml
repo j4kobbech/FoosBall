@@ -9,29 +9,29 @@
 }
 @section Css{ <link rel="stylesheet" href="@Url.Content("/Css/Stats.css")"/>}
 
-<fieldset class="statistics">
-    <legend>Stats for @Model.Player.Name</legend>
-    <div class="second">
-        <div class="label">Player ranking:</div>
-        <div>@Model.Ranking <span class="thin">of</span> @Model.TotalNumberOfPlayers</div>
-        <div class="label">Elo rating:</div>
-        <div>@Model.Player.Rating.ToString("F2")</div>
-        <div class="label">Winning ratio:</div>
-        <div>@Model.Player.Ratio.ToString("F2")%</div>
-        <br/>
-        <div class="label">Fights Total:</div>
-        <div>@Model.Played</div>
-        <div class="label">Won Fights:</div>
-        <div>@Model.Won</div>
-        <div class="label">Lost Fights:</div>
-        <div>@Model.Lost</div>
-        <br/>
+<div class="statistics player clearfix">
+    
+    <div class="avatar">
+        <img class="gravatar" alt="@Model.Player.Name" title="@Model.Player.Name" src="@Html.GetGravatarEmailHash(@Model.Player.Email)?d=mm" />
     </div>
 
-    @if (Model.Played > 0) {
-        <div class="second">
+    <div class="column first">
+        <div class="label">Player ranking</div>
+        <div class="info">@Model.Ranking <span class="thin">of</span> @Model.TotalNumberOfPlayers</div>
+        <div class="label">Elo rating:</div>
+        <div class="info">@Model.Player.Rating.ToString("F2")</div>
+        <div class="label">Winning ratio:</div>
+        <div class="info splitline">@Model.Player.Ratio.ToString("F2")%</div>
+        <div class="label">Fights Total:</div>
+        <div class="info">@Model.Played</div>
+        <div class="label">Won Fights:</div>
+        <div class="info">@Model.Won</div>
+        <div class="label">Lost Fights:</div>
+        <div class="info splitline">@Model.Lost</div>
+        
+        @if (Model.Played > 0) {
             <div class="label" title="The BFF (Best Friend Forever) is the player together with whom @Model.Player.Name has fought most often">Best Friend Forever:</div>
-            <div>
+            <div class="info">
                 @if (@Model.Bff != null)
                 {
                     <a href="@Url.Action("Player", "Stats", new { playerId = @Model.Bff.Player.Id})">@Model.Bff.Player.Name</a><text> - @Model.Bff.Occurrences fights</text>
@@ -42,7 +42,7 @@
                 }
             </div>
             <div class="label" title="The RBFF (Real Best Friend Forever) is the player together with whom @Model.Player.Name has won most fights">Real Best Friend Forever:</div>
-            <div>
+            <div class="info">
                 @if (@Model.Rbff != null)
                 {
                     <a href="@Url.Action("Player", "Stats", new { playerId = @Model.Rbff.Player.Id})">@Model.Rbff.Player.Name</a><text> - @Model.Rbff.Occurrences wins</text>
@@ -53,7 +53,7 @@
                 }
             </div>
             <div class="label">Evil Arch Enemy:</div>
-            <div>
+            <div class="info">
                 @if (@Model.Eae != null)
                 {
                     <a href="@Url.Action("Player", "Stats", new { playerId = @Model.Eae.Player.Id})">@Model.Eae.Player.Name</a><text> - @Model.Eae.Occurrences losses</text>
@@ -63,18 +63,15 @@
                     <text> - </text>
                 }
             </div>
-
-            <br/>
-
             <div class="label">Preferred Color:</div>
-            <div>
+            <div class="info">
                 @if (@Model.PreferredColor != null)
                 {
                     <text>@Model.PreferredColor.Color - @Model.PreferredColor.Occurrences fights</text>
                 }
             </div>
             <div class="label">Winning Color:</div>
-            <div>
+            <div class="info">
                 @if (@Model.WinningColor != null)
                 {
                     <text>@Model.WinningColor.Color - @Model.WinningColor.Occurrences wins</text>
@@ -84,16 +81,15 @@
                     <text>:-(</text>
                 }
             </div>
-            <br/>
             <div class="label">Latest fight:</div>
-            <div>
+            <div class="info">
                 @if (Model.LatestMatch.WonTheMatch(Model.Player.Id))
                 {
                     <text>beat up </text>
                 }
                 else
                 {
-                    <text>was beat up by </text><br/>
+                    <text>was beat up by </text>
                 }
 
                 @if (Model.LatestMatch.IsOnRedTeam(Model.Player.Id))
@@ -115,17 +111,19 @@
                     }
                 }
             </div>
+        }
+    </div>
+    
+    @if (Model.Played > 0)
+    {
+        <div class="column second">
+            <div id="player-rating-chart" data-subject-id="@Model.Player.Id" data-subject-name="@Model.Player.Name"></div>
         </div>
     }
-</fieldset>
+</div>
 
-@if (Model.Played > 0)
+@*if (Model.Played > 0)
 {
-    <fieldset>
-        <legend>Rating  Chart</legend>
-        <div id="player-rating-chart" data-subject-id="@Model.Player.Id" data-subject-name="@Model.Player.Name"></div>
-    </fieldset>
-
     <fieldset id="player-matches">
         <legend>@(Model.Player.Name)s Fights</legend>
         @{Html.RenderPartial("_LegendaryMatchTable", new MatchTableViewModel { Matches = Model.PlayedMatches, User = null });}
@@ -134,4 +132,4 @@
 else
 {
     <text><span class="dimmed">Hrmmm... Guess @Model.Player.Name doesn't like Foosball after all</span></text>
-}
+}*@

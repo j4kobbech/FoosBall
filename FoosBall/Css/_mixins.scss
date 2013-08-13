@@ -4,6 +4,7 @@ $dark: #222;
 $darkest: #000;
 $font-color-grey: #555;
 $font-color-dimmed: #999;
+$seperator-color: #efefef;
 $team-red-color: #C00;
 $team-blue-color: #00A;
 $std-border: 2px solid #6A6;
@@ -37,4 +38,10 @@ $std-border: 2px solid #6A6;
     -moz-box-shadow: $horizontal-offset $vertical-offset $blur $spread $color #{$inset};
     -webkit-box-shadow: $horizontal-offset $vertical-offset $blur $spread $color #{$inset};
     box-shadow: $horizontal-offset $vertical-offset $blur $spread $color #{$inset};
+}
+
+@mixin ellipsis {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }

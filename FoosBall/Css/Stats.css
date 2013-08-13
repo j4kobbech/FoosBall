@@ -57,20 +57,32 @@ table .winner {
     display: table-cell; } }
 /* Stats View
 ----------------------------------------------------------*/
-.statistics div {
-  font-weight: bold;
-  font-size: 1.0em; }
-.statistics .first, .statistics .second {
-  width: 230px;
-  float: left; }
-.statistics .label {
-  font-weight: normal;
-  font-size: .85em; }
-
-.names sup, .nicknames sup {
-  font-weight: normal;
-  margin-left: 3px; }
-
-.thin {
-  font-weight: normal; }
+.statistics {
+  background: none #fff;
+  border-radius: 5px;
+  padding: 15px; }
+  .statistics .info {
+    font-weight: bold;
+    margin: 0 0 10px 0; }
+    .statistics .info .thin {
+      font-weight: normal; }
+  .statistics .stat {
+    width: 25%;
+    float: left;
+    text-align: center;
+    padding: 20px; }
+    .statistics .stat .avatar img {
+      border-radius: 50%; }
+  .statistics.player {
+    padding: 25px; }
+    .statistics.player .avatar {
+      margin: -40px 10px 0 -5px; }
+      .statistics.player .avatar .gravatar {
+        border-radius: 50%; }
+    .statistics.player .column {
+      float: left; }
+      .statistics.player .column.first {
+        width: 40%; }
+      .statistics.player .column.second {
+        width: 60%; }
 

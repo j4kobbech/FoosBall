@@ -4,36 +4,35 @@
 /* Player View
 ----------------------------------------------------------*/
 .players {
-	text-align: center;
+    text-align: center;
 }
  
 .player {
-	position: relative;
-	background: none #fff;
-	@include round-border-small;
-	width: 47.5%;
-	padding: 10px 15px;
-    margin: 20px 10px;
-	float: left;
+    position: relative;
+    background: none #fff;
+    @include round-border-small;
+    width: 75%;
+    padding: 10px 15px;
+    margin: 30px auto;
+    background-color: rgba(255,255,255,.6);
 
-	&:nth-child(1) {
-		background: url("https://s3-eu-west-1.amazonaws.com/images.trustpilot.com/static/foosball/icon_medal_gold.png") no-repeat 11px 20px #fff;
-		background-size: 50px 50px;
-		margin: 15px auto 15px;
-		width: 50%;
-		height: 75px;
-		float: none;
-	}
-	&:nth-child(2) {
-		background: url("https://s3-eu-west-1.amazonaws.com/images.trustpilot.com/static/foosball/icon_medal_silver.png") no-repeat 11px 20px #fff;
-		background-size: 50px 50px;
-		height: 75px;
-	}
-	&:nth-child(3) {  
-		background: url("https://s3-eu-west-1.amazonaws.com/images.trustpilot.com/static/foosball/icon_medal_bronze.png") no-repeat 11px 20px #fff;
-		background-size: 50px 50px;
-		height: 75px;
-	}
+    &:nth-child(1) {
+        background: url("https://s3-eu-west-1.amazonaws.com/images.trustpilot.com/static/foosball/icon_medal_gold.png");
+    }
+    &:nth-child(2) {
+        background: url("https://s3-eu-west-1.amazonaws.com/images.trustpilot.com/static/foosball/icon_medal_silver.png");
+    }
+    &:nth-child(3) {  
+        background: url("https://s3-eu-west-1.amazonaws.com/images.trustpilot.com/static/foosball/icon_medal_bronze.png");
+    }
+
+    &:nth-child(-n+3) {
+        background-color: rgba(255,255,255,.85);
+        background-repeat: no-repeat;
+        background-position: 11px 20px;
+        background-size: 50px 50px;
+        height: 75px;
+    }
 
     .ranking {
         float: left;
@@ -51,7 +50,7 @@
 
         .gravatar {
             width: 52px;
-			height: auto;
+            height: auto;
             border-radius: 50%;
         }
     }
@@ -59,14 +58,14 @@
         float: left;
         margin-top: 4px;
 
-		.name {
-			width: 200px;
-			float: left;
-		}
-		.score, .ratio {
-			margin: 0 0 0 15px;
-			float: left;
-		}
+        .name {
+            width: 200px;
+            float: left;
+        }
+        .score, .ratio {
+            margin: 0 0 0 15px;
+            float: left;
+        }
 
         sup {
             color: $font-color-dimmed;

@@ -9,7 +9,7 @@
 
 .team-names {
   position: relative;
-  background: none #fff;
+  background: none rgba(255, 255, 255, 0.75);
   -moz-border-radius: 5px;
   -webkit-border-radius: 5px;
   border-radius: 5px;
@@ -32,6 +32,7 @@
         float: right;
         margin-left: 5px; }
   .team-names.winner {
+    background: none white;
     font-weight: bold; }
   .team-names .nicknames, .team-names .names {
     width: 100%;

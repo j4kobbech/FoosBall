@@ -247,7 +247,7 @@
                                                      : stats.PlayedLast30Days;
                         stats.Ranking = playerCollection.FindAll()
                                             .SetSortOrder(SortBy.Descending("Rating"))
-                                            .Where(x => x.Played > 0)
+                                            .Where(x => x.Played > 0 && x.Deactivated == false )
                                             .ToList()
                                             .FindIndex(x => x.Id == playerId) + 1; // convert zero-based to 1-based index
 

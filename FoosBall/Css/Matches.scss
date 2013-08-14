@@ -15,7 +15,7 @@
 
 .team-names {
 	position: relative;
-	background: none #fff;
+	background: none rgba(255,255,255,.75);
 	@include round-border-small;
 	width: 40%;
 	height: 90px;
@@ -48,6 +48,7 @@
 	}
 
 	&.winner {
+        background: none rgba(255,255,255,1);
 		font-weight: bold;
 	}
 

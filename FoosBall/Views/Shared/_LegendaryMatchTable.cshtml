@@ -12,7 +12,7 @@
             var gameTime = TimeZoneInfo.ConvertTime(match.GameOverTime.ToUniversalTime(), TimeZoneInfo.Utc, TimeZoneInfo.FindSystemTimeZoneById("Romance Standard Time"));
             
             <div class="match clearfix">
-                <div class="team-names red @if (match.RedScore > match.BlueScore) { <text>winner</text> }">
+                <div class="team-names red @if (match.RedScore > match.BlueScore) {<text>winner</text>}">
                     <span class="gravatars">
                         <a class="@match.RedPlayer1.Id" href="@Url.Action("Player","Stats", new {playerId = @match.RedPlayer1.Id })">
                             <img class="gravatar" alt="Gravatar picture" src="@Html.GetGravatarEmailHash(@match.RedPlayer1.Email)?d=mm"/>
@@ -39,11 +39,11 @@
                 </div>
                 <div class="team-scores">
                     <div class="score">
-                        <span class="red @if (match.RedScore > match.BlueScore) { <text>winner</text> }">
+                        <span class="red @if (match.RedScore > match.BlueScore) {<text>winner</text>}">
                             @match.RedScore
                         </span>
                         -
-                        <span class="blue @if (match.BlueScore > match.RedScore) { <text>winner</text> }">
+                        <span class="blue @if (match.BlueScore > match.RedScore) {<text>winner</text>}">
                             @match.BlueScore
                         </span>                    
                     </div>
@@ -54,7 +54,7 @@
                         </span>
                     </div>
                 </div>
-                <div class="team-names blue @if (match.BlueScore > match.RedScore) { <text>winner</text> }">
+                <div class="team-names blue @if (match.BlueScore > match.RedScore) {<text>winner</text>}">
                     <span class="gravatars">
                         <a class="@match.BluePlayer1.Id" href="@Url.Action("Player","Stats", new {playerId = @match.BluePlayer1.Id })">
                             <img class="gravatar" alt="Gravatar picture" src="@Html.GetGravatarEmailHash(@match.BluePlayer1.Email)?d=mm"/>

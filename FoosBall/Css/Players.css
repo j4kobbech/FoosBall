@@ -9,23 +9,20 @@
   -moz-border-radius: 5px;
   -webkit-border-radius: 5px;
   border-radius: 5px;
-  width: 47.5%;
+  width: 75%;
   padding: 10px 15px;
-  margin: 20px 10px;
-  float: left; }
+  margin: 30px auto;
+  background-color: rgba(255, 255, 255, 0.6); }
   .player:nth-child(1) {
-    background: url("https://s3-eu-west-1.amazonaws.com/images.trustpilot.com/static/foosball/icon_medal_gold.png") no-repeat 11px 20px white;
-    background-size: 50px 50px;
-    margin: 15px auto 15px;
-    width: 50%;
-    height: 75px;
-    float: none; }
+    background: url("https://s3-eu-west-1.amazonaws.com/images.trustpilot.com/static/foosball/icon_medal_gold.png"); }
   .player:nth-child(2) {
-    background: url("https://s3-eu-west-1.amazonaws.com/images.trustpilot.com/static/foosball/icon_medal_silver.png") no-repeat 11px 20px white;
-    background-size: 50px 50px;
-    height: 75px; }
+    background: url("https://s3-eu-west-1.amazonaws.com/images.trustpilot.com/static/foosball/icon_medal_silver.png"); }
   .player:nth-child(3) {
-    background: url("https://s3-eu-west-1.amazonaws.com/images.trustpilot.com/static/foosball/icon_medal_bronze.png") no-repeat 11px 20px white;
+    background: url("https://s3-eu-west-1.amazonaws.com/images.trustpilot.com/static/foosball/icon_medal_bronze.png"); }
+  .player:nth-child(-n+3) {
+    background-color: rgba(255, 255, 255, 0.85);
+    background-repeat: no-repeat;
+    background-position: 11px 20px;
     background-size: 50px 50px;
     height: 75px; }
   .player .ranking {

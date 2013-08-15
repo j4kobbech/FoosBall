@@ -13,24 +13,6 @@
     });
     
     /* ******************************************************************
-     * Menu highlighting and animation 
-     */
-    var activeTab = $('#page').attr('class');
-    var $menu = $('#main-menu');
-    var $menuarrow = $('.menu-arrow');
-    
-    if (!!activeTab !== false) {
-        $menu.find('li').removeClass('selected');
-        $('.' + activeTab, $menu).addClass('selected');
-    }
-
-    $('.menu-list-button').on('click', function(e) {
-        e.preventDefault();
-        $menu.toggle();
-        $menuarrow.toggle();
-    });
-
-    /* ******************************************************************
      * jQuery SignalR Hub Config
      */
     // Declare a proxy to reference the hub. 

@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <meta name="robots" content="noindex">
-    <link rel="shortcut icon" href="/Content/images/favicon.ico" type="image/x-icon" />
+    <link rel="shortcut icon" href="https://s3-eu-west-1.amazonaws.com/images.trustpilot.com/static/foosball/favicon.ico" type="image/x-icon" />
 
     <title>
         @if (ViewBag.Settings.Environment.ToString() != "Production")
@@ -23,6 +23,32 @@
         if (typeof jQuery == 'undefined') {
             document.write(unescape('%3Cscript src="@Url.Content("~/Javascript/jquery.min.js")" type="text/javascript"%3E%3C/script%3E'));
         }
+        
+        $(window).load(function () {
+
+            var theWindow = $(window),
+                $bg = $("#bg"),
+                aspectRatio = $bg.width() / $bg.height();
+
+            function resizeBg() {
+
+                if ((theWindow.width() / theWindow.height()) < aspectRatio) {
+                    $bg
+                        .removeClass()
+                        .addClass('bgheight');
+                } else {
+                    $bg
+                        .removeClass()
+                        .addClass('bgwidth');
+                }
+
+            }
+
+            theWindow.resize(function () {
+                resizeBg();
+            }).trigger("resize");
+
+        });
     </script>
     
     <!-- Feedback plugin -->
@@ -39,48 +65,66 @@
 
 </head>
 <body>
-    <div id="page" class="@ViewContext.RouteData.Values["controller"]">
-        <header>
-            <div id="login-display">
-                @Html.Partial("_LogOnPartial")
-            </div>
-            <div id="app-title">
-                <span>
-                    @if (ViewBag.Settings.Environment.ToString() != "Production")
-                    {
-                        @ViewBag.Settings.Environment.ToString()  
-                    }
-                    @ViewBag.Settings.Name
-                </span>
-            </div>
-            <nav>
-                <ul id="main-menu">
-                    <li class="Home">@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li class="Players">@Html.ActionLink("Scoreboard", "Index", "Players")</li>
-                    <li class="Matches">@Html.ActionLink("Matches", "Index", "Matches")</li>
-                    <li class="Stats">@Html.ActionLink("Stats", "Index", "Stats")</li>
-                    @if (Session["IsLoggedIn"].ToString().ToLower() == "true")
-                    {
-                        if (Session["Admin"].ToString().ToLower() == "true")
-                        {
-                            <li class="Admin">@Html.ActionLink("Admin", "Index", "Admin")</li>
-                        }                           
-                    }
+    
+    <div id="request-notification">
+        Try the new Foosball Fighting desktop notifications - You'll love it!<br />
+        <input class="button" id="notify-me" value="Ok, off we go!" />
+    </div>
 
-                </ul> 
-            </nav>
-        </header>
+    <img src="https://s3-eu-west-1.amazonaws.com/images.trustpilot.com/static/foosball/background.jpg" id="bg" class="bgwidth" />
+    
+    <header>
+        <a href="@Url.Action("Index","Home")">
+        <div id="app-title">
+            <div class="logo-picture">
+                <img src="https://s3-eu-west-1.amazonaws.com/images.trustpilot.com/static/foosball/icon_football.png" />
+            </div>
+            <div class="logo-text">
+                @if (ViewBag.Settings.Environment.ToString() != "Production")
+                {
+                    @ViewBag.Settings.Environment.ToString()  
+                }
+                @ViewBag.Settings.Name
+            </div>
+        </div>
+        </a>
+        <nav>
+            <div class="menu-arrow"></div>
+            <ul id="main-menu">
+                <li class="Home">@Html.ActionLink("Home", "Index", "Home")</li>
+                <li class="Players">@Html.ActionLink("Scoreboard", "Index", "Players")</li>
+                <li class="Matches">@Html.ActionLink("Matches", "Index", "Matches")</li>
+                <li class="Stats">@Html.ActionLink("Stats", "Index", "Stats")</li>
+                @if (Session["IsLoggedIn"].ToString().ToLower() == "true")
+                {
+                    if (Session["Admin"].ToString().ToLower() == "true")
+                    {
+                        <li class="Admin">@Html.ActionLink("Admin", "Index", "Admin")</li>
+                    }                           
+                }
+            </ul> 
+        </nav>
+        <div class="login-display">
+            @Html.Partial("_LogOnPartial")
+        </div>
+    </header>
+
+    <div id="page" class="@ViewContext.RouteData.Values["controller"] clearfix">
         <section id="main">
             @RenderBody()
         </section>
-        <footer>
-            @RenderSection("Footer", false)
-            @Html.ActionLink("Features", "Features", "Home", null, new { @id = "feature-link" })
-        </footer>
     </div>
-    <!-- Deferred Javascript -->
-    <script src="@Url.Content("~/Javascript/FoosBall.js")"></script>
-    @RenderSection("Javascript", false)
-    @MiniProfiler.RenderIncludes()    
+
+    <footer>
+        @RenderSection("Footer", false)
+        @Html.ActionLink("Features", "Features", "Home", null, new { @id = "feature-link" })
+    </footer>
+        <!-- Deferred Javascript -->
+        <script src="@Url.Content("~/Javascript/jquery.signalR-1.0.0.min.js")"></script>
+        <script src="/signalr/hubs"></script>
+        <script src="@Url.Content("~/Javascript/FoosBall.js")"></script>
+        <script src="@Url.Content("~/Javascript/Shared.js")"></script>
+        @RenderSection("Javascript", false)
+        @MiniProfiler.RenderIncludes()       
 </body>
 </html>

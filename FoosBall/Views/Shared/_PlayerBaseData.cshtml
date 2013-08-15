@@ -19,12 +19,6 @@
 @Html.LabelFor(m => Model.Player.Name)
 @Html.TextBoxFor(m => Model.Player.Name, new { placeholder = "Name"})
 <br/><br/>
-@Html.LabelFor(m => Model.Player.NickName, "Nickname (max 5 char.)")
-@Html.TextBoxFor(m => Model.Player.NickName, new { placeholder = "Nickname", maxlength = "5"})
-<br/><br/>
-@Html.LabelFor(m => Model.Player.Gender, "Gender")
-@Html.DropDownListFor(m => Model.Player.Gender, Model.Genders)
-<br/><br/>
 <div class="editor-label">@Html.LabelFor(m => Model.Player.Password)</div>
 <div class="editor-field">@Html.PasswordFor(m => Model.Player.Password, new { placeholder = "Password"})</div>
 <br/>

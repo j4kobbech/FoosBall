@@ -99,7 +99,7 @@ function toggleOverlay() {
             'z-index': '1000',
         });
 
-        overlay.append('<img src="/Content/images/ajax-loader.gif"/>');
+        overlay.append('<img src="https://s3-eu-west-1.amazonaws.com/images.trustpilot.com/static/foosball/ajax-loader.gif"/>');
 
         overlay.on('click', function () {
             toggleOverlay();

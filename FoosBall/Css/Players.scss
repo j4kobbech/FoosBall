@@ -3,11 +3,36 @@
 
 /* Player View
 ----------------------------------------------------------*/
+.players {
+    text-align: center;
+}
+ 
 .player {
-    margin: 15px 0;
-    padding: 15px 0;
-    width: 99%;
-    border-bottom: 1px solid $light;
+    position: relative;
+    background: none #fff;
+    @include round-border-small;
+    width: 75%;
+    padding: 10px 15px;
+    margin: 30px auto;
+    background-color: rgba(255,255,255,.6);
+
+    &:nth-child(1) {
+        background: url("https://s3-eu-west-1.amazonaws.com/images.trustpilot.com/static/foosball/icon_medal_gold.png");
+    }
+    &:nth-child(2) {
+        background: url("https://s3-eu-west-1.amazonaws.com/images.trustpilot.com/static/foosball/icon_medal_silver.png");
+    }
+    &:nth-child(3) {  
+        background: url("https://s3-eu-west-1.amazonaws.com/images.trustpilot.com/static/foosball/icon_medal_bronze.png");
+    }
+
+    &:nth-child(-n+3) {
+        background-color: rgba(255,255,255,.85);
+        background-repeat: no-repeat;
+        background-position: 11px 20px;
+        background-size: 50px 50px;
+        height: 75px;
+    }
 
     .ranking {
         float: left;
@@ -18,33 +43,38 @@
         margin-top: 9px;
         width: 40px;
     }
+
     .avatar {
         float: left;
-        margin-right: 5px;
-        margin-left: 2px;
+        margin: -30px 10px 0 -5px;
+
         .gravatar {
-            height: 48px;
-            border-radius: 48px;
+            width: 52px;
+            height: auto;
+            border-radius: 50%;
         }
     }
-    .name {
+    .info {
         float: left;
-        width: 60%;
         margin-top: 4px;
-        margin-left: 3px;
-        line-height: 1.3em;
+
+        .name {
+            width: 200px;
+            float: left;
+        }
+        .score, .ratio {
+            margin: 0 0 0 15px;
+            float: left;
+        }
 
         sup {
             color: $font-color-dimmed;
             font-size: 10px;
             margin-left: 2px;
-            margin-right: 5px;
         }
     }
-    .nickname {
-        display: none;
-    }
 }
+
 .won-lost-played {
     display: inline;
     color: $font-color-dimmed;
@@ -73,15 +103,6 @@
 
 #profile-gravatar {
     @include gravatar-large
-}
-
-@media only screen and (min-width : 470px) {
-    #list-of-players {
-        .player {
-            .name { width: 70%; }
-            .nickname { display: inline; }
-        }
-    }
 }
 
 /* Player Details View
@@ -128,10 +149,4 @@
             display: none;
         }
     }
-}
-
-
-
-#go-back {
-    text-decoration: underline;
 }

@@ -11,17 +11,13 @@
     foreach (var player in Model.AllPlayers)
     {
         <div id="@player.Id" class="player clearfix">
-            <div class="ranking" title="Players ranking">
-                @index.
-            </div>
             <div class="avatar">
-                <a href="@Url.Action("Player","Stats", new {playerId = @player.Id })"><img class="gravatar" alt="Gravatar picture" src="@Html.GetGravatarEmailHash(player.Email)?d=mm"/></a>
+                <a href="@Url.Action("Player","Stats", new {playerId = @player.Id })"><img class="gravatar" title="Players ranking: @index." src="@Html.GetGravatarEmailHash(player.Email)?d=mm"/></a>
             </div>
-            <div class="name ellipsis-1">
-                <a href="@Url.Action("Player","Stats", new {playerId = @player.Id })">@player.Name</a>
-                <br>
-                <span title="Elo rating: @player.Rating.ToString("F2")">@player.Rating.ToString("F0")<sup>points</sup></span>|
-                <span title="Winning ratio: @player.Ratio.ToString("F4")" class="ratio">@player.Ratio.ToString("F2")<sup>ratio</sup></span>
+            <div class="info">
+                <div class="name ellipsis-1"><a href="@Url.Action("Player","Stats", new {playerId = @player.Id })">@player.Name</a></div>
+                <div title="Elo rating: @player.Rating.ToString("F2")" class="score">@player.Rating.ToString("F0")<sup>points</sup></div>
+                <div title="Winning ratio: @player.Ratio.ToString("F4")" class="ratio">@player.Ratio.ToString("F2")<sup>ratio</sup></div>
             </div>
         </div>
 
@@ -29,5 +25,5 @@
     }
 } else
 {
-    <text>- nope! noone here ... - </text>
+    <text>- nope! none here... look they are not here</text>
 }

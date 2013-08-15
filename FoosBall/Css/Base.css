@@ -7,24 +7,18 @@
 body {
   background-color: #dddddd;
   color: #222222;
-  font-size: 1.0em;
+  font-size: 0.75em;
   font-family: proxima-nova, 'Helvetica Neue', Arial, Helvetica, sans-serif;
   margin: 0;
   padding: 0; }
 
-a:link {
+a {
   color: black;
   text-decoration: none; }
-
-a:visited {
-  color: black; }
-
-a:hover {
-  color: black;
-  text-decoration: underline; }
-
-a:active {
-  color: black; }
+  a:visited, a:active {
+    color: black; }
+  a:hover {
+    text-decoration: underline; }
 
 /* HEADINGS
 ----------------------------------------------------------*/
@@ -75,95 +69,91 @@ table {
 /* you can specify a greater or lesser percentage for the
 page width. Or, you can specify an exact pixel width. */
 #page {
-  max-width: 800px;
+  min-width: 320px;
+  max-width: 950px;
   margin-left: 5px;
   margin-right: 5px; }
+  @media only screen and (min-width: 900px) {
+    #page {
+      margin-left: auto;
+      margin-right: auto; } }
 
-@media only screen and (min-width: 810px) {
-  #page {
-    margin-left: auto;
-    margin-right: auto; } }
 footer, #footer {
-  background-color: #fff;
-  -webkit-border-radius: 0 0 4px 4px;
-  -moz-border-radius: 0 0 4px 4px;
-  border-radius: 0 0 4px 4px;
-  color: #222222;
+  color: #dddddd;
   font-size: 12px;
-  margin: 0;
-  padding: 0 10px 3px 10px;
-  text-align: center; }
+  margin: 20px 0 0 0;
+  padding: 10px 0;
+  text-align: center;
+  border-top: 1px solid rgba(255, 255, 255, 0.5); }
   footer a, footer a:link, footer a:visited, #footer a, #footer a:link, #footer a:visited {
-    text-decoration: underline; }
+    color: #dddddd; }
 
 /* TAB MENU
 ----------------------------------------------------------*/
 #main-menu {
   display: none;
-  margin: 0 0 3px 0;
-  -webkit-margin-before: 0;
-  -webkit-margin-after: 0;
-  -webkit-margin-start: 0;
-  -webkit-margin-end: 0;
-  -webkit-padding-start: 0; }
+  position: absolute;
+  top: 42px;
+  right: 15px;
+  width: 150px;
+  background: none #fff;
+  padding: 0;
+  margin: 0; }
   #main-menu li {
-    border-bottom: 1px solid #999999;
+    border-bottom: 1px solid #efefef;
     list-style: none;
     display: list-item;
-    padding-bottom: 3px;
-    margin: 3px; }
-  #main-menu li:last-child {
-    border-bottom: none; }
+    padding: 10px 15px;
+    margin: 0;
+    width: 100%;
+    cursor: pointer; }
+    #main-menu li:hover {
+      background: #f2f2f2;
+      text-decoration: none; }
+    #main-menu li.selected {
+      font-weight: bold; }
+    #main-menu li:last-child {
+      border-bottom: none; }
+    #main-menu li a, #main-menu li a:hover {
+      text-decoration: none; }
+
+.menu-arrow {
+  display: none;
+  position: absolute;
+  top: 38px;
+  right: 18px;
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-bottom: 5px solid white; }
 
 .menu-list-button {
-  background: transparent url("/Content/images/menu-list.png") no-repeat bottom;
-  background-size: 21px;
-  float: right;
-  height: 21px;
-  margin-left: 15px;
-  width: 21px; }
-
-@media only screen and (min-width: 810px) {
-  .menu-list-button {
-    display: none; }
-
-  #main-menu {
-    background-color: none;
-    border: none;
-    display: block;
-    line-height: 1.6em;
-    margin: 0;
-    padding: 0;
-    position: relative;
-    right: 0;
-    text-align: right;
+  position: relative;
+  padding-left: 1.25em;
+  float: left;
+  margin: 2px 15px 0 15px; }
+  .menu-list-button a:before {
+    content: "";
+    position: absolute;
     top: 0;
-    -webkit-margin-before: 0;
-    -webkit-margin-after: 0;
-    -webkit-padding-start: 0; }
-    #main-menu li {
-      border: none;
-      margin: 0;
-      padding: 0;
-      display: inline;
-      float: left;
-      list-style: none; }
-      #main-menu li a {
-        margin: 0;
-        padding: 5px 8px 3px;
-        font-weight: bold;
-        text-decoration: none;
-        background-color: #dddddd;
-        color: #222222; }
-        #main-menu li a:hover {
-          background-color: #fff;
-          text-decoration: none; }
-        #main-menu li a:active {
-          background-color: #a6e2a6;
-          text-decoration: none; }
-      #main-menu li.selected a {
-        background-color: #fff;
-        color: #000; } }
+    left: 0;
+    width: 14px;
+    height: 2px;
+    border-top: 6px double #fff;
+    border-bottom: 2px solid #fff; }
+
+.menu-login-info, .menu-account-info {
+  float: left; }
+
+.login-display {
+  float: right;
+  margin: 20px 0 0 0;
+  color: #999999; }
+  .login-display a {
+    color: #fff;
+    text-decoration: none; }
+
 textarea {
   min-height: 75px; }
 
@@ -172,70 +162,76 @@ textarea {
 header, footer, nav, section {
   display: block; }
 
-nav, #menucontainer {
-  margin-top: 5px; }
+header {
+  position: fixed;
+  top: 0px;
+  width: 100%;
+  height: 55px;
+  background: none #000;
+  z-index: 20; }
 
 #app-title {
-  border: none;
-  color: #000;
-  font-size: 30px;
+  color: #fff;
   font-weight: bold;
   margin: 0;
-  padding: 5px 0;
-  width: 90%; }
-
-@media only screen and (min-width: 810px) {
-  #app-title {
-    float: none; } }
-#login-display {
-  font-size: 0.85em;
-  display: block;
-  text-align: right;
-  margin: 4px;
-  color: #999999; }
-  #login-display a {
-    color: #222;
-    text-decoration: underline; }
-  #login-display a:link {
-    color: #222;
-    text-decoration: underline; }
-  #login-display a:visited {
-    color: #222;
-    text-decoration: underline; }
-  #login-display a:hover {
-    color: #000;
-    text-decoration: none; }
+  padding: 0;
+  text-align: center; }
+  #app-title .logo-picture {
+    float: left;
+    margin: 10px 15px 0; }
+    #app-title .logo-picture img {
+      width: 80px;
+      height: auto; }
+  #app-title .logo-text {
+    display: none; }
+    @media only screen and (min-width: 900px) {
+      #app-title .logo-text {
+        display: block;
+        font-size: 2em;
+        float: left;
+        margin: 10px 0 0 0; } }
 
 #main {
   clear: both;
-  background-color: #fff;
   min-height: 280px;
-  padding: 10px 10px 5px; }
+  padding: 80px 10px 5px; }
 
 .button {
-  background: black;
-  border: 1px solid #999999;
-  color: #efefef;
-  font-weight: bold;
-  margin: 5px;
-  padding: 10px 4px;
-  text-align: center;
+  -moz-box-shadow: inset 0px 1px 0px 0px #94c47c;
+  -webkit-box-shadow: inset 0px 1px 0px 0px #94c47c;
+  box-shadow: inset 0px 1px 0px 0px #94c47c;
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #77b55a), color-stop(1, #72b352));
+  background: -moz-linear-gradient(top, #77b55a 5%, #72b352 100%);
+  background: -webkit-linear-gradient(top, #77b55a 5%, #72b352 100%);
+  background: -o-linear-gradient(top, #77b55a 5%, #72b352 100%);
+  background: -ms-linear-gradient(top, #77b55a 5%, #72b352 100%);
+  background: linear-gradient(to bottom, #77b55a 5%, #72b352 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#77b55a', endColorstr='#72b352',GradientType=0);
+  background-color: #77b55a;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
+  border: 1px solid #4b8f29;
+  display: inline-block;
+  color: #ffffff;
+  font-family: arial;
+  font-size: 13px;
+  font-weight: normal;
+  padding: 6px 24px;
   text-decoration: none;
-  cursor: pointer;
-  cursor: hand;
-  -webkit-border-radius: 15px;
-  -moz-border-radius: 15px;
-  border-radius: 15px;
-  -moz-box-shadow: 1px 2px 5px 0px #787878 ;
-  -webkit-box-shadow: 1px 2px 5px 0px #787878 ;
-  box-shadow: 1px 2px 5px 0px #787878 ; }
-  .button.half {
-    width: 49%; }
-    @media (max-width: 400px) {
-      .button.half {
-        float: left;
-        margin-bottom: 15px;
-        width: 100%; } }
+  text-shadow: 0px 1px 0px #5b8a3c; }
+  .button:hover {
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #72b352), color-stop(1, #77b55a));
+    background: -moz-linear-gradient(top, #72b352 5%, #77b55a 100%);
+    background: -webkit-linear-gradient(top, #72b352 5%, #77b55a 100%);
+    background: -o-linear-gradient(top, #72b352 5%, #77b55a 100%);
+    background: -ms-linear-gradient(top, #72b352 5%, #77b55a 100%);
+    background: linear-gradient(to bottom, #72b352 5%, #77b55a 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#72b352', endColorstr='#77b55a',GradientType=0);
+    background-color: #72b352; }
+  .button:active {
+    position: relative;
+    top: 1px; }
 
 .editor-icon {
   float: right;
@@ -363,4 +359,27 @@ html[xmlns] .clearfix {
   width: 90%;
   margin: 0 auto;
   color: Red; }
+
+#request-notification {
+  background-color: #fff;
+  display: none;
+  font-weight: bold;
+  padding: 15px;
+  text-align: center;
+  width: 100%; }
+  #request-notification .button {
+    margin-top: 15px; }
+
+/* Background */
+#bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: -1; }
+
+.bgwidth {
+  width: 100%; }
+
+.bgheight {
+  height: 100%; }
 

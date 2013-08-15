@@ -50,7 +50,7 @@
         }
         
         // If at least one player on each team is selected, then show the score sliders
-        if (!!$redPlayer1.val() && !!$bluePlayer1.val()) {
+        /*if (!!$redPlayer1.val() && !!$bluePlayer1.val()) {
             $teamScores.slideDown('fast', function () {
                 $teamScores.css({ 'overflow': '' });
             });
@@ -58,7 +58,7 @@
             $teamScores.slideUp('fast', function () {
                 $teamScores.css({ 'overflow': '' });
             });
-        }
+        }*/
         
         valueBeforeChange = $thisSelect.find(':selected').val();
     });
@@ -72,10 +72,10 @@
     });
     
     // Add a tag on the players that match the current user
-    var currentUserId = $("#current-user-id").val();
-    if (!!currentUserId === true) {
-        $("." + currentUserId).append("<sup>(me)</sup>");
-    }
+//    var currentUserId = $("#current-user-id").val();
+//    if (!!currentUserId === true) {
+//        $("." + currentUserId).append("<sup>(me)</sup>");
+//    }
     
     /* ******************************************************************
      * SaveMatchResult View

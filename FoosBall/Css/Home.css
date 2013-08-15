@@ -1,5 +1,10 @@
 /* Home/Features View
 ----------------------------------------------------------*/
+.frontpage, .features {
+  background: none #fff;
+  border-radius: 5px;
+  padding: 15px 20px; }
+
 #welcome-message {
   text-align: center; }
 
@@ -18,9 +23,6 @@
 .feature-list {
   list-style: none;
   padding-left: 20px; }
-  .feature-list li {
-    color: black;
-    font-size: .85em; }
-    .feature-list li ul li a {
-      text-decoration: underline; }
+  .feature-list li ul li a {
+    text-decoration: underline; }
 

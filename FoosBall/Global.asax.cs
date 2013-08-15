@@ -33,16 +33,19 @@
             // Initialize App configuration
             AppConfig.InitalizeConfig();
 
+            // Mapping SignalR Hubs
+            RouteTable.Routes.MapHubs();
+
             RegisterGlobalFilters(GlobalFilters.Filters);
             RegisterRoutes(RouteTable.Routes);
         }
 
         protected void Application_BeginRequest()
         {
-            if (Request.IsLocal)
-            {
-                MiniProfiler.Start();
-            } 
+            //if (Request.IsLocal)
+            //{
+            //    MiniProfiler.Start();
+            //} 
         }
 
         protected void Application_EndRequest()

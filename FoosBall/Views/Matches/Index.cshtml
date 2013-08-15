@@ -15,7 +15,6 @@ else
     <p>@Html.ActionLink("Log on", "LogOn", "Account") to register matches</p>
 }
 
-<h3>Latest Matches</h3>
 @if (Model.PlayedMatches.Any())
 {
     Html.RenderPartial("_LegendaryMatchTable", new MatchTableViewModel { Matches = Model.PlayedMatches, User = currentUser });

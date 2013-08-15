@@ -140,8 +140,8 @@
         {
             var currentUser = (Player)Session["User"];
             var player = DbHelper.GetPlayer(id);
-            
-            if (currentUser != null && (currentUser.Id == player.Id || currentUser.Email == this.Settings.AdminAccount))
+
+            if (currentUser != null && (currentUser.Id == player.Id || this.Settings.AdminAccount.Contains(currentUser.Email)))
             {
                 var refUrl = HttpContext.Request.UrlReferrer != null
                                  ? HttpContext.Request.UrlReferrer.AbsoluteUri
@@ -169,7 +169,7 @@
                 viewModel.Player.Email += "@" + this.Settings.Domain;
 
                 if (currentUser != null
-                    && (currentUser.Id == viewModel.Player.Id || currentUser.Email == this.Settings.AdminAccount))
+                    && (currentUser.Id == viewModel.Player.Id || this.Settings.AdminAccount.Contains(currentUser.Email)))
                 {
                     var player = DbHelper.GetPlayer(viewModel.Player.Id);
                     var gender = viewModel.Player.Gender;

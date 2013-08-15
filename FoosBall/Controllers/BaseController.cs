@@ -108,7 +108,7 @@
                     RemoveRememberMeCookie();
                 }
 
-                this.Session["Admin"] = this.Settings.AdminAccount == player.Email;
+                this.Session["Admin"] = Settings.AdminAccount.Contains(player.Email);
                 this.Session["IsLoggedIn"] = true;
                 this.Session["User"] = player;
             

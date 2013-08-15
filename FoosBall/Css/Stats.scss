@@ -5,25 +5,53 @@
 /* Stats View
 ----------------------------------------------------------*/
 .statistics {
-    div {
-        font-weight: bold;
-        font-size: 1.0em;
-    }
-    .first, .second {
-        width: 230px;
-        float: left;
-    }
-    .label {
-        font-weight: normal;
-        font-size: .85em;
-    }
-}
+	background: none #fff;
+	border-radius: 5px;
+	padding: 15px;
 
-.names sup, .nicknames sup {
-    font-weight: normal;
-    margin-left: 3px;
-}
+	.info {
+		font-weight: bold;
+		margin: 0 0 10px 0;
 
-.thin {
-    font-weight: normal;
+		.thin {
+			font-weight: normal;
+		}
+	}
+
+	.stat {
+		width: 25%;
+		float: left;
+		text-align: center;
+		padding: 20px;
+
+		.avatar {
+			
+			img {
+				border-radius: 50%;
+			}
+		}
+	}
+
+	&.player {
+		padding: 25px;
+
+		.avatar {
+			margin: -40px 10px 0 -5px;
+
+			.gravatar {
+				border-radius: 50%;
+			}
+		}
+
+		.column {
+			float: left;
+
+			&.first {
+				width: 40%;
+			}
+			&.second {
+				width: 60%;
+			}
+		}
+	}
 }

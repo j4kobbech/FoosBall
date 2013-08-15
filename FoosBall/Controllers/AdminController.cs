@@ -17,7 +17,7 @@
         {
             var currentUser = (Player)Session["User"];
 
-            if (currentUser != null && currentUser.Email == this.Settings.AdminAccount)
+            if (currentUser != null && Settings.AdminAccount.Contains(currentUser.Email))
             {
                 var playerCollection = Dbh.GetCollection<Player>("Players")
                         .FindAll()
@@ -37,7 +37,7 @@
         {
             var currentUser = (Player)Session["User"];
 
-            if (currentUser != null && currentUser.Email == this.Settings.AdminAccount)
+            if (currentUser != null && Settings.AdminAccount.Contains(currentUser.Email))
             {
                 var playerCollection = Dbh.GetCollection<Player>("Players")
                         .FindAll()
@@ -103,7 +103,7 @@
         {
             var currentUser = (Player)Session["User"];
 
-            if (currentUser != null && currentUser.Email == this.Settings.AdminAccount)
+            if (currentUser != null && Settings.AdminAccount.Contains(currentUser.Email))
             {
                 var allMatches = Dbh.GetCollection<Match>("Matches").FindAll().SetSortOrder(SortBy.Ascending("GameOverTime"));
                 var allPlayers = Dbh.GetCollection<Player>("Players").FindAll();

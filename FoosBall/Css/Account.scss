@@ -1,6 +1,12 @@
 // Import mixins
 @import "_mixins";
 
+.register, .logon {
+	background: none #fff;
+	border-radius: 5px;
+	padding: 15px 20px;
+}
+
 label { 
     display: block; 
     &[for="RememberMe"] {

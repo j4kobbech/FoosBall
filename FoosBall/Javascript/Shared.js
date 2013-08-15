@@ -2,7 +2,6 @@
     // ******************************************************************
     // Menu highlighting and animation 
     //
-    
     var activeTab = $('#page').attr('class');
     var $menu = $('#main-menu');
     var $menuarrow = $('.menu-arrow');
@@ -17,12 +16,12 @@
         $menu.toggle();
         $menuarrow.toggle();
     });
-    
+
     $menu.on('click', 'li', function (event) {
         event.preventDefault();
         var redirectUrl;
         var $target = $(event.target);
-        
+
         if ($target.is('li')) {
             redirectUrl = $target.children('a').attr('href');
         } else if ($target.is('a')) {
@@ -33,5 +32,4 @@
             window.location = redirectUrl;
         }
     });
-
 });

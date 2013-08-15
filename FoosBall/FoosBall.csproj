@@ -198,6 +198,7 @@
     <Content Include="Javascript\Admin.js" />
     <Content Include="Javascript\angular.min.js" />
     <Content Include="Javascript\jquery.signalR-1.0.0.min.js" />
+    <Content Include="Javascript\Shared.js" />
     <Content Include="Javascript\Stats.js" />
     <Content Include="Javascript\highcharts.js" />
     <Content Include="Javascript\Home.js" />

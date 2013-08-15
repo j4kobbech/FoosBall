@@ -85,7 +85,7 @@ function onMatchResolved(event, eventData) {
 function displayRequestForUsingWebkitNotifications() {
     var $requestDiv = $('#request-notification');
     $requestDiv.slideDown(250, function() {
-        var $closeNotification = $requestDiv.find('#notify-me')
+        var $closeNotification = $requestDiv.find('#notify-me');
 
         $closeNotification.on('click', function () {
             window.webkitNotifications.requestPermission();

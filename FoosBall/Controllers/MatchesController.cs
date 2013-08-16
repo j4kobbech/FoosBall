@@ -143,6 +143,7 @@
         [HttpPost]
         private Match SaveMatchResult(Match match, FormCollection form)
         {
+
             var redScore = form.GetValue("team-red-score").AttemptedValue;
             var blueScore = form.GetValue("team-blue-score").AttemptedValue;
             

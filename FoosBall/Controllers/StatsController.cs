@@ -39,10 +39,10 @@
                 return View(viewModel);
             }
 
-            var players = matches.Select(m => m.BluePlayer1).ToList();
-            players.AddRange(matches.Select(m => m.BluePlayer2).ToList());
-            players.AddRange(matches.Select(m => m.RedPlayer1).ToList());
-            players.AddRange(matches.Select(m => m.RedPlayer2).ToList());
+            var players = matches.Select(x => x.BluePlayer1).ToList();
+            players.AddRange(matches.Select(x => x.BluePlayer2).ToList());
+            players.AddRange(matches.Select(x => x.RedPlayer1).ToList());
+            players.AddRange(matches.Select(x => x.RedPlayer2).ToList());
 
             viewModel.HighestRatingEver = StatsControllerHelpers.GetStatHighestRatingEver(players);
             viewModel.LowestRatingEver = StatsControllerHelpers.GetStatLowestRatingEver(players);
@@ -60,7 +60,7 @@
                 viewModel.BiggestRatingWin = StatsControllerHelpers.GetBiggestRatingWin();
             }
 
-            return this.View(viewModel);
+            return View(viewModel);
         }
 
         public ActionResult Player(string playerId)
@@ -69,18 +69,7 @@
             {
                 if (playerId != null)
                 {
-                    var bff = new Dictionary<string, BestFriendForever>();
-                    var rbff = new Dictionary<string, RealBestFriendForever>();
-                    var eae = new Dictionary<string, EvilArchEnemy>();
-                    var preferredColor = new Dictionary<string, PreferredColor>();
-                    var winningColor = new Dictionary<string, WinningColor>();
-                    const string Blue = "blue";
-                    const string Red = "red";
-
                     var playerCollection = Dbh.GetCollection<Player>("Players");
-                    var player = playerCollection.FindOne(Query.EQ("_id", BsonObjectId.Parse(playerId)));
-                    var stats = new PlayerStatsViewModel { Player = player };
-
                     var matches =
                         Dbh.GetCollection<Match>("Matches")
                            .FindAll()
@@ -90,170 +79,39 @@
                            .Where(match => match.GameOverTime != DateTime.MinValue);
 
                     var playedMatches = matches as List<Match> ?? matches.ToList();
+                    var player = playerCollection.FindOne(Query.EQ("_id", BsonObjectId.Parse(playerId)));
+                    var stats = new PlayerStatsViewModel
+                        {
+                            Player = player,
+                            PlayedMatches = playedMatches.OrderByDescending(x => x.GameOverTime),
+                            LatestMatch = playedMatches.Last()
+                        };
 
                     if (playedMatches.Count == 0)
                     {
                         return View(stats);
                     }
 
-                    stats.PlayedMatches = playedMatches.OrderByDescending(x => x.GameOverTime);
-                    stats.LatestMatch = playedMatches.Last();
-
+                    var bff = StatsControllerHelpers.GetBestFriendForever(playerId, playedMatches);
+                    var rbff = StatsControllerHelpers.GetRealBestFriendForever(playerId, playedMatches);
+                    var eae = StatsControllerHelpers.GetEvilArchEnemy(playerId, playedMatches);
+                    var preferredColor = StatsControllerHelpers.GetPreferredColor(playerId, playedMatches);
+                    var winningColor = StatsControllerHelpers.GetWinningColor(playerId, playedMatches);
+                    
                     foreach (var match in playedMatches)
                     {
-                        var teamMate = match.GetTeamMate(playerId);
-                        if (teamMate.Id != null)
-                        {
-                            if (bff.ContainsKey(teamMate.Id))
-                            {
-                                bff[teamMate.Id].Occurrences++;
-                            }
-                            else
-                            {
-                                bff.Add(teamMate.Id, new BestFriendForever { Player = teamMate });
-                            }
-
-                            if (match.WonTheMatch(playerId))
-                            {
-                                if (rbff.ContainsKey(teamMate.Id))
-                                {
-                                    rbff[teamMate.Id].Occurrences++;
-                                }
-                                else
-                                {
-                                    rbff.Add(teamMate.Id, new RealBestFriendForever { Player = teamMate });
-                                }
-                            }
-                        }
-
-                        if (match.IsOnRedTeam(playerId))
-                        {
-                            if (preferredColor.ContainsKey(Red))
-                            {
-                                preferredColor[Red].Occurrences++;
-                            }
-                            else
-                            {
-                                preferredColor.Add(Red, new PreferredColor { Color = Red, Occurrences = 1 });
-                            }
-
-                            if (match.WonTheMatch(playerId))
-                            {
-                                if (winningColor.ContainsKey(Red))
-                                {
-                                    winningColor[Red].Occurrences++;
-                                }
-                                else
-                                {
-                                    winningColor.Add(Red, new WinningColor { Color = Red, Occurrences = 1 });
-                                }
-                            }
-                            else
-                            {
-                                var goalDiff = match.BlueScore - match.RedScore;
-                                if (eae.ContainsKey(match.BluePlayer1.Id))
-                                {
-                                    eae[match.BluePlayer1.Id].Occurrences++;
-                                    eae[match.BluePlayer1.Id].GoalDiff += goalDiff;
-                                }
-                                else
-                                {
-                                    eae.Add(
-                                        match.BluePlayer1.Id,
-                                        new EvilArchEnemy { Player = match.BluePlayer1, GoalDiff = goalDiff });
-                                }
-
-                                if (match.BluePlayer2.Id != null)
-                                {
-                                    if (eae.ContainsKey(match.BluePlayer2.Id))
-                                    {
-                                        eae[match.BluePlayer2.Id].Occurrences++;
-                                        eae[match.BluePlayer2.Id].GoalDiff += goalDiff;
-                                    }
-                                    else
-                                    {
-                                        eae.Add(
-                                            match.BluePlayer2.Id,
-                                            new EvilArchEnemy { Player = match.BluePlayer2, GoalDiff = goalDiff });
-                                    }
-                                }
-                            }
-                        }
-                        else
-                        {
-                            if (preferredColor.ContainsKey(Blue))
-                            {
-                                preferredColor[Blue].Occurrences++;
-                            }
-                            else
-                            {
-                                preferredColor.Add(Blue, new PreferredColor { Color = Blue, Occurrences = 1 });
-                            }
-
-                            if (match.WonTheMatch(playerId))
-                            {
-                                if (winningColor.ContainsKey(Blue))
-                                {
-                                    winningColor[Blue].Occurrences++;
-                                }
-                                else
-                                {
-                                    winningColor.Add(Blue, new WinningColor { Color = Blue, Occurrences = 1 });
-                                }
-                            }
-                            else
-                            {
-                                var goalDiff = match.BlueScore - match.RedScore;
-                                if (eae.ContainsKey(match.RedPlayer1.Id))
-                                {
-                                    eae[match.RedPlayer1.Id].Occurrences++;
-                                    eae[match.RedPlayer1.Id].GoalDiff = goalDiff;
-                                }
-                                else
-                                {
-                                    eae.Add(
-                                        match.RedPlayer1.Id,
-                                        new EvilArchEnemy { Player = match.RedPlayer1, GoalDiff = goalDiff });
-                                }
-
-                                if (match.RedPlayer2.Id != null)
-                                {
-                                    if (eae.ContainsKey(match.RedPlayer2.Id))
-                                    {
-                                        eae[match.RedPlayer2.Id].Occurrences++;
-                                        eae[match.RedPlayer2.Id].GoalDiff = goalDiff;
-                                    }
-                                    else
-                                    {
-                                        eae.Add(
-                                            match.RedPlayer2.Id,
-                                            new EvilArchEnemy { Player = match.RedPlayer2, GoalDiff = goalDiff });
-                                    }
-                                }
-                            }
-                        }
-
                         stats.Played++;
                         stats.Won = match.WonTheMatch(playerId) ? ++stats.Won : stats.Won;
                         stats.Lost = !match.WonTheMatch(playerId) ? ++stats.Lost : stats.Lost;
-                        stats.PlayedToday = match.GameOverTime.ToLocalTime().Day == DateTime.Now.Day
-                                                ? ++stats.PlayedToday
-                                                : stats.PlayedToday;
-                        stats.PlayedLast7Days = match.GameOverTime.ToLocalTime() > DateTime.Now.AddDays(-7)
-                                                    ? ++stats.PlayedLast7Days
-                                                    : stats.PlayedLast7Days;
-                        stats.PlayedLast30Days = match.GameOverTime.ToLocalTime() > DateTime.Now.AddDays(-30)
-                                                     ? ++stats.PlayedLast30Days
-                                                     : stats.PlayedLast30Days;
                         stats.Ranking = playerCollection.FindAll()
-                                            .SetSortOrder(SortBy.Descending("Rating"))
-                                            .Where(x => x.Played > 0 && x.Deactivated == false )
-                                            .ToList()
-                                            .FindIndex(x => x.Id == playerId) + 1; // convert zero-based to 1-based index
+                                                        .SetSortOrder(SortBy.Descending("Rating"))
+                                                        .Where(x => x.Played > 0 && x.Deactivated == false)
+                                                        .ToList()
+                                                        .FindIndex(x => x.Id == playerId) + 1;
 
                         stats.TotalNumberOfPlayers = (int)playerCollection.Count(Query.GT("Played", 0));
                     }
-
+                    
                     stats.Bff = bff.OrderByDescending(x => x.Value.Occurrences)
                                    .Select(x => x.Value)
                                    .FirstOrDefault();
@@ -273,7 +131,7 @@
                 }
             }
 
-            return this.RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "Home");
         }
 
         [HttpGet]

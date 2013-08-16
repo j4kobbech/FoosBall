@@ -1,8 +1,8 @@
 ﻿namespace FoosBall.Models.Domain
 {
+    using System;
     using System.Collections.Generic;
-    using FoosBall.Models.Base;
-    using Main;
+    using Base;
     using MongoDB.Bson;
 
     public class Match : FoosBallDoc
@@ -112,16 +112,14 @@
 
         public List<Player> GetPlayers()
         {
-            var listOfPlayers = new List<Player>();
+            var listOfPlayers = new List<Player> { RedPlayer1, BluePlayer1 };
 
-            listOfPlayers.Add(this.RedPlayer1);
-            if (this.CountRedPlayers() == 2)
+            if (CountRedPlayers() == 2)
             {
                 listOfPlayers.Add(this.RedPlayer2);
             }
 
-            listOfPlayers.Add(this.BluePlayer1);
-            if (this.CountBluePlayers() == 2)
+            if (CountBluePlayers() == 2)
             {
                 listOfPlayers.Add(this.BluePlayer2);
             }
@@ -175,6 +173,16 @@
             }
 
             return listOfLosers;
-        } 
+        }
+
+        public int GetWinnerScore()
+        {
+            return Math.Max(RedScore, BlueScore);
+        }
+
+        public int GetLoserScore()
+        {
+            return Math.Min(RedScore, BlueScore);
+        }
     }
 }   

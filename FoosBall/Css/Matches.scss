@@ -52,7 +52,7 @@
 		font-weight: bold;
 	}
 
-	.nicknames, .names {
+	.names {
 		width: 100%;
 		@include ellipsis;
 		margin: 35px 0 0 0;

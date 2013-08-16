@@ -15,9 +15,12 @@
 
     public class MatchesController : BaseController
     {       
+        private const int PageSize = 30;
+        
         // GET: /Matches/
         public ActionResult Index()
         {
+
             // Fetch all players to display in a <select>
             var playerCollection = this.Dbh.GetCollection<Player>("Players")
                                            .FindAll()
@@ -25,12 +28,12 @@
                                            .ToList();
             
             // Fetch all FoosBall matches
-            var playedMatches =
+            var playedMatches = 
                 this.Dbh.GetCollection<Match>("Matches")
                     .Find(Query.NE("GameOverTime", BsonDateTime.Create(DateTime.MinValue)))
                     .ToList()
                     .OrderByDescending(x => x.GameOverTime)
-                    .Take(30);
+                    .Take(PageSize);
 
             // Create content for the <select> 
             var selectItems = playerCollection
@@ -52,6 +55,8 @@
                                 Settings = this.Settings
                             });
         }
+
+
 
         // POST: /Matches/RegisterMatch
         [HttpPost]
@@ -195,12 +200,12 @@
                     }
 
                     // Get the rating modifier
-                    var ratingModifier = Rating.GetRatingModifier(winners.GetTeamRating(), losers.GetTeamRating());
+                    match.DistributedRating = Rating.GetRatingModifier(winners.GetTeamRating(), losers.GetTeamRating());
 
                     // Propagate the rating and stats to the team members of both teams
                     foreach (var member in winners.MatchTeam.Where(member => member.Id != null))
                     {
-                        member.Rating += ratingModifier;
+                        member.Rating += match.DistributedRating;
                         member.Won++;
                         member.Played++;
                         playerCollection.Save(member);
@@ -208,7 +213,7 @@
 
                     foreach (var member in losers.MatchTeam.Where(member => member.Id != null))
                     {
-                        member.Rating -= ratingModifier;
+                        member.Rating -= match.DistributedRating;
                         member.Lost++;
                         member.Played++;
                         playerCollection.Save(member);

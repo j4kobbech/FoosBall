@@ -108,7 +108,6 @@
 
             var name = viewModel.Player.Name;
             var password = Md5.CalculateMd5(viewModel.Player.Password);
-            var nickname = viewModel.Player.NickName;
             var gender = viewModel.Player.Gender;
             
             var playerCollection = this.Dbh.GetCollection<Player>("Players");
@@ -120,7 +119,6 @@
                                     Name = name,
                                     Gender = gender,
                                     Password = password,
-                                    NickName = nickname,
                                     Won = 0,
                                     Lost = 0,
                                     Played = 0
@@ -186,9 +184,6 @@
                     player.Password = string.IsNullOrEmpty(viewModel.Player.Password)
                                         ? player.Password
                                         : Md5.CalculateMd5(viewModel.Player.Password);
-                    player.NickName = string.IsNullOrEmpty(viewModel.Player.NickName)
-                                        ? player.NickName
-                                        : viewModel.Player.NickName;
 
                     DbHelper.SavePlayer(player);
                     viewModel.Player = player;

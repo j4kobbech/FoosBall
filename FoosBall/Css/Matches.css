@@ -34,7 +34,7 @@
   .team-names.winner {
     background: none white;
     font-weight: bold; }
-  .team-names .nicknames, .team-names .names {
+  .team-names .names {
     width: 100%;
     white-space: nowrap;
     overflow: hidden;

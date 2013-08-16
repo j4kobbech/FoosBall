@@ -10,7 +10,10 @@
     {
         public static void SubmitEvent(EventType eventType, object targetObject, string userId)
         {
-            EventHub.Send(targetObject);
+            if (eventType == EventType.MatchResolve)
+            {
+                EventHub.Send(targetObject);
+            }
             SaveEvent(eventType, targetObject, userId);
         }
 

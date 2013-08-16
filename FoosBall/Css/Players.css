@@ -104,7 +104,5 @@
 
 @media only screen and (min-width: 470px) {
   #player-match-history .name {
-    display: block; }
-  #player-match-history .nickname {
-    display: none; } }
+    display: block; } }
 

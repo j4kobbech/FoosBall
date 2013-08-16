@@ -55,11 +55,6 @@
     $('#Email').on('change', function() {
         var playerEmail = $(this).val();
 
-        var $nickName = $('#NickName');
-        if (!!$nickName.val() === false) {
-            $nickName.val(playerEmail.substr(0,5));
-        }
-        
         if (!playerEmail === false) {
             $.ajax({
                 type: "get",

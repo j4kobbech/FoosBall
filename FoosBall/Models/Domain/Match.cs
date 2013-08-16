@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
     using FoosBall.Models.Base;
+    using Main;
     using MongoDB.Bson;
 
     public class Match : FoosBallDoc
@@ -9,6 +10,8 @@
         public int RedScore { get; set; }
 
         public int BlueScore { get; set; }
+
+        public double DistributedRating { get; set; }
         
         public Player RedPlayer1 { get; set; }
         

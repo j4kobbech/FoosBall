@@ -4,7 +4,6 @@
     using System.Web.Mvc;
 
     using FoosBall.Main;
-    using FoosBall.Models.Base;
     using FoosBall.Models.Domain;
     using FoosBall.Models.ViewModels;
 
@@ -166,12 +165,12 @@
                     }
 
                     // Get the rating modifier
-                    var ratingModifier = Rating.GetRatingModifier(winners.GetTeamRating(), losers.GetTeamRating());
+                    match.DistributedRating = Rating.GetRatingModifier(winners.GetTeamRating(), losers.GetTeamRating());
 
                     // Propagate the rating and stats to the team members of both teams
                     foreach (var member in winners.MatchTeam.Where(member => member.Id != null))
                     {
-                        member.Rating += ratingModifier;
+                        member.Rating += match.DistributedRating;
                         member.Won++;
                         member.Played++;
                         copyPlayers.Save(member);
@@ -179,7 +178,7 @@
 
                     foreach (var member in losers.MatchTeam.Where(member => member.Id != null))
                     {
-                        member.Rating -= ratingModifier;
+                        member.Rating -= match.DistributedRating;
                         member.Lost++;
                         member.Played++;
                         copyPlayers.Save(member);

@@ -52,20 +52,24 @@
 		font-weight: bold;
 	}
 
-	.names {
-		width: 100%;
-		@include ellipsis;
-		margin: 35px 0 0 0;
-		display: block;
-	}
-
 	.names { 
 		display: none;
-
+		margin: 35px 0 0 0;
+		width: 100%;
+		@include ellipsis;
 		@media only screen and (min-width : 350px) {
 			display: block;
 		}
 	}
+
+    .rating-distribution {
+        &.red {
+            float:  right;
+        }
+        &.blue {
+            float:  left;
+        }
+    }
 
 	.gravatars {
 		position: absolute;

@@ -35,17 +35,19 @@
     background: none white;
     font-weight: bold; }
   .team-names .names {
+    display: none;
+    margin: 35px 0 0 0;
     width: 100%;
     white-space: nowrap;
     overflow: hidden;
-    text-overflow: ellipsis;
-    margin: 35px 0 0 0;
-    display: block; }
-  .team-names .names {
-    display: none; }
+    text-overflow: ellipsis; }
     @media only screen and (min-width: 350px) {
       .team-names .names {
         display: block; } }
+  .team-names .rating-distribution.red {
+    float: right; }
+  .team-names .rating-distribution.blue {
+    float: left; }
   .team-names .gravatars {
     position: absolute;
     top: -20px; }

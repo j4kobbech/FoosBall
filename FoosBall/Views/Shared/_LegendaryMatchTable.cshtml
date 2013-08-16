@@ -13,6 +13,12 @@
             
             <div class="match clearfix">
                 <div class="team-names red @if (match.RedScore > match.BlueScore) {<text>winner</text>}">
+                    <span class="red rating-distribution">
+                        @if (match.WonTheMatch(match.RedPlayer1.Id))
+                        {<text>+</text>}
+                        else
+                        {<text>-</text>}@match.DistributedRating.ToString("F2")
+                    </span>
                     <span class="gravatars">
                         <a class="@match.RedPlayer1.Id" href="@Url.Action("Player","Stats", new {playerId = @match.RedPlayer1.Id })">
                             <img class="gravatar" alt="Gravatar picture" src="@Html.GetGravatarEmailHash(@match.RedPlayer1.Email)?d=mm"/>
@@ -55,6 +61,12 @@
                     </div>
                 </div>
                 <div class="team-names blue @if (match.BlueScore > match.RedScore) {<text>winner</text>}">
+                    <span class="blue rating-distribution">
+                        @if (match.WonTheMatch(match.BluePlayer1.Id))
+                        {<text>+</text>}
+                        else
+                        {<text>-</text>}@match.DistributedRating.ToString("F2")
+                    </span>
                     <span class="gravatars">
                         <a class="@match.BluePlayer1.Id" href="@Url.Action("Player","Stats", new {playerId = @match.BluePlayer1.Id })">
                             <img class="gravatar" alt="Gravatar picture" src="@Html.GetGravatarEmailHash(@match.BluePlayer1.Email)?d=mm"/>

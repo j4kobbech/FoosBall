@@ -26,6 +26,14 @@
 
         public WinningColor WinningColor { get; set; }
 
+        public double HighestRating { get; set; }
+
+        public double LowestRating { get; set; }
+
+        public int LongestWinningStreak { get; set; }
+
+        public int LongestLosingStreak { get; set; }
+
         public Match LatestMatch { get; set; }
 
         public int TotalNumberOfPlayers { get; set; }

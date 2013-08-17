@@ -97,6 +97,10 @@
                     var eae = StatsControllerHelpers.GetEvilArchEnemy(playerId, playedMatches);
                     var preferredColor = StatsControllerHelpers.GetPreferredColor(playerId, playedMatches);
                     var winningColor = StatsControllerHelpers.GetWinningColor(playerId, playedMatches);
+                    var highestRating = StatsControllerHelpers.GetHighestRating(playerId, playedMatches);
+                    var lowestRating = StatsControllerHelpers.GetLowestRating(playerId, playedMatches);
+                    var longestWinningStreak = StatsControllerHelpers.GetPlayersLongestWinningStreak(playerId, playedMatches);
+                    var longestLosingStreak = StatsControllerHelpers.GetPlayersLongestLosingStreak(playerId, playedMatches);
                     
                     foreach (var match in playedMatches)
                     {
@@ -126,6 +130,10 @@
                     stats.WinningColor = winningColor.OrderByDescending(x => x.Value.Occurrences)
                                                      .Select(x => x.Value)
                                                      .FirstOrDefault();
+                    stats.HighestRating = highestRating;
+                    stats.LowestRating = lowestRating;
+                    stats.LongestWinningStreak = longestWinningStreak;
+                    stats.LongestLosingStreak = longestLosingStreak;
 
                     return View(stats);
                 }

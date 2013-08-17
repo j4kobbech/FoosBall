@@ -1,5 +1,6 @@
 ﻿namespace FoosBall.ControllerHelpers
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
 
@@ -119,6 +120,44 @@
             }
 
             return streaks.GetLongestStreak();
+        }
+
+        public static int GetPlayersLongestWinningStreak(string playerId, List<Match> matches)
+        {
+            var streaks = new Streaks();
+
+            foreach (var match in matches.Where(x => x.ContainsPlayer(playerId)))
+            {
+                if (match.WonTheMatch(playerId))
+                {
+                    streaks.Add(playerId);
+                }
+                else
+                {
+                    streaks.Reset(playerId);
+                }
+            }
+
+            return streaks.GetLongestStreak().Count;
+        }
+
+        public static int GetPlayersLongestLosingStreak(string playerId, List<Match> matches)
+        {
+            var streaks = new Streaks();
+
+            foreach (var match in matches.Where(x => x.ContainsPlayer(playerId)))
+            {
+                if (!match.WonTheMatch(playerId))
+                {
+                    streaks.Add(playerId);
+                }
+                else
+                {
+                    streaks.Reset(playerId);
+                }
+            }
+
+            return streaks.GetLongestStreak().Count;
         }
 
         public static RatingDifference GetBiggestRatingWin()
@@ -289,6 +328,16 @@
             }
 
             return winningColor;
+        }
+
+        public static double GetHighestRating(string playerId, List<Match> matches)
+        {
+            return matches.Where(x => x.ContainsPlayer(playerId)).Select(x => x.GetPlayer(playerId)).Max(x => x.Rating);
+        }
+
+        public static double GetLowestRating(string playerId, List<Match> matches)
+        {
+            return Math.Min(1000, matches.Where(x => x.ContainsPlayer(playerId)).Select(x => x.GetPlayer(playerId)).Min(x => x.Rating));
         }
     }
 }

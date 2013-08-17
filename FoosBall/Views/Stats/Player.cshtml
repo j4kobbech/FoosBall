@@ -22,12 +22,23 @@
         <div class="info">@Model.Player.Rating.ToString("F2")</div>
         <div class="label">Winning ratio:</div>
         <div class="info splitline">@Model.Player.Ratio.ToString("F2")%</div>
+        
         <div class="label">Fights Total:</div>
         <div class="info">@Model.Played</div>
         <div class="label">Won Fights:</div>
         <div class="info">@Model.Won</div>
         <div class="label">Lost Fights:</div>
         <div class="info splitline">@Model.Lost</div>
+        
+        <div class="label">Longest Winning Streak:</div>
+        <div class="info splitline">@Model.LongestWinningStreak</div>
+        <div class="label">Longest Losing Streak:</div>
+        <div class="info splitline">@Model.LongestLosingStreak</div>
+        
+        <div class="label">Highest Rating Ever:</div>
+        <div class="info splitline" title="@Model.HighestRating">@Model.HighestRating.ToString("F2")</div>
+        <div class="label">Lowest Rating Ever:</div>
+        <div class="info splitline" title="@Model.LowestRating">@Model.LowestRating.ToString("F2")</div>
         
         @if (Model.Played > 0) {
             <div class="label" title="The BFF (Best Friend Forever) is the player together with whom @Model.Player.Name has fought most often">Best Friend Forever:</div>

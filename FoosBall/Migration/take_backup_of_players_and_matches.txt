@@ -1,12 +1,25 @@
+# replacement string: "20130819"
 # Export Production data to JSON
-c:\mongodb\bin\mongoexport -h ds039467.mongolab.com:39467 -d appharbor_91a02254-b6c1-4f8a-8a8d-8acbeb96c62f -c Players -u admin -p 4va4lbertml -o c:\source\FoosBall\FoosBall\Migration\Players_20130818.json 
-c:\mongodb\bin\mongoexport -h ds039467.mongolab.com:39467 -d appharbor_91a02254-b6c1-4f8a-8a8d-8acbeb96c62f -c Matches -u admin -p 4va4lbertml -o c:\source\FoosBall\FoosBall\Migration\Matches_20130818.json
-c:\mongodb\bin\mongoexport -h ds039467.mongolab.com:39467 -d appharbor_91a02254-b6c1-4f8a-8a8d-8acbeb96c62f -c Events -u admin -p 4va4lbertml -o c:\source\FoosBall\FoosBall\Migration\Events_20130818.json
+c:\mongodb\bin\mongoexport -h ds039467.mongolab.com:39467 -d appharbor_91a02254-b6c1-4f8a-8a8d-8acbeb96c62f -c Players -u admin -p 4va4lbertml -o c:\source\FoosBall\FoosBall\Migration\Players_20130819.json 
+c:\mongodb\bin\mongoexport -h ds039467.mongolab.com:39467 -d appharbor_91a02254-b6c1-4f8a-8a8d-8acbeb96c62f -c Matches -u admin -p 4va4lbertml -o c:\source\FoosBall\FoosBall\Migration\Matches_20130819.json
+c:\mongodb\bin\mongoexport -h ds039467.mongolab.com:39467 -d appharbor_91a02254-b6c1-4f8a-8a8d-8acbeb96c62f -c Events -u admin -p 4va4lbertml -o c:\source\FoosBall\FoosBall\Migration\Events_20130819.json
+c:\mongodb\bin\mongoexport -h ds039467.mongolab.com:39467 -d appharbor_91a02254-b6c1-4f8a-8a8d-8acbeb96c62f -c AutoLogin -u admin -p 4va4lbertml -o c:\source\FoosBall\FoosBall\Migration\AutoLogin_20130819.json
+c:\mongodb\bin\mongoexport -h ds039467.mongolab.com:39467 -d appharbor_91a02254-b6c1-4f8a-8a8d-8acbeb96c62f -c Config -u admin -p 4va4lbertml -o c:\source\FoosBall\FoosBall\Migration\Config_20130819.json
 
 # Import json into localhost/FoosBall
-c:\mongodb\bin\mongoimport -h localhost:27017 -d FoosBall -c Players -u admin -p 4va4lbert --file C:\source\FoosBall\FoosBall\Migration\Players_20130818.json
-c:\mongodb\bin\mongoimport -h localhost:27017 -d FoosBall -c Matches -u admin -p 4va4lbert --file C:\source\FoosBall\FoosBall\Migration\Matches_20130818.json
-c:\mongodb\bin\mongoimport -h localhost:27017 -d FoosBall -c Events -u admin -p 4va4lbert --file C:\source\FoosBall\FoosBall\Migration\Events_20130818.json
+c:\mongodb\bin\mongoimport -h localhost:27017 -d FoosBall -c Players   --drop -u admin -p 4va4lbert --file C:\source\FoosBall\FoosBall\Migration\Players_20130819.json
+c:\mongodb\bin\mongoimport -h localhost:27017 -d FoosBall -c Matches   --drop -u admin -p 4va4lbert --file C:\source\FoosBall\FoosBall\Migration\Matches_20130819.json
+c:\mongodb\bin\mongoimport -h localhost:27017 -d FoosBall -c Events    --drop -u admin -p 4va4lbert --file C:\source\FoosBall\FoosBall\Migration\Events_20130819.json
+c:\mongodb\bin\mongoimport -h localhost:27017 -d FoosBall -c AutoLogin --drop -u admin -p 4va4lbert --file C:\source\FoosBall\FoosBall\Migration\AutoLogin_20130819.json
+c:\mongodb\bin\mongoimport -h localhost:27017 -d FoosBall -c Config    --drop -u admin -p 4va4lbert --file C:\source\FoosBall\FoosBall\Migration\Config_20130819.json
+
+# Import json into staging/FoosBall
+c:\mongodb\bin\mongoimport -h ds039417.mongolab.com:39417 -d appharbor_4ca40675-7f79-47f6-a83f-b227f24172c1 -c Players   --drop -u admin -p 4va4lbertml --file C:\source\FoosBall\FoosBall\Migration\Players_20130819.json
+c:\mongodb\bin\mongoimport -h ds039417.mongolab.com:39417 -d appharbor_4ca40675-7f79-47f6-a83f-b227f24172c1 -c Matches   --drop -u admin -p 4va4lbertml --file C:\source\FoosBall\FoosBall\Migration\Matches_20130819.json
+c:\mongodb\bin\mongoimport -h ds039417.mongolab.com:39417 -d appharbor_4ca40675-7f79-47f6-a83f-b227f24172c1 -c Events    --drop -u admin -p 4va4lbertml --file C:\source\FoosBall\FoosBall\Migration\Events_20130819.json
+c:\mongodb\bin\mongoimport -h ds039417.mongolab.com:39417 -d appharbor_4ca40675-7f79-47f6-a83f-b227f24172c1 -c AutoLogin --drop -u admin -p 4va4lbertml --file C:\source\FoosBall\FoosBall\Migration\AutoLogin_20130819.json
+c:\mongodb\bin\mongoimport -h ds039417.mongolab.com:39417 -d appharbor_4ca40675-7f79-47f6-a83f-b227f24172c1 -c Config    --drop -u admin -p 4va4lbertml --file C:\source\FoosBall\FoosBall\Migration\Config_20130819.json
 
 # Export Email to CSV
 c:\source\mongodb\bin\mongoexport -h ds039467.mongolab.com:39467 -d appharbor_91a02254-b6c1-4f8a-8a8d-8acbeb96c62f -c Players -u admin -p 4va4lbertml -o c:\source\FoosBall\FoosBall\Migration\Players_emails.csv --csv -f Email
+

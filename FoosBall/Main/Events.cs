@@ -4,7 +4,6 @@
 
     using Models.Base;
     using Models.Domain;
-    using MongoDB.Bson;
 
     public static class Events
     {
@@ -14,6 +13,7 @@
             {
                 EventHub.Send(targetObject);
             }
+
             SaveEvent(eventType, targetObject, userId);
         }
 
@@ -27,7 +27,6 @@
                 var newEvent = new Event
                 {
                     EventType = eventType,
-                    Created = new BsonDateTime(DateTime.Now),
                     CreatedBy = userId
                 };
 

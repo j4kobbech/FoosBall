@@ -94,7 +94,6 @@
                         {
                             Email = player.Email,
                             Token = GetAuthToken(player),
-                            Created = DateTime.Now
                         };
                         autoLoginCollection.Save(autoLogin);
                     }

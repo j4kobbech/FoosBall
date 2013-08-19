@@ -3,7 +3,6 @@
     using System;
     using System.Collections.Generic;
     using Base;
-    using MongoDB.Bson;
 
     public class Match : FoosBallDoc
     {
@@ -21,9 +20,9 @@
         
         public Player BluePlayer2 { get; set; }
         
-        public BsonDateTime CreationTime { get; set; }
+        public DateTime CreationTime { get; set; }
         
-        public BsonDateTime GameOverTime { get; set; }
+        public DateTime GameOverTime { get; set; }
 
         public bool WonTheMatch(string id)
         {

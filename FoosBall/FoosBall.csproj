@@ -196,8 +196,11 @@
     </Content>
     <Content Include="Global.asax" />
     <Content Include="Javascript\Admin.js" />
+    <Content Include="Javascript\angular-resource.min.js" />
     <Content Include="Javascript\angular.min.js" />
     <Content Include="Javascript\jquery.signalR-1.0.0.min.js" />
+    <Content Include="Javascript\matches.controller.js" />
+    <Content Include="Javascript\md5.js" />
     <Content Include="Javascript\Shared.js" />
     <Content Include="Javascript\Stats.js" />
     <Content Include="Javascript\highcharts.js" />
@@ -290,6 +293,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Shared\_MatchResolveEventFeedListItem.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\_MatchTemplate.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

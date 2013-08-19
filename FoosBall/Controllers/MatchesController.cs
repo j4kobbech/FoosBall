@@ -28,12 +28,12 @@
                                            .ToList();
             
             // Fetch all FoosBall matches
-            var playedMatches = 
-                this.Dbh.GetCollection<Match>("Matches")
-                    .Find(Query.NE("GameOverTime", BsonDateTime.Create(DateTime.MinValue)))
-                    .ToList()
-                    .OrderByDescending(x => x.GameOverTime)
-                    .Take(PageSize);
+            var playedMatches =
+               this.Dbh.GetCollection<Match>("Matches")
+                   .Find(Query.NE("GameOverTime", DateTime.MinValue))
+                   .ToList()
+                   .OrderByDescending(x => x.GameOverTime)
+                   .Take(PageSize);
 
             // Create content for the <select> 
             var selectItems = playerCollection
@@ -46,17 +46,28 @@
                     })
                 .ToList();
 
-            var played = playedMatches.OrderByDescending(x => x.GameOverTime);
 
             return View(new MatchesViewModel
                             {
-                                PlayedMatches = played, 
+                                PlayedMatches = playedMatches, 
                                 SelectPlayers = selectItems,
                                 Settings = this.Settings
                             });
         }
 
+        [HttpGet]
+        public ActionResult GetMatches(int numberOfMatches = PageSize, int startFromMatch = 0)
+        {
+            // Fetch all FoosBall matches
+            var playedMatches = 
+                this.Dbh.GetCollection<Match>("Matches")
+                    .Find(Query.GT("GameOverTime", DateTime.Parse("01/01/2012")))
+                    .OrderByDescending(x => x.GameOverTime)
+                    .Skip(startFromMatch)
+                    .Take(numberOfMatches);
 
+            return Json(playedMatches, JsonRequestBehavior.AllowGet);
+        }
 
         // POST: /Matches/RegisterMatch
         [HttpPost]
@@ -128,10 +139,9 @@
                                         RedPlayer2 = redPlayer2,
                                         BluePlayer1 = bluePlayer1,
                                         BluePlayer2 = bluePlayer2,
-                                        CreationTime = new BsonDateTime(DateTime.Now),
-                                        GameOverTime = new BsonDateTime(DateTime.MinValue),
-                                        Created = new BsonDateTime(DateTime.Now),
-                                        CreatedBy = user.Id
+                                        CreationTime = DateTime.Now,
+                                        GameOverTime = DateTime.MinValue,
+                                        CreatedBy = user.Id,
                                     };
                 }
             }
@@ -221,7 +231,7 @@
                     }
 
                     // Update match time stats
-                    match.GameOverTime = new BsonDateTime(DateTime.Now);
+                    match.GameOverTime = DateTime.Now;
                 }
             }
             

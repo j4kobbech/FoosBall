@@ -4,6 +4,10 @@
 
 /* Match View
 ----------------------------------------------------------*/
+#match-list {
+    min-height: 590px;    
+}
+
 #submit-match-form, #submit-challenge-form {
     display: none;
     margin-top: 20px;
@@ -142,6 +146,10 @@
 
 #create-match-button {
     margin-top: 10px;
+}
+
+.button.fetch {
+    margin-top: 20px;
 }
 
 /* SaveMatchResult View

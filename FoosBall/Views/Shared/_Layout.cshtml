@@ -1,6 +1,6 @@
 ﻿@using StackExchange.Profiling
 <!DOCTYPE html>
-<html>
+<html ng-app="FoosBall">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -18,44 +18,26 @@
     <link href="@Url.Content("~/Css/Base.css")" rel="stylesheet" type="text/css" />
     @RenderSection("Css", false)
     
+    <script type="text/javascript" src="@Url.Content("~/Javascript/md5.js")"></script>
+    <!-- jQuery + local fallback -->
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
     <script type="text/javascript">
         if (typeof jQuery == 'undefined') {
             document.write(unescape('%3Cscript src="@Url.Content("~/Javascript/jquery.min.js")" type="text/javascript"%3E%3C/script%3E'));
         }
     </script>
-    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js"></script>
+    <!-- angular + local fallback -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0rc1/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0rc1/angular-resource.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0rc1/angular-route.min.js"></script>
     <script type="text/javascript">
         if (typeof angular === 'undefined') {
             document.write(unescape('%3Cscript src="@Url.Content("~/Javascript/angular.min.js")" type="text/javascript"%3E%3C/script%3E'));
+            document.write(unescape('%3Cscript src="@Url.Content("~/Javascript/angular-resource.min.js")" type="text/javascript"%3E%3C/script%3E'));
+            document.write(unescape('%3Cscript src="@Url.Content("~/Javascript/angular-route.min.js")" type="text/javascript"%3E%3C/script%3E'));
         }
     </script>
-        $(window).load(function () {
 
-            var theWindow = $(window),
-                $bg = $("#bg"),
-                aspectRatio = $bg.width() / $bg.height();
-
-            function resizeBg() {
-
-                if ((theWindow.width() / theWindow.height()) < aspectRatio) {
-                    $bg
-                        .removeClass()
-                        .addClass('bgheight');
-                } else {
-                    $bg
-                        .removeClass()
-                        .addClass('bgwidth');
-                }
-
-            }
-
-            theWindow.resize(function () {
-                resizeBg();
-            }).trigger("resize");
-
-        });
-    </script>
     
     <!-- Feedback plugin -->
     <script type="text/javascript">

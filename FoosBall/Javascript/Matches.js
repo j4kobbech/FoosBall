@@ -49,17 +49,6 @@
             });
         }
         
-        // If at least one player on each team is selected, then show the score sliders
-        /*if (!!$redPlayer1.val() && !!$bluePlayer1.val()) {
-            $teamScores.slideDown('fast', function () {
-                $teamScores.css({ 'overflow': '' });
-            });
-        } else {
-            $teamScores.slideUp('fast', function () {
-                $teamScores.css({ 'overflow': '' });
-            });
-        }*/
-        
         valueBeforeChange = $thisSelect.find(':selected').val();
     });
 
@@ -70,12 +59,6 @@
         }
         return undefined;
     });
-    
-    // Add a tag on the players that match the current user
-//    var currentUserId = $("#current-user-id").val();
-//    if (!!currentUserId === true) {
-//        $("." + currentUserId).append("<sup>(me)</sup>");
-//    }
     
     /* ******************************************************************
      * SaveMatchResult View
@@ -105,7 +88,6 @@
             e.preventDefault();
         }
     });
-
     
     $('#team-red-score-slider').on('change', function (e) {
         $('#team-red-score').val(e.target.value);
@@ -114,7 +96,4 @@
     $('#team-blue-score-slider').on('change', function (e) {
         $('#team-blue-score').val(e.target.value);
     });
-    
-
-
 });

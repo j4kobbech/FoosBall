@@ -21,7 +21,6 @@
             Won = 0;
             Lost = 0;
             Played = 0;
-            Created = new BsonDateTime(DateTime.Now);
         }
 
         public Player(string id)
@@ -33,15 +32,12 @@
             Won = 0;
             Lost = 0;
             Played = 0;
-            Created = new BsonDateTime(DateTime.Now);
         }
 
         public string Email { get; set; }
 
         public string Name { get; set; }
         
-        //public string NickName { get; set; }
-
         public string Gender { get; set; }
 
         public string Password { get; set; }

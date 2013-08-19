@@ -1,0 +1,77 @@
+﻿    <div ng-cloak ng-repeat="match in matches" class="match clearfix">
+        <div class="team-names red" ng-class="{winner: match.RedScore>match.BlueScore}">
+            
+            <span class="red rating-distribution">
+                {{match.DistributedRating}}
+            </span>
+            
+            <span class="gravatars">
+                <a class="{{match.RedPlayer1.Id}}" href="Stats/Player?playerId={{match.RedPlayer1.Id}}">
+                    <img class="gravatar" alt="Gravatar picture" src="http://www.gravatar.com/avatar/{{hex_md5(match.RedPlayer1.Email)}}?d=mm"/>
+                </a>
+                
+                <a ng-if="match.RedPlayer2.Id !== null" class="{{match.RedPlayer2.Id}}" href="Stats/Player?playerId={{match.RedPlayer2.Id}}">
+                    <img class="gravatar" alt="Gravatar picture" src="http://www.gravatar.com/avatar/{{hex_md5(match.RedPlayer2.Email)}}?d=mm"/>
+                </a>
+            </span>
+            
+            <span class="names">
+                <a class="{{match.RedPlayer1.Id}}" href="Stats/Player?playerId={{match.RedPlayer1.Id}}">
+                    {{match.RedPlayer1.Name}}
+                </a>
+                <br/>
+                <a class="{{match.RedPlayer2.Id}}" href="Stats/Player?playerId={{match.RedPlayer2.Id}}">
+                    {{match.RedPlayer2.Name}}
+                </a>
+            </span>
+
+        </div>
+        
+        <div class="team-scores">
+            <div class="score">
+                <span class="red" ng-class="{winner: match.RedScore>match.BlueScore}">
+                    {{match.RedScore}}
+                </span>
+                -
+                <span class="blue" ng-class="{winner: match.BlueScore>match.RedScore}">
+                    {{match.BlueScore}}
+                </span>
+            </div>
+            <div class="played" title="{{match.GameOverDate + ' ' + match.GameOverTime}}">
+                <span class="short-time">{{match.GameOverDate}}</span>
+                <span class="long-time" title="{{match.GameOverDate + ' ' + match.GameOverTime}}">
+                    {{match.GameOverDate + ' ' + match.GameOverTime}}
+                </span>
+            </div>
+        </div>
+
+        <div class="team-names blue" ng-class="{winner: match.BlueScore>match.RedScore}">
+            
+            <span class="blue rating-distribution">
+                {{match.DistributedRating}}
+            </span>
+            
+            <span class="gravatars">
+                <a class="{{match.BluePlayer1.Id}}" href="Stats/Player?playerId={{match.BluePlayer1.Id}}">
+                    <img class="gravatar" alt="Gravatar picture" src="http://www.gravatar.com/avatar/{{hex_md5(match.BluePlayer1.Email)}}?d=mm"/>
+                </a>
+                
+                <a ng-if="match.BluePlayer2.Id !== null" class="{{match.BluePlayer2.Id}}" href="Stats/Player?playerId={{match.BluePlayer2.Id}}">
+                    <img class="gravatar" alt="Gravatar picture" src="http://www.gravatar.com/avatar/{{hex_md5(match.BluePlayer2.Email)}}?d=mm"/>
+                </a>
+            </span>
+            
+            <span class="names">
+                <a class="{{match.BluePlayer1.Id}}" href="Stats/Player?playerId={{match.BluePlayer1.Id}}">
+                    {{match.BluePlayer1.Name}}
+                </a>
+                <br/>
+                <a class="{{match.BluePlayer2.Id}}" href="Stats/Player?playerId={{match.BluePlayer2.Id}}">
+                    {{match.BluePlayer2.Name}}
+                </a>
+            </span>
+
+        </div>
+    </div>
+    
+    <input type="button" class="fetch button" value="Show more matches" ng-click="getMatches($scope.pageSize,matches.length)"/>

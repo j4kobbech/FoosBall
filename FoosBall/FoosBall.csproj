@@ -196,24 +196,22 @@
     </Content>
     <Content Include="Global.asax" />
     <Content Include="Javascript\Admin.js" />
-    <Content Include="Javascript\angular-resource.min.js" />
-    <Content Include="Javascript\angular.min.js" />
-    <Content Include="Javascript\jquery.signalR-1.0.0.min.js" />
-    <Content Include="Javascript\matches.controller.js" />
-    <Content Include="Javascript\md5.js" />
+    <Content Include="Javascript\lib\angular-resource.min.js" />
+    <Content Include="Javascript\lib\angular-route.min.js" />
+    <Content Include="Javascript\lib\angular.min.js" />
+    <Content Include="Javascript\lib\jquery.signalR-1.0.0.min.js" />
+    <Content Include="Javascript\angular\matches.controllers.js" />
+    <Content Include="Javascript\angular\app.js" />
+    <Content Include="Javascript\lib\md5.js" />
     <Content Include="Javascript\Shared.js" />
     <Content Include="Javascript\Stats.js" />
-    <Content Include="Javascript\highcharts.js" />
+    <Content Include="Javascript\lib\highcharts.js" />
     <Content Include="Javascript\Home.js" />
     <Content Include="Javascript\LogOn.js" />
     <Content Include="Javascript\FoosBall.js" />
-    <Content Include="Javascript\jquery.min.js" />
-    <Content Include="Javascript\Matches.js" />
-    <Content Include="Javascript\Players.js" />
+    <Content Include="Javascript\lib\jquery.min.js" />
     <Content Include="Javascript\Register.js" />
     <Content Include="Javascript\PlayerStats.js" />
-    <Content Include="Scripts\jquery.signalR-1.0.0.js" />
-    <Content Include="Scripts\jquery.signalR-1.0.0.min.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -281,9 +279,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Css\_mixins.scss" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Shared\_LegendaryMatchTable.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Css\Stats.scss" />

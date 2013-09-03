@@ -1,74 +1,49 @@
-﻿@model MatchesViewModel
-@using (Html.BeginForm("RegisterMatch", "Matches", FormMethod.Post))
-{   
-    <input type="button" class="button" id="open-submit-match-form" value="Create a Match" />
-    
-    <div id="submit-match-form" class="closed clearfix">
+﻿<input ng-cloak ng-click="hideForm=!hideForm" type="button" class="button" value="Create a Match" />
+
+<form name="resolveMatchForm" ng-submit="submitMatch()" ng-controller="SubmitMatchController" ng-model="match">
+    <div ng-hide="hideForm" id="match-form" class="clearfix">
         <div id="team-red-players" class="team">
             <div class="team-name">Red Team</div>
             <div class="form-input">
-                <select class="select-player" id="red-player-1" name="red-player-1">
+                <select name="redPlayer1" required ng-model="match.RedPlayer1.Id" ng-focus="onPlayerSelectFocus($event)" ng-change="onPlayerSelectChange()" >
                     <option></option>
-                    @foreach (var player in Model.SelectPlayers)
-                    {
-                        <option class="@player.CssClass" value="@player.Value">@player.Text</option>
-                    }
+                    <option ng-repeat="player in players" value="{{player.Id}}">{{player.Name}}</option>
                 </select>
             </div>
             <br />
             <div class="form-input">
-                <select class="select-player" id="red-player-2" name="red-player-2">
+                <select name="redPlayer2" ng-model="match.RedPlayer2.Id" ng-focus="onPlayerSelectFocus($event)" ng-change="onPlayerSelectChange()">
                     <option></option>
-                    @foreach (var player in Model.SelectPlayers)
-                    {
-                        <option class="@player.CssClass" value="@player.Value">@player.Text</option>
-                    }
+                    <option ng-repeat="player in players" value="{{player.Id}}">{{player.Name}}</option>
                 </select>
             </div>
         </div>
-
         <div id="team-blue-players" class="team">
             <div class="team-name">Blue Team</div>
             <div class="form-input">
-                <select class="select-player" id="blue-player-1" name="blue-player-1">
+                <select name="bluePlayer1" ng-model="match.BluePlayer1.Id" required ng-focus="onPlayerSelectFocus($event)" ng-change="onPlayerSelectChange()">
                     <option></option>
-                    @foreach (var player in Model.SelectPlayers)
-                    {
-                        <option class="@player.CssClass" value="@player.Value">@player.Text</option>
-                    }
+                    <option ng-repeat="player in players" value="{{player.Id}}">{{player.Name}}</option>
                 </select>
             </div>
             <br />
             <div class="form-input">
-                <select class="select-player" id="blue-player-2" name="blue-player-2">
+                <select name="bluePlayer2" ng-model="match.BluePlayer2.Id" ng-focus="onPlayerSelectFocus($event)" ng-change="onPlayerSelectChange()">
                     <option></option>
-                    @foreach (var player in Model.SelectPlayers)
-                    {
-                        <option class="@player.CssClass" value="@player.Value">@player.Text</option>
-                    }
+                    <option ng-repeat="player in players" value="{{player.Id}}">{{player.Name}}</option>
                 </select>
             </div>
         </div>
-        
         <div class="team-scores">
-            <div id="team-results">
-                <div class="form-input opponent" id="fighting-team-red">
-                    @Html.TextBox("team-red-score", "0", new {@class = "team-score", placeholder = "0"}) 
-                    <br/>
-                    <input id="team-red-score-slider" class="score-slider" type="range" min="0" max="10" step="1" autocomplete="off" value="0">
-                </div>
-                <div class="form-input opponent" id="fighting-team-blue">
-                    @Html.TextBox("team-blue-score", "0", new {@class = "team-score", placeholder = "0"}) 
-                    <br/>
-                    <input id="team-blue-score-slider" class="score-slider" type="range" min="0" max="10" step="1" autocomplete="off" value="0">
-                </div>
+            <div class="form-input opponent red">
+                <input type="number" ng-model="match.RedScore" name="redScore" foosball-score required min="0" value="0" class="team-score" />
+            </div>
+            <div class="form-input opponent blue">
+                <input type="number" ng-model="match.BlueScore" name="blueScore" foosball-score required min="0" value="0" class="team-score" />
             </div>
             <div class="form-button">
-                <input type="submit" value="Submit score" class="submit-button button" id="submit-score-button"/>
+                <input type="submit" ng-disabled="resolveMatchForm.$invalid" value="Submit score" class="submit-button button" id="submit-score-button"/>
             </div>
         </div>
-
-        <div class="validation-message small All"></div>
-
     </div>
-}
+</form>

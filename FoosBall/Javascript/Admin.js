@@ -78,34 +78,3 @@ function toggleDomainField($checkbox) {
         $textBox.removeAttr('disabled').focus();
     }
 }
-
-function toggleOverlay() {
-    var overlay = $('#overlay');
-
-    if (overlay.size() === 0) {
-
-        var htmlHeight = $('html').innerHeight();
-        $('body').append('<div id="overlay"></div>');
-
-        overlay = $('#overlay');
-
-        overlay.css({
-            'height': htmlHeight + 'px',
-            'background-color': 'rgba(0, 0, 0, 0.6)',
-            'left': '0',
-            'position': 'absolute',
-            'top': '0',
-            'width': '100%',
-            'z-index': '1000',
-        });
-
-        overlay.append('<img src="https://s3-eu-west-1.amazonaws.com/images.trustpilot.com/static/foosball/ajax-loader.gif"/>');
-
-        overlay.on('click', function () {
-            toggleOverlay();
-        });
-
-    } else {
-        overlay.remove();
-    }
-}

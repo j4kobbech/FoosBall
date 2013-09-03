@@ -19,6 +19,8 @@
         public Player BluePlayer1 { get; set; }
         
         public Player BluePlayer2 { get; set; }
+
+        public string PlayersHash { get; set; }
         
         public DateTime CreationTime { get; set; }
         

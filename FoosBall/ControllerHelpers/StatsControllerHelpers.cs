@@ -47,7 +47,7 @@
             return Dbh.GetCollection<Player>("Players")
                     .FindAll()
                     .SetSortOrder(SortBy.Descending("Rating"))
-                    .FirstOrDefault();
+                    .FirstOrDefault(x => !x.Deactivated);
         }
 
         public static Player GetStatBottomRanked()

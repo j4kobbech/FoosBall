@@ -1,6 +1,4 @@
-﻿angular.module('FoosBall', ['ngResource']);
-
-jQuery(document).ready(function () {
+﻿jQuery(document).ready(function () {
     $.globals = {
         errorState: {}
     };

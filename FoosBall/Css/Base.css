@@ -308,6 +308,21 @@ input[type="submit"], input[type="button"], button {
   font-size: 1.0em;
   width: 100%;
   margin: 1px 0; }
+  input[type="submit"][disabled="disabled"], input[type="button"][disabled="disabled"], button[disabled="disabled"] {
+    -moz-box-shadow: inset 0px 1px 0px 0px #bbb;
+    -webkit-box-shadow: inset 0px 1px 0px 0px #bbb;
+    box-shadow: inset 0px 1px 0px 0px #bbb;
+    border: 1px solid #bbb;
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #dddddd), color-stop(1, #cccccc));
+    background: -moz-linear-gradient(top, #dddddd 5%, #cccccc 100%);
+    background: -webkit-linear-gradient(top, #dddddd 5%, #cccccc 100%);
+    background: -o-linear-gradient(top, #dddddd 5%, #cccccc 100%);
+    background: -ms-linear-gradient(top, #dddddd 5%, #cccccc 100%);
+    background: linear-gradient(to bottom, #dddddd 5%, #cccccc 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ddd', endColorstr='#ccc',GradientType=0);
+    color: #aaa; }
+    input[type="submit"][disabled="disabled"]:active, input[type="button"][disabled="disabled"]:active, button[disabled="disabled"]:active {
+      top: 0px; }
 
 /* MISC
 ----------------------------------------------------------*/

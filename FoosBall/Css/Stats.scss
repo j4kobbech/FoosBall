@@ -5,53 +5,53 @@
 /* Stats View
 ----------------------------------------------------------*/
 .statistics {
-	background: none #fff;
-	border-radius: 5px;
-	padding: 15px;
+    background: none #fff;
+    border-radius: 5px;
+    padding: 15px;
 
-	.info {
-		font-weight: bold;
-		margin: 0 0 10px 0;
+    .info {
+        font-weight: bold;
+        margin: 0 0 10px 0;
 
-		.thin {
-			font-weight: normal;
-		}
-	}
+        .thin {
+            font-weight: normal;
+        }
+    }
 
-	.stat {
-		width: 25%;
-		float: left;
-		text-align: center;
-		padding: 20px;
+    .stat {
+        width: 25%;
+        float: left;
+        text-align: center;
+        padding: 20px;
 
-		.avatar {
-			
-			img {
-				border-radius: 50%;
-			}
-		}
-	}
+        .avatar {
+            
+            img {
+                border-radius: 50%;
+            }
+        }
+    }
 
-	&.player {
-		padding: 25px;
+    &.player {
+        padding: 25px;
 
-		.avatar {
-			margin: -40px 10px 0 -5px;
+        .avatar {
+            margin: -40px 10px 0 -5px;
 
-			.gravatar {
-				border-radius: 50%;
-			}
-		}
+            .gravatar {
+                border-radius: 50%;
+            }
+        }
 
-		.column {
-			float: left;
+        .column {
+            float: left;
 
-			&.first {
-				width: 40%;
-			}
-			&.second {
-				width: 60%;
-			}
-		}
-	}
+            &.first {
+                width: 40%;
+            }
+            &.second {
+                width: 60%;
+            }
+        }
+    }
 }

@@ -1,10 +1,9 @@
 ﻿    <div ng-cloak ng-repeat="match in matches" class="match clearfix">
+        <!-- Selects for team red -->
         <div class="team-names red" ng-class="{winner: match.RedScore>match.BlueScore}">
-            
             <span class="red rating-distribution">
                 {{match.DistributedRating}}
             </span>
-            
             <span class="gravatars">
                 <a class="{{match.RedPlayer1.Id}}" href="Stats/Player?playerId={{match.RedPlayer1.Id}}">
                     <img class="gravatar" alt="Gravatar picture" src="http://www.gravatar.com/avatar/{{hex_md5(match.RedPlayer1.Email)}}?d=mm"/>
@@ -14,7 +13,6 @@
                     <img class="gravatar" alt="Gravatar picture" src="http://www.gravatar.com/avatar/{{hex_md5(match.RedPlayer2.Email)}}?d=mm"/>
                 </a>
             </span>
-            
             <span class="names">
                 <a class="{{match.RedPlayer1.Id}}" href="Stats/Player?playerId={{match.RedPlayer1.Id}}">
                     {{match.RedPlayer1.Name}}
@@ -24,9 +22,8 @@
                     {{match.RedPlayer2.Name}}
                 </a>
             </span>
-
         </div>
-        
+        <!-- Team scores -->
         <div class="team-scores">
             <div class="score">
                 <span class="red" ng-class="{winner: match.RedScore>match.BlueScore}">
@@ -42,25 +39,22 @@
                 <span class="long-time" title="{{match.GameOverDate + ' ' + match.GameOverTime}}">
                     {{match.GameOverDate + ' ' + match.GameOverTime}}
                 </span>
+                <input ng-click="cancelMatch({{$index}})" type="button" time-left-to-edit="{{match.UnixTime}}" class="hide button" value=""/>
             </div>
         </div>
-
+        <!-- Selects for team blue -->
         <div class="team-names blue" ng-class="{winner: match.BlueScore>match.RedScore}">
-            
             <span class="blue rating-distribution">
                 {{match.DistributedRating}}
             </span>
-            
             <span class="gravatars">
                 <a class="{{match.BluePlayer1.Id}}" href="Stats/Player?playerId={{match.BluePlayer1.Id}}">
                     <img class="gravatar" alt="Gravatar picture" src="http://www.gravatar.com/avatar/{{hex_md5(match.BluePlayer1.Email)}}?d=mm"/>
                 </a>
-                
                 <a ng-if="match.BluePlayer2.Id !== null" class="{{match.BluePlayer2.Id}}" href="Stats/Player?playerId={{match.BluePlayer2.Id}}">
                     <img class="gravatar" alt="Gravatar picture" src="http://www.gravatar.com/avatar/{{hex_md5(match.BluePlayer2.Email)}}?d=mm"/>
                 </a>
             </span>
-            
             <span class="names">
                 <a class="{{match.BluePlayer1.Id}}" href="Stats/Player?playerId={{match.BluePlayer1.Id}}">
                     {{match.BluePlayer1.Name}}
@@ -70,7 +64,6 @@
                     {{match.BluePlayer2.Name}}
                 </a>
             </span>
-
         </div>
     </div>
     

@@ -18,27 +18,24 @@
     <link href="@Url.Content("~/Css/Base.css")" rel="stylesheet" type="text/css" />
     @RenderSection("Css", false)
     
-    <script type="text/javascript" src="@Url.Content("~/Javascript/md5.js")"></script>
-    <!-- jQuery + local fallback -->
-    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
-    <script type="text/javascript">
+    <script src="@Url.Content("~/Javascript/lib/md5.js")"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+    <script>
         if (typeof jQuery == 'undefined') {
-            document.write(unescape('%3Cscript src="@Url.Content("~/Javascript/jquery.min.js")" type="text/javascript"%3E%3C/script%3E'));
+            document.write(unescape('%3Cscript src="@Url.Content("~/Javascript/lib/jquery.min.js")" type="text/javascript"%3E%3C/script%3E'));
         }
     </script>
-    <!-- angular + local fallback -->
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0rc1/angular.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0rc1/angular-resource.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0rc1/angular-route.min.js"></script>
-    <script type="text/javascript">
+    <script>
         if (typeof angular === 'undefined') {
-            document.write(unescape('%3Cscript src="@Url.Content("~/Javascript/angular.min.js")" type="text/javascript"%3E%3C/script%3E'));
-            document.write(unescape('%3Cscript src="@Url.Content("~/Javascript/angular-resource.min.js")" type="text/javascript"%3E%3C/script%3E'));
-            document.write(unescape('%3Cscript src="@Url.Content("~/Javascript/angular-route.min.js")" type="text/javascript"%3E%3C/script%3E'));
+            document.write(unescape('%3Cscript src="@Url.Content("~/Javascript/lib/angular.min.js")" type="text/javascript"%3E%3C/script%3E'));
+            document.write(unescape('%3Cscript src="@Url.Content("~/Javascript/lib/angular-resource.min.js")" type="text/javascript"%3E%3C/script%3E'));
+            document.write(unescape('%3Cscript src="@Url.Content("~/Javascript/lib/angular-route.min.js")" type="text/javascript"%3E%3C/script%3E'));
         }
     </script>
-
-    
+    <script src="@Url.Content("~/Javascript/angular/app.js")"></script>
     <!-- Feedback plugin -->
     <script type="text/javascript">
         if (!!window.innerWidth === true && window.innerWidth > 930) {
@@ -50,10 +47,15 @@
             })();
         }
     </script>
-
 </head>
 <body>
-    
+    @{
+        var currentUser = (Player)HttpContext.Current.Session["User"];
+        if (currentUser != null && !string.IsNullOrWhiteSpace(currentUser.Id))
+        {
+            <input id="current-user-id" type="hidden" value="@currentUser.Id"/>
+        }
+    }
     <div id="request-notification">
         Try the new Foosball Fighting desktop notifications - You'll love it!<br />
         <input class="button" id="notify-me" value="Ok, off we go!" />
@@ -108,8 +110,9 @@
         @Html.ActionLink("Features", "Features", "Home", null, new { @id = "feature-link" })
     </footer>
         <!-- Deferred Javascript -->
-        <script src="@Url.Content("~/Javascript/jquery.signalR-1.0.0.min.js")"></script>
+        <script src="@Url.Content("~/Javascript/lib/jquery.signalR-1.0.0.min.js")"></script>
         <script src="/signalr/hubs"></script>
+        <script src="@Url.Content("~/Javascript/FoosBall.js")"></script>
         <script src="@Url.Content("~/Javascript/FoosBall.js")"></script>
         <script src="@Url.Content("~/Javascript/Shared.js")"></script>
         @RenderSection("Javascript", false)

@@ -98,7 +98,7 @@
         }
 
         [HttpPost]
-        public ActionResult ReplayMatches(string matchId = string.Empty)
+        public ActionResult ReplayMatches()
         {
             var currentUser = (Player)Session["User"];
 
@@ -130,7 +130,6 @@
                 /////////////////////////////////////////////////////////////////////////////////////////////////////////
                 foreach (var match in allMatches)
                 {
-                    if ()
                     // Update players from the match with players from the Db.
                     match.RedPlayer1 = copyPlayers.FindOne(Query.EQ("_id", BsonObjectId.Parse(match.RedPlayer1.Id)));
                     

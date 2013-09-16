@@ -19,8 +19,8 @@
             var ReplayMatches = $resource('Admin/ReplayMatches'),
             replayPromise = ReplayMatches.save().$promise;
 
-            replayPromise.then(function() {
-
+            replayPromise.then(function () {
+                
             });
         });
     };
@@ -84,6 +84,7 @@ function SubmitMatchController($scope, $resource) {
             angular.forEach($scope.match, function (value, key) {
                 $scope.match[key] = null;
             });
+            $('option:disabled').removeAttr('disabled');
             $scope.$parent.hideForm = true;
 
             if (response.success) {

@@ -1,6 +1,7 @@
 ﻿jQuery(document).ready(function () {
     $.globals = {
-        errorState: {}
+        errorState: {},
+        notificationTimeout: null
     };
     
     /* ******************************************************************
@@ -43,17 +44,11 @@
             aspectRatio = $bg.width() / $bg.height();
 
         function resizeBg() {
-
             if (($window.width() / $window.height()) < aspectRatio) {
-                $bg
-                    .removeClass()
-                    .addClass('bgheight');
+                $bg.removeClass().addClass('bgheight');
             } else {
-                $bg
-                    .removeClass()
-                    .addClass('bgwidth');
+                $bg.removeClass().addClass('bgwidth');
             }
-
         }
 
         $window.resize(function () {
@@ -68,42 +63,6 @@
 
 function prettyPlayerName(playerName) {
     return playerName.indexOf(" ") < 0 ? playerName.length : playerName.indexOf(" ");
-}
-
-function buildNotificationText(eventData) {
-    if (!eventData) {
-        return undefined;
-    }
-    var matchResult = JSON.parse(eventData);
-    
-    var redPlayer1ShorteningIndex = prettyPlayerName(matchResult.RedPlayer1);
-    var redPlayer2ShorteningIndex = prettyPlayerName(matchResult.RedPlayer2);
-    var bluePlayer1ShorteningIndex = prettyPlayerName(matchResult.BluePlayer1);
-    var bluePlayer2ShorteningIndex = prettyPlayerName(matchResult.BluePlayer2);
-
-    var redTeam = matchResult.RedPlayer1.substr(0, redPlayer1ShorteningIndex);
-    var blueTeam = matchResult.BluePlayer1.substr(0, bluePlayer1ShorteningIndex);
-
-    var redScore = matchResult.RedScore;
-    var blueScore = matchResult.BlueScore;
-
-    var outcome = matchResult.RedScore > matchResult.BlueScore ? "\ngave a beating to \n" : "\ngot a beating by \n";
-    
-    redTeam += (matchResult.RedPlayer2.length === 0) ? "" : " & " + matchResult.RedPlayer2.substr(0, redPlayer2ShorteningIndex);
-    blueTeam += (matchResult.BluePlayer2.length === 0) ? "" : " & " + matchResult.BluePlayer2.substr(0, bluePlayer2ShorteningIndex);
-    
-    return redTeam + outcome + blueTeam + "\n" + redScore + " - " + blueScore;
-}
-
-function onMatchResolved(event, eventData) {
-    var icon = 'https://s3-eu-west-1.amazonaws.com/images.trustpilot.com/static/foosball/icon_football.png';
-    var title = 'FoosBall Fight resolved';
-    var body = buildNotificationText(eventData);
-    if (!body) {
-        return;
-    }
-    var notification = window.webkitNotifications.createNotification(icon, title, body);
-    notification.show();
 }
 
 function displayRequestForUsingWebkitNotifications() {

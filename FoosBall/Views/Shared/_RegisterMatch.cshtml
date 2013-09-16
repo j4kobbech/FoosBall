@@ -36,10 +36,10 @@
         </div>
         <div class="team-scores">
             <div class="form-input opponent red">
-                <input type="number" ng-model="match.RedScore" name="redScore" foosball-score required min="0" value="0" class="team-score" />
+                <input type="number" ng-model="match.RedScore" name="redScore" id="redScore" foosball-score required min="0" value="0" class="team-score" />
             </div>
             <div class="form-input opponent blue">
-                <input type="number" ng-model="match.BlueScore" name="blueScore" foosball-score required min="0" value="0" class="team-score" />
+                <input type="number" ng-model="match.BlueScore" name="blueScore" id="blueScore" foosball-score required min="0" value="0" class="team-score" />
             </div>
             <div class="form-button">
                 <input type="submit" ng-disabled="resolveMatchForm.$invalid" value="Submit score" class="submit-button button" id="submit-score-button"/>

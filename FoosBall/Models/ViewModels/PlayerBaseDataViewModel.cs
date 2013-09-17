@@ -10,13 +10,6 @@
     {
         public PlayerBaseDataViewModel()
         {
-            var genderList = new List<SelectListItem>
-                                 {
-                                     new SelectListItem { Text = "Male", Value = "Male" },
-                                     new SelectListItem { Text = "Female", Value = "Female" }
-                                 };
-
-            this.Genders = genderList;
             this.ReferralUrl = "/Players";
         }
 
@@ -25,7 +18,5 @@
         public bool SaveSuccess { get; set; }
 
         public string ReferralUrl { get; set; }
-
-        public List<SelectListItem> Genders { get; set; }
     }
 }

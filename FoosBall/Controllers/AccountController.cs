@@ -108,7 +108,6 @@
 
             var name = viewModel.Player.Name;
             var password = Md5.CalculateMd5(viewModel.Player.Password);
-            var gender = viewModel.Player.Gender;
             
             var playerCollection = this.Dbh.GetCollection<Player>("Players");
 
@@ -117,7 +116,6 @@
                                     Id = BsonObjectId.GenerateNewId().ToString(),
                                     Email = email,
                                     Name = name,
-                                    Gender = gender,
                                     Password = password,
                                     Won = 0,
                                     Lost = 0,
@@ -170,7 +168,6 @@
                     && (currentUser.Id == viewModel.Player.Id || this.Settings.AdminAccount.Contains(currentUser.Email)))
                 {
                     var player = DbHelper.GetPlayer(viewModel.Player.Id);
-                    var gender = viewModel.Player.Gender;
 
                     player.Email = string.IsNullOrEmpty(viewModel.Player.Email)
                                         ? player.Email
@@ -178,9 +175,6 @@
                     player.Name = string.IsNullOrEmpty(viewModel.Player.Name)
                                         ? player.Name
                                         : viewModel.Player.Name;
-                    player.Gender = string.IsNullOrEmpty(gender) 
-                                        ? player.Gender 
-                                        : gender;
                     player.Password = string.IsNullOrEmpty(viewModel.Player.Password)
                                         ? player.Password
                                         : Md5.CalculateMd5(viewModel.Player.Password);

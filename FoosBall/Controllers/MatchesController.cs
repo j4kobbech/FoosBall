@@ -45,6 +45,20 @@
             return Json(playedMatches, JsonRequestBehavior.AllowGet);
         }
 
+        [HttpGet]
+        public ActionResult GetRating(double winnerRating, double loserRating)
+        {
+            var ratingModifier = Rating.GetRatingModifier(winnerRating, loserRating);
+            var expectedScore = Rating.GetWinnerExpectedScore(winnerRating, loserRating);
+            var result = new
+            {
+                RatingModifier = ratingModifier, 
+                ExpectedScore = expectedScore,
+                KModifier = Rating.KModifier
+            };
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
         // POST: /Matches/RegisterMatch
         [HttpPost]
         public ActionResult SubmitMatch(Match newMatch)

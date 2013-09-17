@@ -1,7 +1,7 @@
 ﻿jQuery(document).ready(function () {
     $.globals = {
         errorState: {},
-        notificationTimeout: null
+        notificationTimeout: null,
     };
     
     /* ******************************************************************
@@ -107,13 +107,24 @@ function errorState() {
     return state;
 }
 
+function nvl(nullValue, replace) {
+    return nullValue ? nullValue : replace;
+}
+ 
 // Shorthand logging
-function log(str) {
-    console.log(str);
+function log(str, timer) {
+    var returnedString = undefined;
+    
+    if (typeof timer === "boolean" && timer === true) {
+        returnedString = now() + ": " + str;
+    } else {
+        returnedString = str;
+    }
+    console.log(returnedString);
 }
 
 // Fine grained timing function. Returns time in milliseconds from window.open event is fired
-performance.now = (function (window) {
+window.performance.now = (function (window) {
     return window.performance.now ||
            window.performance.mozNow ||
            window.performance.msNow ||
@@ -126,5 +137,5 @@ performance.now = (function (window) {
 
 // Shorthand method for window.performance.now()
 function now() {
-    return window.performance.now();
+    return parseInt(window.performance.now());
 }

@@ -108,7 +108,6 @@ function prepareMatch(match) {
 }
 
 function writeMatchPredictions() {
-    log('starting to predict', true);
     
     var $redTeam = $('#team-red-players'),
         $blueTeam = $('#team-blue-players'),
@@ -157,7 +156,6 @@ function writeMatchPredictions() {
 
                 $redTeamPrediction.removeClass('hide');
                 $blueTeamPrediction.removeClass('hide');
-                log('ending predict', true);
             }
         });
     } else {

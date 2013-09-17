@@ -188,6 +188,9 @@
     <Content Include="Css\Matches.css">
       <DependentUpon>Matches.scss</DependentUpon>
     </Content>
+    <Content Include="Css\Matches.min.css">
+      <DependentUpon>Matches.scss</DependentUpon>
+    </Content>
     <Content Include="Css\Players.css">
       <DependentUpon>Players.scss</DependentUpon>
     </Content>

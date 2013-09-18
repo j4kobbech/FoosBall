@@ -71,23 +71,30 @@ function buildNotificationText(eventData) {
     }
     var matchResult = JSON.parse(eventData);
 
-    var redPlayer1ShorteningIndex = prettyPlayerName(matchResult.RedPlayer1);
-    var redPlayer2ShorteningIndex = prettyPlayerName(matchResult.RedPlayer2);
-    var bluePlayer1ShorteningIndex = prettyPlayerName(matchResult.BluePlayer1);
-    var bluePlayer2ShorteningIndex = prettyPlayerName(matchResult.BluePlayer2);
+    var redPlayer1Name = prettyPlayerName(matchResult.RedPlayer1);
+    var redPlayer2Name = prettyPlayerName(matchResult.RedPlayer2);
+    var bluePlayer1Name = prettyPlayerName(matchResult.BluePlayer1);
+    var bluePlayer2Name = prettyPlayerName(matchResult.BluePlayer2);
 
-    var redTeam = matchResult.RedPlayer1.substr(0, redPlayer1ShorteningIndex);
-    var blueTeam = matchResult.BluePlayer1.substr(0, bluePlayer1ShorteningIndex);
+    var redTeam = (redPlayer2Name.length === 0) ? redPlayer1Name : redPlayer1Name + " & " + redPlayer2Name;
+    var blueTeam = (bluePlayer2Name.length === 0) ? bluePlayer1Name : bluePlayer1Name + " & " + bluePlayer2Name;
 
     var redScore = matchResult.RedScore;
     var blueScore = matchResult.BlueScore;
 
-    var outcome = matchResult.RedScore > matchResult.BlueScore ? "\ngave a beating to \n" : "\ngot a beating by \n";
+    if (redScore > blueScore) {
+        return redTeam + "\ngave a beating to \n" + blueTeam + "\n" + redScore + " - " + blueScore;
+    } else {
+        return blueTeam + "\ngave a beating to \n" + redTeam + "\n" + blueScore + " - " + redScore;
+    }
+}
 
-    redTeam += (matchResult.RedPlayer2.length === 0) ? "" : " & " + matchResult.RedPlayer2.substr(0, redPlayer2ShorteningIndex);
-    blueTeam += (matchResult.BluePlayer2.length === 0) ? "" : " & " + matchResult.BluePlayer2.substr(0, bluePlayer2ShorteningIndex);
-
-    return redTeam + outcome + blueTeam + "\n" + redScore + " - " + blueScore;
+function prettyPlayerName(playerName) {
+    var space = playerName.indexOf(" ");
+    if (space < 0) {
+        return playerName;
+    }
+    return playerName.substr(0, space);
 }
 
 function onMatchResolved(event, eventData) {

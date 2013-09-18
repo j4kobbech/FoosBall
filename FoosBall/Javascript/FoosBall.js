@@ -61,10 +61,6 @@
  * Custom js functions
  */
 
-function prettyPlayerName(playerName) {
-    return playerName.indexOf(" ") < 0 ? playerName.length : playerName.indexOf(" ");
-}
-
 function displayRequestForUsingWebkitNotifications() {
     var $requestDiv = $('#request-notification');
     $requestDiv.slideDown(250, function() {

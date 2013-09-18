@@ -1,5 +1,6 @@
 ﻿namespace FoosBall.Controllers
 {
+    using System;
     using System.Web.Mvc;
 
     using FoosBall.ControllerHelpers;
@@ -49,6 +50,12 @@
             }
 
             return RedirectToAction("Index", "Home");
+        }
+
+        [HttpGet]
+        public ActionResult GetLogonStatus()
+        {
+            return View("_LogOnPartial");
         }
 
         [HttpPost]

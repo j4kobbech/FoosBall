@@ -55,6 +55,20 @@
             resizeBg();
         }).trigger("resize");
     });
+    
+    // Autologin
+    $.ajax({
+        url: 'Account/Logon',
+        success: function() {
+            $.ajax({
+                url: 'Account/Logon',
+                success: function (updatedHtml) {
+                    console.log(updatedHtml);
+                    //$('.login-display').html(updatedHtml);
+                }
+            });
+        }
+    });
 });
 
 /* ******************************************************************

@@ -61,10 +61,9 @@
         url: 'Account/Logon',
         success: function() {
             $.ajax({
-                url: 'Account/Logon',
+                url: 'Account/GetLogonStatus',
                 success: function (updatedHtml) {
-                    console.log(updatedHtml);
-                    //$('.login-display').html(updatedHtml);
+                    $('.login-display').html(updatedHtml);
                 }
             });
         }

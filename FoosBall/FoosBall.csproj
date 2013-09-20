@@ -182,6 +182,9 @@
     <Content Include="Css\Base.css">
       <DependentUpon>Base.scss</DependentUpon>
     </Content>
+    <Content Include="Css\Base.min.css">
+      <DependentUpon>Base.scss</DependentUpon>
+    </Content>
     <Content Include="Css\Home.css">
       <DependentUpon>Home.scss</DependentUpon>
     </Content>
@@ -195,6 +198,9 @@
       <DependentUpon>Players.scss</DependentUpon>
     </Content>
     <Content Include="Css\Stats.css">
+      <DependentUpon>Stats.scss</DependentUpon>
+    </Content>
+    <Content Include="Css\Stats.min.css">
       <DependentUpon>Stats.scss</DependentUpon>
     </Content>
     <Content Include="Global.asax" />
@@ -235,7 +241,6 @@
     <Content Include="Css\Admin.scss" />
     <Content Include="Views\Admin\Index.cshtml" />
     <Content Include="Views\Stats\Player.cshtml" />
-    <Content Include="Css\_match-tables.scss" />
     <Content Include="Views\Stats\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>

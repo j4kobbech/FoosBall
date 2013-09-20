@@ -12,62 +12,11 @@
             displayErrorMessage(statusText + ': ' + errorThrown);
         }
     });
-    
-    /* ******************************************************************
-     * jQuery SignalR Hub Config
-     */
-    // Declare a proxy to reference the hub. 
-    var chat = $.connection.eventHub;
 
-    if (typeof window.webkitNotifications !== 'undefined') {
-        if (window.webkitNotifications.checkPermission() === 0) {
-            $('body').on('match-resolved', onMatchResolved);
-            
-        } else {
-            if (window.webkitNotifications.checkPermission() === 1) {
-                displayRequestForUsingWebkitNotifications();
-            }
-        }
-    }
-
-    // A function that the hub/server can call to broadcast messages.
-    chat.client.broadcastMessage = function (eventData) {
-        $('body').trigger('match-resolved', eventData);
-    };
-
-    // Start the connection.
-    $.connection.hub.start();
-
-    $(window).load(function () {
-        var $window = $(window),
-            $bg = $("#bg"),
-            aspectRatio = $bg.width() / $bg.height();
-
-        function resizeBg() {
-            if (($window.width() / $window.height()) < aspectRatio) {
-                $bg.removeClass().addClass('bgheight');
-            } else {
-                $bg.removeClass().addClass('bgwidth');
-            }
-        }
-
-        $window.resize(function () {
-            resizeBg();
-        }).trigger("resize");
-    });
-    
-    // Autologin
-    $.ajax({
-        url: 'Account/Logon',
-        success: function() {
-            $.ajax({
-                url: 'Account/GetLogonStatus',
-                success: function (updatedHtml) {
-                    $('.login-display').html(updatedHtml);
-                }
-            });
-        }
-    });
+    initializeSignlRHub();
+    showDesktopNotificationRequest();
+    autoResizeBackgroundImage();
+    autoLogin();
 });
 
 /* ******************************************************************
@@ -147,4 +96,64 @@ window.performance.now = (function (window) {
 // Shorthand method for window.performance.now()
 function now() {
     return parseInt(window.performance.now());
+}
+
+function autoLogin() {
+    $.ajax({
+        url: '/Account/Logon',
+        success: function () {
+            $.ajax({
+                url: '/Account/GetLogonStatus',
+                success: function (updatedHtml) {
+                    $('.login-display').html(updatedHtml);
+                }
+            });
+        }
+    });
+}
+
+function autoResizeBackgroundImage() {
+    $(window).load(function () {
+        var $window = $(window),
+            $bg = $("#bg"),
+            aspectRatio = $bg.width() / $bg.height();
+
+        function resizeBg() {
+            if (($window.width() / $window.height()) < aspectRatio) {
+                $bg.removeClass().addClass('bgheight');
+            } else {
+                $bg.removeClass().addClass('bgwidth');
+            }
+        }
+
+        $window.resize(function () {
+            resizeBg();
+        }).trigger("resize");
+    });
+}
+
+function showDesktopNotificationRequest() {
+    if (typeof window.webkitNotifications !== 'undefined') {
+        if (window.webkitNotifications.checkPermission() === 0) {
+            $('body').on('match-resolved', onMatchResolved);
+
+        } else {
+            if (window.webkitNotifications.checkPermission() === 1) {
+                displayRequestForUsingWebkitNotifications();
+            }
+        }
+    }
+}
+
+function initializeSignlRHub() {
+    // Declare a proxy to reference the hub. 
+    var chat = $.connection.eventHub;
+
+    // A function that the hub/server can call to broadcast messages.
+    chat.client.broadcastMessage = function (eventData) {
+        $('body').trigger('match-resolved', eventData);
+    };
+
+    // Start the connection.
+    $.connection.hub.start();
 }

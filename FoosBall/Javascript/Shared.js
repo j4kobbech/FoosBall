@@ -11,13 +11,14 @@
         $('.' + activeTab, $menu).addClass('selected');
     }
 
-    $('.menu-list-button').on('click', function (e) {
-        e.preventDefault();
+    $('.login-display').on('click', '.menu-list-button', function(event) {
+        event.preventDefault();
+        log(this);
         $menu.toggle();
         $menuarrow.toggle();
     });
 
-    $menu.on('click', 'li', function (event) {
+    $('.login-display').on('click', 'LI', function(event) {
         event.preventDefault();
         var redirectUrl;
         var $target = $(event.target);

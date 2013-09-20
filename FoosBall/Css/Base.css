@@ -376,7 +376,9 @@ html[xmlns] .clearfix {
   color: Red; }
 
 #request-notification {
-  background-color: #fff;
+  position: absolute;
+  z-index: 99999;
+  background-color: #D8D8D8;
   display: none;
   font-weight: bold;
   padding: 15px;

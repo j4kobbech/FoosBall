@@ -6,7 +6,6 @@
     using Main;
     using Models.Base;
     using Models.Domain;
-    using Models.ViewModels;
     using MongoDB.Bson;
     using MongoDB.Driver.Builders;
 
@@ -17,7 +16,7 @@
         // GET: /Matches/
         public ActionResult Index()
         {
-            return View(new MatchesViewModel { Settings = Settings });
+            return View();
         }
 
         [HttpGet]
@@ -202,24 +201,24 @@
 
                     if (match.RedScore > match.BlueScore)
                     {
-                        winners.MatchTeam.Add(match.RedPlayer1);
-                        winners.MatchTeam.Add(match.RedPlayer2);
-                        losers.MatchTeam.Add(match.BluePlayer1);
-                        losers.MatchTeam.Add(match.BluePlayer2);
+                        winners.Players.Add(match.RedPlayer1);
+                        winners.Players.Add(match.RedPlayer2);
+                        losers.Players.Add(match.BluePlayer1);
+                        losers.Players.Add(match.BluePlayer2);
                     }
                     else
                     {
-                        winners.MatchTeam.Add(match.BluePlayer1);
-                        winners.MatchTeam.Add(match.BluePlayer2);
-                        losers.MatchTeam.Add(match.RedPlayer1);
-                        losers.MatchTeam.Add(match.RedPlayer2);
+                        winners.Players.Add(match.BluePlayer1);
+                        winners.Players.Add(match.BluePlayer2);
+                        losers.Players.Add(match.RedPlayer1);
+                        losers.Players.Add(match.RedPlayer2);
                     }
 
                     // Get the rating modifier
                     match.DistributedRating = Rating.GetRatingModifier(winners.GetTeamRating(), losers.GetTeamRating());
 
                     // Propagate the rating and stats to the team members of both teams
-                    foreach (var member in winners.MatchTeam.Where(member => member.Id != null))
+                    foreach (var member in winners.Players.Where(member => member.Id != null))
                     {
                         member.Rating += match.DistributedRating;
                         member.Won++;
@@ -227,7 +226,7 @@
                         playerCollection.Save(member);
                     }
 
-                    foreach (var member in losers.MatchTeam.Where(member => member.Id != null))
+                    foreach (var member in losers.Players.Where(member => member.Id != null))
                     {
                         member.Rating -= match.DistributedRating;
                         member.Lost++;

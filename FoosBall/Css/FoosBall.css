@@ -47,23 +47,6 @@ h5, h6 {
 .dimmed {
   color: #999999; }
 
-/* TABLE
-----------------------------------------------------------*/
-table {
-  border-collapse: collapse;
-  width: 100%; }
-  table th, table td {
-    letter-spacing: 0;
-    padding: 6px 3px 6px 3px;
-    text-align: left; }
-  table td {
-    font-weight: normal; }
-  table th {
-    color: black;
-    font-size: .8em;
-    padding: 6px 3px 0 3px;
-    text-align: center; }
-
 /* PRIMARY LAYOUT ELEMENTS
 ----------------------------------------------------------*/
 /* you can specify a greater or lesser percentage for the
@@ -77,16 +60,6 @@ page width. Or, you can specify an exact pixel width. */
     #page {
       margin-left: auto;
       margin-right: auto; } }
-
-footer, #footer {
-  color: #dddddd;
-  font-size: 12px;
-  margin: 20px 0 0 0;
-  padding: 10px 0;
-  text-align: center;
-  border-top: 1px solid rgba(255, 255, 255, 0.5); }
-  footer a, footer a:link, footer a:visited, #footer a, #footer a:link, #footer a:visited {
-    color: #dddddd; }
 
 /* TAB MENU
 ----------------------------------------------------------*/
@@ -159,7 +132,7 @@ textarea {
 
 /* --- FoosBall --- v v v
 /* ---------------------------------------------------------*/
-header, footer, nav, section {
+header, nav, section {
   display: block; }
 
 header {
@@ -399,4 +372,307 @@ html[xmlns] .clearfix {
 
 .bgheight {
   height: 100%; }
+
+.register, .logon {
+  background: none #fff;
+  border-radius: 5px;
+  padding: 15px 20px; }
+
+label {
+  display: block; }
+  label[for="RememberMe"] {
+    display: inline; }
+
+#profile-gravatar {
+  border: 4px solid #dddddd;
+  height: 80px;
+  margin: 4px; }
+
+.admin label {
+  margin: 5px 0 0 0;
+  display: block;
+  float: left;
+  clear: left; }
+
+#app-configuration .button {
+  margin-top: 5px; }
+
+input[type="checkbox"] {
+  margin: 5px;
+  float: left; }
+
+#list-of-emails textarea {
+  width: 100%; }
+
+.home {
+  background: none #fff;
+  border-radius: 5px;
+  padding: 15px 20px; }
+  .home p {
+    text-align: center; }
+
+#welcome-message {
+  text-align: center; }
+
+.event-feed-items-header {
+  text-align: center; }
+
+.event-feed-items {
+  list-style: none; }
+  .event-feed-items li {
+    padding-top: 20px; }
+  .event-feed-items a {
+    font-weight: normal;
+    font-size: 1.0em;
+    text-decoration: underline; }
+
+.feature-list {
+  list-style: none;
+  padding-left: 20px; }
+  .feature-list li ul li a {
+    text-decoration: underline; }
+
+#match-list {
+  min-height: 590px; }
+
+.match {
+  margin: 40px 0 0 0; }
+
+.team-names {
+  position: relative;
+  background: none rgba(255, 255, 255, 0.75);
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+  width: 40%;
+  height: 90px;
+  float: left;
+  padding: 10px 15px; }
+  .team-names.red {
+    text-align: left; }
+    .team-names.red .gravatars {
+      left: 10px; }
+      .team-names.red .gravatars img {
+        float: left;
+        margin-right: 5px; }
+  .team-names.blue {
+    text-align: right; }
+    .team-names.blue .gravatars {
+      right: 10px; }
+      .team-names.blue .gravatars img {
+        float: right;
+        margin-left: 5px; }
+  .team-names.winner {
+    background: none white;
+    font-weight: bold; }
+  .team-names .names {
+    display: none;
+    margin: 35px 0 0 0;
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis; }
+    @media only screen and (min-width: 350px) {
+      .team-names .names {
+        display: block; } }
+  .team-names .rating-distribution.red {
+    float: right; }
+  .team-names .rating-distribution.blue {
+    float: left; }
+  .team-names .gravatars {
+    position: absolute;
+    top: -20px; }
+    .team-names .gravatars img {
+      border-radius: 50%;
+      width: 48px;
+      height: auto; }
+      @media only screen and (min-width: 350px) {
+        .team-names .gravatars img {
+          width: 52px; } }
+
+.team-scores {
+  float: left;
+  width: 20%;
+  padding: 10px 15px;
+  text-align: center;
+  color: white; }
+  .team-scores .score {
+    position: relative;
+    font-size: 2.5em; }
+    .team-scores .score .red, .team-scores .score .blue {
+      position: absolute;
+      width: 50px;
+      text-align: center;
+      top: 40px;
+      z-index: 10;
+      color: #222222; }
+      @media only screen and (min-width: 350px) {
+        .team-scores .score .red, .team-scores .score .blue {
+          position: relative;
+          color: white; } }
+    .team-scores .score .red {
+      left: -100px; }
+      @media only screen and (min-width: 350px) {
+        .team-scores .score .red {
+          top: 0;
+          left: 0; } }
+    .team-scores .score .blue {
+      right: -100px; }
+      @media only screen and (min-width: 350px) {
+        .team-scores .score .blue {
+          top: 0;
+          right: 0; } }
+  .team-scores .winner {
+    font-weight: bold; }
+  .team-scores .long-time {
+    display: none; }
+  @media only screen and (min-width: 350px) {
+    .team-scores .short-time {
+      display: none; }
+    .team-scores .long-time {
+      display: block; } }
+
+#create-match-button {
+  margin-top: 10px; }
+
+.button.fetch {
+  margin-top: 20px; }
+
+/* SaveMatchResult View
+----------------------------------------------------------*/
+#match-form {
+  background: none #fff;
+  border-radius: 5px;
+  margin-top: 20px;
+  padding: 15px 20px; }
+
+.team {
+  width: 40%; }
+
+.team-scores {
+  width: 20%; }
+
+.team-score {
+  font-size: 22px;
+  height: 40px;
+  margin: 5px auto 0 auto;
+  text-align: center;
+  width: 60px !important; }
+  .team-score.invalid {
+    border: 2px solid red; }
+
+.team-name {
+  font-weight: bold; }
+
+.score-prediction {
+  font-weight: normal; }
+
+#team-red-players {
+  float: left; }
+
+#team-blue-players {
+  float: right; }
+  #team-blue-players .team-name {
+    text-align: right; }
+
+#team-results {
+  clear: both; }
+
+.opponent {
+  padding: 20px 0; }
+  .opponent input {
+    width: 40px;
+    margin: 0 auto;
+    display: block; }
+  .opponent.red {
+    float: left;
+    width: 45%; }
+  .opponent.blue {
+    float: right;
+    width: 45%; }
+
+.Players .player {
+  position: relative;
+  background: none #fff;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+  width: 75%;
+  padding: 10px 15px;
+  margin: 30px auto;
+  background-color: rgba(255, 255, 255, 0.6); }
+  .Players .player:nth-child(1) {
+    background: url("https://s3-eu-west-1.amazonaws.com/images.trustpilot.com/static/foosball/icon_medal_gold.png"); }
+  .Players .player:nth-child(2) {
+    background: url("https://s3-eu-west-1.amazonaws.com/images.trustpilot.com/static/foosball/icon_medal_silver.png"); }
+  .Players .player:nth-child(3) {
+    background: url("https://s3-eu-west-1.amazonaws.com/images.trustpilot.com/static/foosball/icon_medal_bronze.png"); }
+  .Players .player:nth-child(-n+3) {
+    background-color: rgba(255, 255, 255, 0.85);
+    background-repeat: no-repeat;
+    background-position: 11px 20px;
+    background-size: 50px 50px;
+    height: 75px; }
+  .Players .player .ranking {
+    float: left;
+    font-size: 26px;
+    font-weight: bold;
+    color: #D1D1D1;
+    margin-right: 0;
+    margin-top: 9px;
+    width: 40px; }
+  .Players .player .avatar {
+    float: left;
+    margin: -30px 10px 0 -5px; }
+    .Players .player .avatar .gravatar {
+      width: 52px;
+      height: auto;
+      border-radius: 50%; }
+  .Players .player .info {
+    float: left;
+    margin-top: 4px; }
+    .Players .player .info .name {
+      width: 200px;
+      float: left; }
+    .Players .player .info .score, .Players .player .info .ratio {
+      margin: 0 0 0 15px;
+      float: left; }
+    .Players .player .info sup {
+      color: #999999;
+      font-size: 10px;
+      margin-left: 2px; }
+
+#profile-gravatar {
+  border: 4px solid #dddddd;
+  height: 80px;
+  margin: 4px; }
+
+.statistics {
+  background: none #fff;
+  border-radius: 5px;
+  padding: 15px; }
+  .statistics .info {
+    font-weight: bold;
+    margin: 0 0 10px 0; }
+    .statistics .info .thin {
+      font-weight: normal; }
+  .statistics .stat {
+    width: 25%;
+    float: left;
+    text-align: center;
+    padding: 20px; }
+    .statistics .stat .avatar img {
+      border-radius: 50%; }
+  .statistics.player {
+    padding: 25px; }
+    .statistics.player .avatar {
+      margin: -40px 10px 0 -5px; }
+      .statistics.player .avatar .gravatar {
+        border-radius: 50%; }
+    .statistics.player .column {
+      float: left; }
+      .statistics.player .column.first {
+        width: 40%; }
+      .statistics.player .column.second {
+        width: 60%; }
 

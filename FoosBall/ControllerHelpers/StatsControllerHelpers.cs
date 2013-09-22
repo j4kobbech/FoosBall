@@ -3,12 +3,11 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
-
     using Main;
     using Models;
     using Models.Custom;
     using Models.Domain;
-
+    using Models.ViewModels;
     using MongoDB.Driver;
     using MongoDB.Driver.Builders;
 
@@ -160,10 +159,10 @@
             return streaks.GetLongestStreak().Count;
         }
 
-        public static RatingDifference GetBiggestRatingWin()
+        public static StatsAggregateViewModel.BiggestRatingWinModel GetBiggestRatingWin()
         {
-            var matches = Dbh.GetCollection<Match>("Matches").FindAll().SetSortOrder(SortBy.Ascending("GameOverTime"));
-            var ratingDiff = new RatingDifference();
+            var matches = Dbh.GetCollection<Match>("Matches").FindAll();
+            var biggestRatingWin = new StatsAggregateViewModel.BiggestRatingWinModel();
             
             foreach (var match in matches)
             {
@@ -173,30 +172,31 @@
 
                 if (match.RedScore > match.BlueScore)
                 {
-                    winners.MatchTeam.Add(match.RedPlayer1);
-                    winners.MatchTeam.Add(match.RedPlayer2);
-                    losers.MatchTeam.Add(match.BluePlayer1);
-                    losers.MatchTeam.Add(match.BluePlayer2);
+                    winners.Players.Add(match.RedPlayer1);
+                    winners.Players.Add(match.RedPlayer2);
+                    losers.Players.Add(match.BluePlayer1);
+                    losers.Players.Add(match.BluePlayer2);
                 }
                 else
                 {
-                    winners.MatchTeam.Add(match.BluePlayer1);
-                    winners.MatchTeam.Add(match.BluePlayer2);
-                    losers.MatchTeam.Add(match.RedPlayer1);
-                    losers.MatchTeam.Add(match.RedPlayer2);
+                    winners.Players.Add(match.BluePlayer1);
+                    winners.Players.Add(match.BluePlayer2);
+                    losers.Players.Add(match.RedPlayer1);
+                    losers.Players.Add(match.RedPlayer2);
                 }
 
                 // Get the rating modifier
                 var ratingModifier = Rating.GetRatingModifier(winners.GetTeamRating(), losers.GetTeamRating());
 
-                if (ratingModifier > ratingDiff.Rating)
+                if (ratingModifier > biggestRatingWin.Rating)
                 {
-                    ratingDiff.Rating = ratingModifier;
-                    ratingDiff.Match = match;
+                    biggestRatingWin.Rating = ratingModifier;
+                    biggestRatingWin.WinningTeam = winners;
+                    biggestRatingWin.LosingTeam = losers;
                 }
             }
 
-            return ratingDiff;
+            return biggestRatingWin;
         }
 
         public static Dictionary<string, BestFriendForever> GetBestFriendForever(string playerId, List<Match> matches)

@@ -76,6 +76,8 @@
         public double MinimumValue { get; set; }
 
         public double MaximumValue { get; set; }
+
+        public Player Player { get; set; }
     }
 
 

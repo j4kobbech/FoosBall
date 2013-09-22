@@ -2,23 +2,18 @@
     // ******************************************************************
     // Menu highlighting and animation 
     //
-    var activeTab = $('#page').attr('class');
     var $menu = $('#main-menu');
     var $menuarrow = $('.menu-arrow');
 
-    if (!!activeTab !== false) {
-        $menu.find('li').removeClass('selected');
-        $('.' + activeTab, $menu).addClass('selected');
-    }
-
+    // open/close the main menu
     $('.login-display').on('click', '.menu-list-button', function(event) {
         event.preventDefault();
-        log(this);
         $menu.toggle();
         $menuarrow.toggle();
     });
 
-    $('.login-display').on('click', 'LI', function(event) {
+    // redirect on menu-item click
+    $menu.on('click', 'li', function (event) {
         event.preventDefault();
         var redirectUrl;
         var $target = $(event.target);

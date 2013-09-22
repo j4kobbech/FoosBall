@@ -1,115 +1,111 @@
-﻿@model StatsAggregateViewModel
-@{
+﻿@{
     ViewBag.Title = "Stats";
 }
-@section Javascript { <script async src="@Url.Content("~/Javascript/Stats.js")"></script> }
-@section Css{ <link rel="stylesheet" href="/Css/Stats.css"/>}
+@section Javascript { 
+    <script src="@Url.Content("~/Javascript/angular/stats.controllers.js")"></script> 
+}
 
-<div class="statistics clearfix">
-   
-    @if (@Model.TotalNumberOfPlayedMatches > 0)
-    {
-        <div class="stat">
-            <div class="info">Most Fights</div>
-            <div class="avatar">
-                <a href="@Url.Action("Player","Stats", new {playerId = @Model.MostFights.Id })"><img class="gravatar" title="@Model.MostFights.Name" src="@Html.GetGravatarEmailHash(@Model.MostFights.Email)?d=mm"/></a>
-            </div>
-            <div class="info first">
-                @Model.MostFights.Played <span class="thin">fights fought</span>
-            </div>
+<div ng-cloak ng-controller="StatsController" class="statistics clearfix">
+    <div class="stat">
+        <div class="info">Most Fights</div>
+        <div class="avatar">
+            <a href="{{getPlayerStatsUrl(stats.MostFights.Id)}}"><img class="gravatar" title="{{stats.MostFights.Name}}" ng-src="{{stats.MostFights.GravatarUrl}}"/></a>
         </div>
-        
-        <div class="stat">
-            <div class="info">Most Wins</div>
-            <div class="avatar">
-                <a href="@Url.Action("Player","Stats", new {playerId = @Model.MostWins.Id })"><img class="gravatar" title="@Model.MostWins.Name" src="@Html.GetGravatarEmailHash(@Model.MostWins.Email)?d=mm"/></a>
-            </div>
-            <div class="info">@Model.MostWins.Won <span class="thin">fights won</span></div>
+        <div class="info first">
+            {{stats.MostFights.Played}} <span class="thin">fights fought</span>
         </div>
+    </div>
 
-        <div class="stat">
-            <div class="info">Most Losses</div>
-            <div class="avatar">
-                <a href="@Url.Action("Player","Stats", new {playerId = @Model.MostLosses.Id })"><img class="gravatar" title="@Model.MostLosses.Name" src="@Html.GetGravatarEmailHash(@Model.MostLosses.Email)?d=mm"/></a>
-            </div>
-            <div class="info">@Model.MostLosses.Lost <span class="thin">fights lost</span></div>
+    <div class="stat">
+        <div class="info">Most Wins</div>
+        <div class="avatar">
+            <a href="{{getPlayerStatsUrl(stats.MostWins.Id)}}"><img class="gravatar" title="{{stats.MostWins.Name}}" ng-src="{{stats.MostWins.GravatarUrl}}"/></a>
         </div>
+        <div class="info">{{stats.MostWins.Won}} <span class="thin">fights won</span></div>
+    </div>
 
-        <div class="stat">
-            <div class="info">Top Ranked</div>
-            <div class="avatar">
-                <a href="@Url.Action("Player","Stats", new {playerId = @Model.TopRanked.Id })"><img class="gravatar" title="@Model.TopRanked.Name" src="@Html.GetGravatarEmailHash(@Model.TopRanked.Email)?d=mm"/></a>
-            </div>
-            <div class="info"><a href="@Url.Action("Player","Stats", new {playerId = @Model.TopRanked.Id })">@Model.TopRanked.Name</a></div>
+    <div class="stat">
+        <div class="info">Most Losses</div>
+        <div class="avatar">
+            <a href="{{getPlayerStatsUrl(stats.MostLosses.Id)}}"><img class="gravatar" title="{{stats.MostLosses.Name}}" ng-src="{{stats.MostLosses.GravatarUrl}}"/></a>
         </div>
+        <div class="info">{{stats.MostLosses.Lost}} <span class="thin">fights lost</span></div>
+    </div>
 
-        <div class="stat">
-            <div class="info">Bottom Ranked</div>
-            <div class="avatar">
-                <a href="@Url.Action("Player","Stats", new {playerId = @Model.BottomRanked.Id })"><img class="gravatar" title="@Model.BottomRanked.Name" src="@Html.GetGravatarEmailHash(@Model.BottomRanked.Email)?d=mm"/></a>
-            </div>
-            <div class="info"><a href="@Url.Action("Player","Stats", new {playerId = @Model.BottomRanked.Id })">@Model.BottomRanked.Name</a></div>
+    <div class="stat">
+        <div class="info">Top Ranked</div>
+        <div class="avatar">
+            <a href="{{getPlayerStatsUrl(stats.TopRanked.Id)}}"><img class="gravatar" title="{{stats.TopRanked.Name}}" ng-src="{{stats.TopRanked.GravatarUrl}}"/></a>
         </div>
+        <div class="info"><a href="{{getPlayerStatsUrl(stats.TopRanked.Id)}}">{{stats.TopRanked.Name}}</a></div>
+    </div>
 
-        <div class="stat">
-            <div class="info">Highest Rating Ever</div>
-            <div class="avatar">
-                <a href="@Url.Action("Player","Stats", new {playerId = @Model.HighestRatingEver.Id })"><img class="gravatar" title="@Model.HighestRatingEver.Name" src="@Html.GetGravatarEmailHash(@Model.HighestRatingEver.Email)?d=mm"/></a>
-            </div>
-            <div class="info"><span class="thin">with</span> @Model.HighestRatingEver.Rating.ToString("F2") <span class="thin">rating points</span></div>
+    <div class="stat">
+        <div class="info">Bottom Ranked</div>
+        <div class="avatar">
+            <a href="{{getPlayerStatsUrl(stats.BottomRanked.Id)}}"><img class="gravatar" title="{{stats.BottomRanked.Name}}" ng-src="{{stats.BottomRanked.GravatarUrl}}"/></a>
         </div>
+        <div class="info"><a href="{{getPlayerStatsUrl(stats.BottomRanked.Id)}}">{{stats.BottomRanked.Name}}</a></div>
+    </div>
 
-        <div class="stat">
-            <div class="info">Lowest Rating Ever</div>
-            <div class="avatar">
-                <a href="@Url.Action("Player","Stats", new {playerId = @Model.LowestRatingEver.Id })"><img class="gravatar" title="@Model.LowestRatingEver.Name" src="@Html.GetGravatarEmailHash(@Model.LowestRatingEver.Email)?d=mm"/></a>
-            </div>
-            <div class="info">
-                <span class="thin">with</span> @Model.LowestRatingEver.Rating.ToString("F2") <span class="thin">rating points</span>
-            </div>
+    <div class="stat">
+        <div class="info">Highest Rating Ever</div>
+        <div class="avatar">
+            <a href="{{getPlayerStatsUrl(stats.HighestRatingEver.Id)}}"><img class="gravatar" title="{{stats.HighestRatingEver.Name}}" ng-src="{{stats.HighestRatingEver.GravatarUrl}}"/></a>
         </div>
+        <div class="info"><span class="thin">with</span> {{stats.HighestRatingEver.Rating.toFixed(2)}} <span class="thin">rating points</span></div>
+    </div>
 
-        <div class="stat">
-            <div class="info">Longest Winning streak</div>
-            <div class="avatar">
-                <a href="@Url.Action("Player","Stats", new {playerId = @Model.LongestWinningStreak.Player.Id })"><img class="gravatar" title="@Model.LongestWinningStreak.Player.Name" src="@Html.GetGravatarEmailHash(@Model.LongestWinningStreak.Player.Email)?d=mm"/></a>
-            </div>
-            <div class="info">
-                <span class="thin">won</span> @Model.LongestWinningStreak.Count <span class="thin">fights in a row</span>
-            </div>
+    <div class="stat">
+        <div class="info">Lowest Rating Ever</div>
+        <div class="avatar">
+            <a href="{{getPlayerStatsUrl(stats.LowestRatingEver.Id)}}"><img class="gravatar" title="{{stats.LowestRatingEver.Name}}" ng-src="{{stats.LowestRatingEver.GravatarUrl}}"/></a>
         </div>
+        <div class="info">
+            <span class="thin">with</span> {{stats.LowestRatingEver.Rating.toFixed(2)}} <span class="thin">rating points</span>
+        </div>
+    </div>
 
-        <div class="stat">
-            <div class="info">Longest Losing streak</div>
-            <div class="avatar">
-                <a href="@Url.Action("Player","Stats", new {playerId = @Model.LongestLosingStreak.Player.Id })"><img class="gravatar" title="@Model.LongestLosingStreak.Player.Name" src="@Html.GetGravatarEmailHash(@Model.LongestLosingStreak.Player.Email)?d=mm"/></a>
-            </div>
-            <div class="info">
-                <span class="thin">lost</span> @Model.LongestLosingStreak.Count <span class="thin">fights in a row</span>
-            </div>
+    <div class="stat">
+        <div class="info">Longest Winning streak</div>
+        <div class="avatar">
+            <a href="{{getPlayerStatsUrl(stats.LongestWinningStreak.Player.Id)}}"><img class="gravatar" title="{{stats.LongestWinningStreak.Player.Name}}" ng-src="{{stats.LongestWinningStreak.GravatarUrl}}"/></a>
         </div>
+        <div class="info">
+            <span class="thin">won</span> {{stats.LongestWinningStreak.Count}} <span class="thin">fights in a row</span>
+        </div>
+    </div>
 
-        <div class="stat">
-            <div class="info">Biggest Win</div>
-            <div class="info">
-                <a href="Stats/Player?playerId=@Model.BiggestRatingWin.Match.GetWinners()[0].Id">@Model.BiggestRatingWin.Match.GetWinners()[0].Name</a>
-                @if (Model.BiggestRatingWin.Match.GetWinners().Count == 2)
-                {
-                    <text> <span class="thin">&</span> <a href="Stats/Player?playerId=@Model.BiggestRatingWin.Match.GetWinners()[1].Id">@Model.BiggestRatingWin.Match.GetWinners()[1].Name</a></text>
-                }
-        
-                <span class="thin">beat up</span> <a href="Stats/Player?playerId=@Model.BiggestRatingWin.Match.GetLosers()[0].Id">@Model.BiggestRatingWin.Match.GetLosers()[0].Name</a>
-                @if (Model.BiggestRatingWin.Match.GetLosers().Count == 2)
-                {
-                    <text> <span class="thin">&</span> <a href="Stats/Player?playerId=@Model.BiggestRatingWin.Match.GetLosers()[1].Id">@Model.BiggestRatingWin.Match.GetLosers()[1].Name</a></text>
-                }
-                <span class="thin">and gained</span> @Model.BiggestRatingWin.Rating.ToString("F2") <span class="thin">rating points.</span>
-            </div>
+    <div class="stat">
+        <div class="info">Longest Losing streak</div>
+        <div class="avatar">
+            <a href="{{getPlayerStatsUrl(stats.LongestLosingStreak.Player.Id)}}"><img class="gravatar" title="{{stats.LongestLosingStreak.Player.Name}}" ng-src="{{stats.LongestLosingStreak.GravatarUrl}}"/></a>
         </div>
-    }
+        <div class="info">
+            <span class="thin">lost</span> {{stats.LongestLosingStreak.Count}} <span class="thin">fights in a row</span>
+        </div>
+    </div>
+    
+    <div class="stat">
+        <div class="info">Biggest Win</div>
+        <div class="info">
+            <a href="Stats/Player?playerId={{stats.BiggestRatingWin.WinningTeam[0].Id}}">{{stats.BiggestRatingWin.WinningTeam.Players[0].Name}}</a>
+            <span ng-if="stats.BiggestRatingWin.WinningTeam.length > 1">
+                <span class="thin">&</span> 
+                <a href="{{getPlayerStatsUrl(stats.BiggestRatingWin.WinningTeam[1].Id)}}">{{stats.BiggestRatingWin.WinningTeam.Players[1].Name}}</a>
+            </span>
+            <span class="thin">beat up</span> <a href="Stats/Player?playerId={{stats.BiggestRatingWin.LosingTeam[0].Id}}">{{stats.BiggestRatingWin.LosingTeam.Players[0].Name}}</a>
+            <span ng-if="stats.BiggestRatingWin.LosingTeam.length > 1">
+                <span class="thin">&</span> 
+                <a href="{{getPlayerStatsUrl(stats.BiggestRatingWin.LosingTeam[1].Id)}}">{{stats.BiggestRatingWin.LosingTeam.Players[1].Name}}</a>
+            </span>
+            <span class="thin">and gained</span> {{stats.BiggestRatingWin.Rating.toFixed(2)}} <span class="thin">rating points.</span>
+        </div>
+    </div>
 
     <div class="stat">
         <div class="info">Total number of matches:</div>
-        <div class="info first">@Model.TotalNumberOfPlayedMatches</div>
+        <div class="info first">{{stats.TotalNumberOfPlayedMatches}}</div>
     </div>
+    
 </div>

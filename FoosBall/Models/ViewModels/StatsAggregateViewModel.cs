@@ -1,5 +1,6 @@
 ﻿namespace FoosBall.Models.ViewModels
 {
+    using System.Collections.Generic;
     using Custom;
     using Domain;
 
@@ -24,7 +25,22 @@
         public Streak LongestWinningStreak { get; set; }
 
         public Streak LongestLosingStreak { get; set; }
+        
+        public BiggestRatingWinModel BiggestRatingWin { get; set; }
 
-        public RatingDifference BiggestRatingWin { get; set; }
+        public class BiggestRatingWinModel
+        {
+            public BiggestRatingWinModel()
+            {
+                this.WinningTeam = new Team();
+                this.LosingTeam = new Team();
+            }
+
+            public Team WinningTeam { get; set; }
+
+            public Team LosingTeam { get; set; }
+
+            public double Rating { get; set; }
+        }
     }
 }

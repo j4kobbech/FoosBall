@@ -3,7 +3,7 @@
         errorState: {},
         notificationTimeout: null,
     };
-    
+
     /* ******************************************************************
      * jQuery Ajax default configuration
      */
@@ -13,7 +13,7 @@
         }
     });
 
-    initializeSignlRHub();
+    initializeSignalRHub();
     showDesktopNotificationRequest();
     autoResizeBackgroundImage();
     autoLogin();
@@ -25,7 +25,7 @@
 
 function displayRequestForUsingWebkitNotifications() {
     var $requestDiv = $('#request-notification');
-    $requestDiv.slideDown(250, function() {
+    $requestDiv.slideDown(250, function () {
         var $closeNotification = $requestDiv.find('#notify-me');
 
         $closeNotification.on('click', function () {
@@ -61,18 +61,18 @@ function errorState() {
         }
         return undefined;
     });
-    
+
     return state;
 }
 
 function nvl(nullValue, replace) {
     return nullValue ? nullValue : replace;
 }
- 
+
 // Shorthand logging
 function log(str, timer) {
     var returnedString = undefined;
-    
+
     if (typeof timer === "boolean" && timer === true) {
         returnedString = now() + ": " + str;
     } else {
@@ -145,7 +145,7 @@ function showDesktopNotificationRequest() {
     }
 }
 
-function initializeSignlRHub() {
+function initializeSignalRHub() {
     // Declare a proxy to reference the hub. 
     var chat = $.connection.eventHub;
 

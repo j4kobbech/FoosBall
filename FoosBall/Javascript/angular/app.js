@@ -5,7 +5,7 @@
             link: function (scope, elm, attrs, ctrl) {
                 ctrl.$parsers.unshift(function (viewValue) {
                     var otherScore = document.querySelector('.team-score:not(#' + elm.attr('id') + ')');
-                    
+
                     if (!viewValue || !otherScore.value || viewValue === otherScore.value) {
                         scope.resolveMatchForm.redScore.$setValidity('foosballScore', false);
                         scope.resolveMatchForm.blueScore.$setValidity('foosballScore', false);
@@ -19,7 +19,7 @@
             }
         };
     })
-    .directive('timeLeftToEdit', function($timeout) {
+    .directive('timeLeftToEdit', function ($timeout) {
         return function (scope, element, attributes) {
             if (scope.currentUserId) {
                 var timeoutId,

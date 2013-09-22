@@ -15,8 +15,7 @@
         @ViewBag.Title
     </title>
 
-    <link href="@Url.Content("~/Css/Base.css")" rel="stylesheet" type="text/css" />
-    @RenderSection("Css", false)
+    <link href="@Url.Content("~/css/foosball.min.css")" rel="stylesheet" type="text/css" />
     
     <script src="@Url.Content("~/Javascript/lib/md5.js")"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
@@ -36,17 +35,6 @@
         }
     </script>
     <script src="@Url.Content("~/Javascript/angular/app.js")"></script>
-    <!-- Feedback plugin -->
-    <script type="text/javascript">
-        if (!!window.innerWidth === true && window.innerWidth > 930) {
-            var uvOptions = {};
-            (function () {
-                var uv = document.createElement('script'); uv.type = 'text/javascript'; uv.async = true;
-                uv.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'widget.uservoice.com/RphctqQQTB1Xn7A577qeA.js';
-                var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(uv, s);
-            })();
-        }
-    </script>
 </head>
 <body>
     @{
@@ -61,13 +49,13 @@
         <input class="button" id="notify-me" value="Ok, off we go!" />
     </div>
 
-    <img src="https://s3-eu-west-1.amazonaws.com/images.trustpilot.com/static/foosball/background.jpg" id="bg" class="bgwidth" />
+    <img src="https://s3-eu-west-1.amazonaws.com/images.trustpilot.com/static/foosball/background.jpg" id="bg" class="bgwidth" alt="background image"/>
     
     <header>
         <a href="@Url.Action("Index","Home")">
         <div id="app-title">
             <div class="logo-picture">
-                <img src="https://s3-eu-west-1.amazonaws.com/images.trustpilot.com/static/foosball/icon_football.png" />
+                <img src="https://s3-eu-west-1.amazonaws.com/images.trustpilot.com/static/foosball/icon_football.png" alt="logo"/>
             </div>
             <div class="logo-text">
                 @if (ViewBag.Settings.Environment.ToString() != "Production")
@@ -85,6 +73,7 @@
                 <li class="Players">@Html.ActionLink("Scoreboard", "Index", "Players")</li>
                 <li class="Matches">@Html.ActionLink("Matches", "Index", "Matches")</li>
                 <li class="Stats">@Html.ActionLink("Stats", "Index", "Stats")</li>
+                <li class="Features">@Html.ActionLink("Features", "Features", "Home")</li>
                 @if (Session["IsLoggedIn"].ToString().ToLower() == "true")
                 {
                     if (Session["Admin"].ToString().ToLower() == "true")
@@ -105,16 +94,12 @@
         </section>
     </div>
 
-    <footer>
-        @RenderSection("Footer", false)
-        @Html.ActionLink("Features", "Features", "Home", null, new { @id = "feature-link" })
-    </footer>
-        <!-- Deferred Javascript -->
-        <script src="@Url.Content("~/Javascript/lib/jquery.signalR-1.0.0.min.js")"></script>
-        <script src="/signalr/hubs"></script>
-        <script src="@Url.Content("~/Javascript/FoosBall.js")"></script>
-        <script src="@Url.Content("~/Javascript/Shared.js")"></script>
-        @RenderSection("Javascript", false)
-        @MiniProfiler.RenderIncludes()       
+    <!-- Deferred Javascript -->
+    <script src="@Url.Content("~/Javascript/lib/jquery.signalR-1.0.0.min.js")"></script>
+    <script src="/signalr/hubs"></script>
+    <script src="@Url.Content("~/Javascript/FoosBall.js")"></script>
+    <script src="@Url.Content("~/Javascript/Shared.js")"></script>
+    @RenderSection("Javascript", false)
+    @MiniProfiler.RenderIncludes()       
 </body>
 </html>

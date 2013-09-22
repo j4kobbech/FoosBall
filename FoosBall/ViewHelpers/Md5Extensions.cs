@@ -2,7 +2,7 @@
 {
     using System.Web.Mvc;
 
-    using FoosBall.Main;
+    using Main;
 
     public static class Md5Extensions
     {

@@ -1,5 +1,4 @@
-﻿@model MatchesViewModel
-@{
+﻿@{
     ViewBag.Title = "Matches";
     var currentUser = (Player)HttpContext.Current.Session["User"];
 }
@@ -8,13 +7,11 @@
     <script src="@Url.Content("~/Javascript/angular/matches.controllers.js")"></script> 
 }
 
-@section Css{ <link rel="stylesheet" href="/Css/Matches.css"/>}
-
 <div ng-controller="MatchesController" >
 
     @if (currentUser != null)
     {
-        @Html.Partial("_RegisterMatch", Model)
+        @Html.Partial("_RegisterMatch")
     }
     else
     {

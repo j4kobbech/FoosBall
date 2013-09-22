@@ -20,14 +20,19 @@
 
         public ActionResult Index()
         {
+            return View();
+        }
+
+        public ActionResult GetStatistics()
+        {
             var viewModel = new StatsAggregateViewModel
-                {
-                    MostFights = StatsControllerHelpers.GetStatMostFights(),
-                    MostWins = StatsControllerHelpers.GetStatMostWins(),
-                    MostLosses = StatsControllerHelpers.GetStatMostLosses(),
-                    TopRanked = StatsControllerHelpers.GetStatTopRanked(),
-                    BottomRanked = StatsControllerHelpers.GetStatBottomRanked()
-                };
+            {
+                MostFights = StatsControllerHelpers.GetStatMostFights(),
+                MostWins = StatsControllerHelpers.GetStatMostWins(),
+                MostLosses = StatsControllerHelpers.GetStatMostLosses(),
+                TopRanked = StatsControllerHelpers.GetStatTopRanked(),
+                BottomRanked = StatsControllerHelpers.GetStatBottomRanked()
+            };
 
             var matches = Dbh.GetCollection<Match>("Matches").FindAll();
             var matchesList = matches.SetSortOrder(SortBy.Ascending("GameOverTime")).ToList();
@@ -36,7 +41,7 @@
 
             if (viewModel.TotalNumberOfPlayedMatches == 0)
             {
-                return View(viewModel);
+                return Json(viewModel, JsonRequestBehavior.AllowGet);
             }
 
             var players = matches.Select(x => x.BluePlayer1).ToList();
@@ -54,16 +59,17 @@
             var losingStreak = StatsControllerHelpers.GetLongestLosingStreak(matchesList);
             losingStreak.Player = DbHelper.GetPlayer(losingStreak.Player.Id);
             viewModel.LongestLosingStreak = losingStreak;
+            viewModel.BiggestRatingWin = StatsControllerHelpers.GetBiggestRatingWin();
 
-            using (Profiler.Step("Calculating BiggestRatingWin"))
-            {
-                viewModel.BiggestRatingWin = StatsControllerHelpers.GetBiggestRatingWin();
-            }
-
-            return View(viewModel);
+            return Json(viewModel, JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult Player(string playerId)
+        {
+            return View();
+        }
+
+        public ActionResult GetPlayerStatistics(string playerId)
         {
             using (Profiler.Step("Calculating Player Statistics"))
             {
@@ -81,15 +87,15 @@
                     var playedMatches = matches as List<Match> ?? matches.ToList();
                     var player = playerCollection.FindOne(Query.EQ("_id", BsonObjectId.Parse(playerId)));
                     var stats = new PlayerStatsViewModel
-                        {
-                            Player = player,
-                            PlayedMatches = playedMatches.OrderByDescending(x => x.GameOverTime),
-                            LatestMatch = playedMatches.Last()
-                        };
+                    {
+                        Player = player,
+                        PlayedMatches = playedMatches.OrderByDescending(x => x.GameOverTime),
+                        LatestMatch = playedMatches.Last()
+                    };
 
                     if (playedMatches.Count == 0)
                     {
-                        return View(stats);
+                        return Json(stats, JsonRequestBehavior.AllowGet);
                     }
 
                     var bff = StatsControllerHelpers.GetBestFriendForever(playerId, playedMatches);
@@ -135,7 +141,7 @@
                     stats.LongestWinningStreak = longestWinningStreak;
                     stats.LongestLosingStreak = longestLosingStreak;
 
-                    return View(stats);
+                    return Json(stats, JsonRequestBehavior.AllowGet);
                 }
             }
 
@@ -156,6 +162,8 @@
 
             if (playerId != null)
             {
+                var playerCollection = Dbh.GetCollection<Player>("Players");
+                var player = playerCollection.Find(Query.EQ("_id", BsonObjectId.Parse(playerId))).FirstOrDefault();
                 var matches = Dbh.GetCollection<Match>("Matches")
                     .FindAll()
                     .SetSortOrder(SortBy.Ascending("GameOverTime"))
@@ -192,6 +200,7 @@
 
                 chartData.MinimumValue = minRating;
                 chartData.MaximumValue = maxRating;
+                chartData.Player = player;
             }
           
             return Json(chartData, JsonRequestBehavior.AllowGet);

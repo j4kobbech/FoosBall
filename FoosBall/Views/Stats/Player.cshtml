@@ -4,143 +4,71 @@
 }
 @section Javascript
 { 
-    <script async src="@Url.Content("~/Javascript/lib/highcharts.js")"></script>
-    <script async src="@Url.Content("~/Javascript/PlayerStats.js")"></script>
+    <script src="@Url.Content("~/Javascript/lib/highcharts.js")"></script>
+    <script src="@Url.Content("~/Javascript/angular/playerstats.controllers.js")"></script>
 }
-@section Css{ <link rel="stylesheet" href="@Url.Content("/Css/Stats.css")"/>}
 
-<div class="statistics player clearfix">
-    
+<div ng-cloak ng-controller="PlayerStatsController" class="statistics player clearfix">
     <div class="avatar">
-        <img class="gravatar" alt="@Model.Player.Name" title="@Model.Player.Name" src="@Html.GetGravatarEmailHash(@Model.Player.Email)?d=mm" />
+        <img class="gravatar" alt="{{playerStats.Player.Name}}" title="{{playerStats.Player.Name}}" ng-src="{{playerStats.Player.GravatarUrl}}" />
     </div>
-
+    
     <div class="column first">
         <div class="label">Player ranking</div>
-        <div class="info">@Model.Ranking <span class="thin">of</span> @Model.TotalNumberOfPlayers</div>
+        <div class="info">{{playerStats.Ranking}} <span class="thin">of</span> {{playerStats.TotalNumberOfPlayers}}</div>
+
         <div class="label">Elo rating:</div>
-        <div class="info">@Model.Player.Rating.ToString("F2")</div>
+        <div class="info">{{playerStats.Player.Rating.toFixed(2)}}</div>
         <div class="label">Winning ratio:</div>
-        <div class="info splitline">@Model.Player.Ratio.ToString("F2")%</div>
+        <div class="info splitline">{{playerStats.Player.Ratio.toFixed(2)}}%</div>
         
         <div class="label">Fights Total:</div>
-        <div class="info">@Model.Played</div>
+        <div class="info">{{playerStats.Played}}</div>
         <div class="label">Won Fights:</div>
-        <div class="info">@Model.Won</div>
+        <div class="info">{{playerStats.Won}}</div>
         <div class="label">Lost Fights:</div>
-        <div class="info splitline">@Model.Lost</div>
+        <div class="info splitline">{{playerStats.Lost}}</div>
         
         <div class="label">Longest Winning Streak:</div>
-        <div class="info splitline">@Model.LongestWinningStreak</div>
+        <div class="info splitline">{{playerStats.LongestWinningStreak}}</div>
         <div class="label">Longest Losing Streak:</div>
-        <div class="info splitline">@Model.LongestLosingStreak</div>
+        <div class="info splitline">{{playerStats.LongestLosingStreak}}</div>
         
         <div class="label">Highest Rating Ever:</div>
-        <div class="info splitline" title="@Model.HighestRating">@Model.HighestRating.ToString("F2")</div>
+        <div class="info splitline" title="{{playerStats.HighestRating}}">{{playerStats.HighestRating.toFixed(2)}}</div>
         <div class="label">Lowest Rating Ever:</div>
-        <div class="info splitline" title="@Model.LowestRating">@Model.LowestRating.ToString("F2")</div>
-        
-        @if (Model.Played > 0) {
-            <div class="label" title="The BFF (Best Friend Forever) is the player together with whom @Model.Player.Name has fought most often">Best Friend Forever:</div>
+        <div class="info splitline" title="{{playerStats.LowestRating}}">{{playerStats.LowestRating.toFixed(2)}}</div>
+
+        <span ng-if="playerStats.Played > 0">
+            <div class="label" title="The BFF (Best Friend Forever) is the player together with whom {{playerStats.Player.Name}} has fought most often">Best Friend Forever:</div>
             <div class="info">
-                @if (@Model.Bff != null)
-                {
-                    <a href="@Url.Action("Player", "Stats", new { playerId = @Model.Bff.Player.Id})">@Model.Bff.Player.Name</a><text> - @Model.Bff.Occurrences fights</text>
-                } 
-                else
-                {
-                    <text>no best friends :(</text>
-                }
+                <a ng-href="{{playerStats.Bff.Player.Url}}">{{playerStats.Bff.Player.Name}}</a> - {{playerStats.Bff.Occurrences}} fights
             </div>
-            <div class="label" title="The RBFF (Real Best Friend Forever) is the player together with whom @Model.Player.Name has won most fights">Real Best Friend Forever:</div>
+    
+            <div class="label" title="The RBFF (Real Best Friend Forever) is the player together with whom {{playerStats.Player.Name}} has won most fights">Real Best Friend Forever:</div>
             <div class="info">
-                @if (@Model.Rbff != null)
-                {
-                    <a href="@Url.Action("Player", "Stats", new { playerId = @Model.Rbff.Player.Id})">@Model.Rbff.Player.Name</a><text> - @Model.Rbff.Occurrences wins</text>
-                }
-                else
-                {
-                    <text> - </text>
-                }
+                <a ng-href="{{playerStats.Bff.Player.Url}}">{{playerStats.Rbff.Player.Name}}</a> - {{playerStats.Rbff.Occurrences}} wins
             </div>
+    
             <div class="label">Evil Arch Enemy:</div>
             <div class="info">
-                @if (@Model.Eae != null)
-                {
-                    <a href="@Url.Action("Player", "Stats", new { playerId = @Model.Eae.Player.Id})">@Model.Eae.Player.Name</a><text> - @Model.Eae.Occurrences losses</text>
-                }
-                else
-                {
-                    <text> - </text>
-                }
+                <a ng-href="{{playerStats.Eae.Player.Url}}">{{playerStats.Eae.Player.Name}}</a> - {{playerStats.Eae.Occurrences}} losses
             </div>
+    
             <div class="label">Preferred Color:</div>
             <div class="info">
-                @if (@Model.PreferredColor != null)
-                {
-                    <text>@Model.PreferredColor.Color - @Model.PreferredColor.Occurrences fights</text>
-                }
+                {{playerStats.PreferredColor.Color}} - {{playerStats.PreferredColor.Occurrences}} fights
             </div>
+
             <div class="label">Winning Color:</div>
             <div class="info">
-                @if (@Model.WinningColor != null)
-                {
-                    <text>@Model.WinningColor.Color - @Model.WinningColor.Occurrences wins</text>
-                }
-                else
-                {
-                    <text>:-(</text>
-                }
+                {{playerStats.WinningColor.Color}} - {{playerStats.WinningColor.Occurrences}} wins
             </div>
-            <div class="label">Latest fight:</div>
-            <div class="info">
-                @if (Model.LatestMatch.WonTheMatch(Model.Player.Id))
-                {
-                    <text>beat up </text>
-                }
-                else
-                {
-                    <text>was beat up by </text>
-                }
 
-                @if (Model.LatestMatch.IsOnRedTeam(Model.Player.Id))
-                {
-                    <a href="@Url.Action("Player","Stats", new {playerId = @Model.LatestMatch.BluePlayer1.Id })">@Model.LatestMatch.BluePlayer1.Name</a>
-                    if (@String.IsNullOrEmpty(Model.LatestMatch.BluePlayer2.Name) == false)
-                    {
-                        <text>&</text>
-                        <a href="@Url.Action("Player","Stats", new {playerId = @Model.LatestMatch.BluePlayer2.Id })">@Model.LatestMatch.BluePlayer2.Name</a>
-                    }
-                } 
-                else
-                {
-                    <a href="@Url.Action("Player","Stats", new {playerId = @Model.LatestMatch.RedPlayer1.Id })">@Model.LatestMatch.RedPlayer1.Name</a>
-                    if (@String.IsNullOrEmpty(Model.LatestMatch.RedPlayer2.Name) == false)
-                    {
-                        <text>&</text>
-                        <a href="@Url.Action("Player","Stats", new {playerId = @Model.LatestMatch.RedPlayer2.Id })">@Model.LatestMatch.RedPlayer2.Name</a>
-                    }
-                }
-            </div>
-        }
+        </span>
     </div>
     
-    @if (Model.Played > 0)
-    {
-        <div class="column second">
-            <div id="player-rating-chart" data-subject-id="@Model.Player.Id" data-subject-name="@Model.Player.Name"></div>
-        </div>
-    }
+    <div class="column second">
+        <div id="player-rating-chart" data-subject-id="{{playerStats.Player.Id}}" data-subject-name="{{playerStats.Player.Name}}"></div>
+    </div>
 </div>
-
-@*if (Model.Played > 0)
-{
-    <fieldset id="player-matches">
-        <legend>@(Model.Player.Name)s Fights</legend>
-        @{Html.RenderPartial("_LegendaryMatchTable", new MatchTableViewModel { Matches = Model.PlayedMatches, User = null });}
-    </fieldset>
-}
-else
-{
-    <text><span class="dimmed">Hrmmm... Guess @Model.Player.Name doesn't like Foosball after all</span></text>
-}*@

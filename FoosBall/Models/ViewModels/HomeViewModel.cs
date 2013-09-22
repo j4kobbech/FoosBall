@@ -2,9 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
-
     using Base;
-    using Domain;
 
     public class HomeViewModel : BaseViewModel
     {
@@ -21,8 +19,6 @@
         {
             WelcomeMessage = GetWelcomeMessage();
         }
-
-        public List<Event> LatestEvents { get; set; }
 
         public string WelcomeMessage { get; set; }
 

@@ -1,39 +1,17 @@
-﻿@using FoosBall.Models.Base
-@model HomeViewModel
+﻿@model HomeViewModel
 @{
     ViewBag.Title = "Home of FoosBall'ers";
 }
-
 @section Javascript
 { 
-    <script async src="@Url.Content("~/Javascript/Home.js")"></script> 
+    <script src="@Url.Content("~/Javascript/angular/home.controllers.js")"></script> 
 }
-@section Css{ <link rel="stylesheet" href="/Css/Home.css"/>}
-
-<div class="frontpage clearfix">
+<div ng-controller="HomeController" class="home clearfix">
     <h2 id="welcome-message">@Model.WelcomeMessage</h2>
-
-    @if (Model.LatestEvents.Any())
-    {
-        <h3 class="event-feed-items-header">What's happening:</h3>
-        <ul class="event-feed-items">
-            @foreach (var latestEvent in Model.LatestEvents)
-            {
-                var eventTime = TimeZoneInfo.ConvertTime(latestEvent.Created.ToUniversalTime(), TimeZoneInfo.Utc, TimeZoneInfo.FindSystemTimeZoneById("Romance Standard Time"));
-            
-                switch (latestEvent.EventType)
-                {
-                    case EventType.PlayerCreate:
-                        Html.RenderPartial("_PlayerCreateEventFeedListItem", latestEvent);
-                        break;
-                    case EventType.MatchResolve:
-                        Html.RenderPartial("_MatchResolveEventFeedListItem", new EventViewModel { Event = latestEvent });
-                        break;
-                    default:
-                        break;
-                }   
-            }
-        </ul>
-    }
+    <br />
+    <br />
+    <p>:-O Oh nooo! Where's the frontpage Event Feed that ties this whole app together???</p>
+    <p>Cool down champ! Relax bro'! Chill out!</p>
+    <p>This app is slowly moving into a full featured AngularJS single page application.</p>
+    <p>It's a wonder that <i>anything</i> works ...</p>
 </div>
-

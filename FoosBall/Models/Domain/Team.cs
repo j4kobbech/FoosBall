@@ -7,14 +7,14 @@
     {
         public Team()
         {
-            this.MatchTeam = new List<Player>();
+            this.Players = new List<Player>();
         }
         
-        public List<Player> MatchTeam { get; set; }
+        public List<Player> Players { get; set; }
         
         public double GetTeamRating()
         {
-            return this.MatchTeam.Where(player => player.Id != null).Sum(player => player.Rating);
+            return this.Players.Where(player => player.Id != null).Sum(player => player.Rating);
         }
     }
 }

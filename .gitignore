@@ -6,3 +6,4 @@ FoosBall/Migration/*.json
 *.suo
 *.orig
 *.ncrunchsolution
+*.DotSettings.user

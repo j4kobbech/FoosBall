@@ -1,0 +1,58 @@
+﻿<input ng-hide="session.IsLoggedIn" ng-disabled="true" ng-cloak type="button" class="button" value="Please log in to create a Match" />
+<input ng-hide="!session.IsLoggedIn" ng-click="hideForm=!hideForm" type="button" class="button" value="Create a Match" />
+
+<form ng-if="session.IsLoggedIn" name="resolveMatchForm" ng-submit="submitMatch()" ng-controller="SubmitMatchController" ng-model="match">
+    <div ng-hide="hideForm" id="match-form" class="clearfix">
+        <div id="team-red-players" class="team">
+            <div class="team-name">Red Team
+                <span class="score-prediction hide">
+                    (rating: <span class="rating"></span>, chance of winning: <span class="chance"></span>%, gain: <span class="gain"></span>)  
+                </span>
+            </div>
+            <div class="form-input">
+                <select name="redPlayer1" required ng-model="match.RedPlayer1.Id" ng-focus="onPlayerSelectFocus($event)" ng-change="onPlayerSelectChange()" >
+                    <option></option>
+                    <option ng-repeat="player in players" value="{{player.Id}}" data-player-rating="{{player.Rating}}">{{player.Name}}</option>
+                </select>
+            </div>
+            <br />
+            <div class="form-input">
+                <select name="redPlayer2" ng-model="match.RedPlayer2.Id" ng-focus="onPlayerSelectFocus($event)" ng-change="onPlayerSelectChange()">
+                    <option></option>
+                    <option ng-repeat="player in players" value="{{player.Id}}" data-player-rating="{{player.Rating}}">{{player.Name}}</option>
+                </select>
+            </div>
+        </div>
+        <div id="team-blue-players" class="team">
+            <div class="team-name">Blue Team
+                <span class="score-prediction hide">
+                    (rating: <span class="rating"></span>, chance of winning: <span class="chance"></span>%, gain: <span class="gain"></span>)
+                </span>
+            </div>
+            <div class="form-input">
+                <select name="bluePlayer1" ng-model="match.BluePlayer1.Id" required ng-focus="onPlayerSelectFocus($event)" ng-change="onPlayerSelectChange()">
+                    <option></option>
+                    <option ng-repeat="player in players" value="{{player.Id}}" data-player-rating="{{player.Rating}}">{{player.Name}}</option>
+                </select>
+            </div>
+            <br />
+            <div class="form-input">
+                <select name="bluePlayer2" ng-model="match.BluePlayer2.Id" ng-focus="onPlayerSelectFocus($event)" ng-change="onPlayerSelectChange()">
+                    <option></option>
+                    <option ng-repeat="player in players" value="{{player.Id}}" data-player-rating="{{player.Rating}}">{{player.Name}}</option>
+                </select>
+            </div>
+        </div>
+        <div class="team-scores">
+            <div class="form-input opponent red">
+                <input type="number" ng-model="match.RedScore" name="redScore" id="redScore" foosball-score required min="0" value="0" class="team-score" />
+            </div>
+            <div class="form-input opponent blue">
+                <input type="number" ng-model="match.BlueScore" name="blueScore" id="blueScore" foosball-score required min="0" value="0" class="team-score" />
+            </div>
+            <div class="form-button">
+                <input type="submit" ng-disabled="resolveMatchForm.$invalid" value="Submit score" class="submit-button button" id="submit-score-button"/>
+            </div>
+        </div>
+    </div>
+</form>

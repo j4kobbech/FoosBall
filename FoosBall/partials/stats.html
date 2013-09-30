@@ -1,0 +1,105 @@
+﻿<div ng-cloak ng-controller="StatsController" class="statistics clearfix">
+    <div class="stat">
+        <div class="info">Most Fights</div>
+        <div class="avatar">
+            <a href="{{getPlayerStatsUrl(stats.MostFights.Id)}}"><img class="gravatar" title="{{stats.MostFights.Name}}" ng-src="{{stats.MostFights.GravatarUrl}}"/></a>
+        </div>
+        <div class="info first">
+            {{stats.MostFights.Played}} <span class="thin">fights fought</span>
+        </div>
+    </div>
+
+    <div class="stat">
+        <div class="info">Most Wins</div>
+        <div class="avatar">
+            <a href="{{getPlayerStatsUrl(stats.MostWins.Id)}}"><img class="gravatar" title="{{stats.MostWins.Name}}" ng-src="{{stats.MostWins.GravatarUrl}}"/></a>
+        </div>
+        <div class="info">{{stats.MostWins.Won}} <span class="thin">fights won</span></div>
+    </div>
+
+    <div class="stat">
+        <div class="info">Most Losses</div>
+        <div class="avatar">
+            <a href="{{getPlayerStatsUrl(stats.MostLosses.Id)}}"><img class="gravatar" title="{{stats.MostLosses.Name}}" ng-src="{{stats.MostLosses.GravatarUrl}}"/></a>
+        </div>
+        <div class="info">{{stats.MostLosses.Lost}} <span class="thin">fights lost</span></div>
+    </div>
+
+    <div class="stat">
+        <div class="info">Top Ranked</div>
+        <div class="avatar">
+            <a href="{{getPlayerStatsUrl(stats.TopRanked.Id)}}"><img class="gravatar" title="{{stats.TopRanked.Name}}" ng-src="{{stats.TopRanked.GravatarUrl}}"/></a>
+        </div>
+        <div class="info"><a href="{{getPlayerStatsUrl(stats.TopRanked.Id)}}">{{stats.TopRanked.Name}}</a></div>
+    </div>
+
+    <div class="stat">
+        <div class="info">Bottom Ranked</div>
+        <div class="avatar">
+            <a href="{{getPlayerStatsUrl(stats.BottomRanked.Id)}}"><img class="gravatar" title="{{stats.BottomRanked.Name}}" ng-src="{{stats.BottomRanked.GravatarUrl}}"/></a>
+        </div>
+        <div class="info"><a href="{{getPlayerStatsUrl(stats.BottomRanked.Id)}}">{{stats.BottomRanked.Name}}</a></div>
+    </div>
+
+    <div class="stat">
+        <div class="info">Highest Rating Ever</div>
+        <div class="avatar">
+            <a href="{{getPlayerStatsUrl(stats.HighestRatingEver.Id)}}"><img class="gravatar" title="{{stats.HighestRatingEver.Name}}" ng-src="{{stats.HighestRatingEver.GravatarUrl}}"/></a>
+        </div>
+        <div class="info"><span class="thin">with</span> {{stats.HighestRatingEver.Rating.toFixed(2)}} <span class="thin">rating points</span></div>
+    </div>
+
+    <div class="stat">
+        <div class="info">Lowest Rating Ever</div>
+        <div class="avatar">
+            <a href="{{getPlayerStatsUrl(stats.LowestRatingEver.Id)}}"><img class="gravatar" title="{{stats.LowestRatingEver.Name}}" ng-src="{{stats.LowestRatingEver.GravatarUrl}}"/></a>
+        </div>
+        <div class="info">
+            <span class="thin">with</span> {{stats.LowestRatingEver.Rating.toFixed(2)}} <span class="thin">rating points</span>
+        </div>
+    </div>
+
+    <div class="stat">
+        <div class="info">Longest Winning streak</div>
+        <div class="avatar">
+            <a href="{{getPlayerStatsUrl(stats.LongestWinningStreak.Player.Id)}}"><img class="gravatar" title="{{stats.LongestWinningStreak.Player.Name}}" ng-src="{{stats.LongestWinningStreak.GravatarUrl}}"/></a>
+        </div>
+        <div class="info">
+            <span class="thin">won</span> {{stats.LongestWinningStreak.Count}} <span class="thin">fights in a row</span>
+        </div>
+    </div>
+
+    <div class="stat">
+        <div class="info">Longest Losing streak</div>
+        <div class="avatar">
+            <a href="{{getPlayerStatsUrl(stats.LongestLosingStreak.Player.Id)}}"><img class="gravatar" title="{{stats.LongestLosingStreak.Player.Name}}" ng-src="{{stats.LongestLosingStreak.GravatarUrl}}"/></a>
+        </div>
+        <div class="info">
+            <span class="thin">lost</span> {{stats.LongestLosingStreak.Count}} <span class="thin">fights in a row</span>
+        </div>
+    </div>
+    
+    <div class="stat">
+        <div class="info">Biggest Win</div>
+        <div class="info">
+            <a href="/#/playerstats?playerId={{stats.BiggestRatingWin.WinningTeam[0].Id}}">{{stats.BiggestRatingWin.WinningTeam.Players[0].Name}}</a>
+            <span ng-if="stats.BiggestRatingWin.WinningTeam.length > 1">
+                <span class="thin">&</span> 
+                <a href="{{getPlayerStatsUrl(stats.BiggestRatingWin.WinningTeam[1].Id)}}">{{stats.BiggestRatingWin.WinningTeam.Players[1].Name}}</a>
+            </span>
+            <span class="thin">beat up</span> <a href="/#/playerstats?playerId={{stats.BiggestRatingWin.LosingTeam[0].Id}}">{{stats.BiggestRatingWin.LosingTeam.Players[0].Name}}</a>
+            <span ng-if="stats.BiggestRatingWin.LosingTeam.length > 1">
+                <span class="thin">&</span> 
+                <a href="{{getPlayerStatsUrl(stats.BiggestRatingWin.LosingTeam[1].Id)}}">{{stats.BiggestRatingWin.LosingTeam.Players[1].Name}}</a>
+            </span>
+            <span class="thin">and gained</span> {{stats.BiggestRatingWin.Rating.toFixed(2)}} <span class="thin">rating points.</span>
+        </div>
+    </div>
+
+    <div class="stat">
+        <div class="info">Total number of matches:</div>
+        <div class="info first">{{stats.TotalNumberOfPlayedMatches}}</div>
+    </div>
+    
+</div>
+

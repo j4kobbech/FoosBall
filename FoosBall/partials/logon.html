@@ -1,0 +1,21 @@
+﻿<div ng-controller="AccountController" class="logon clearfix">
+    <h3>Log On</h3>
+    
+    <form name="loginForm" ng-submit="submitLogin()" ng-model="match">
+        <div>Email</div>
+        <div>
+            <input ng-model="email" name="email" required="true" class="short" type="text" placeholder="Email" value="" />@trustpilot.com
+        </div>
+        <br>
+        <div>Password</div>
+        <div>
+            <input ng-model="password" name="password" required="true" type="password" name="password" value="" placeholder="Password" autocapitalize="off" autocorrect="off"/>
+        </div>
+        <div>
+            <input ng-model="rememberMe" type="checkbox" value="" />
+            Remember me
+        </div>
+
+        <p><input class="button" type="submit" value="Log On" /></p>
+    </form>
+</div>

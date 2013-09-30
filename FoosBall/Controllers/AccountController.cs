@@ -1,13 +1,13 @@
 ﻿namespace FoosBall.Controllers
 {
-    using System;
+    using System.Linq;
+    using System.Security.Cryptography;
     using System.Web.Mvc;
-
-    using FoosBall.ControllerHelpers;
-    using FoosBall.Main;
-    using FoosBall.Models.Domain;
-    using FoosBall.Models.ViewModels;
+    using ControllerHelpers;
+    using Main;
     using Models.Base;
+    using Models.Domain;
+    using Models.ViewModels;
     using MongoDB.Bson;
     using MongoDB.Driver.Builders;
     
@@ -59,27 +59,33 @@
         }
 
         [HttpPost]
-        public ActionResult LogOn(LogOnViewModel model)
+        public ActionResult LogOn(string email, string password, string refUrl, bool rememberMe = false)
         {
-            var email = model.Email.ToLower();
-            email += "@" + this.Settings.Domain;
+            var loginEmail = (email + "@" + Settings.Domain).ToLower();
+            var playerCollection = Dbh.GetCollection<Player>("Players");
+            var player = playerCollection.FindOne(Query.EQ("Email", loginEmail));
+            var loginInfo = new LoginInfo();
 
-            var playerCollection = this.Dbh.GetCollection<Player>("Players");
-            var player = playerCollection.FindOne(Query.EQ("Email", email));
-            
             if (player != null)
             {
-                if (player.Password == Md5.CalculateMd5(model.Password))
+                if (player.Password == Md5.CalculateMd5(password))
                 {
                     if (Login(player))
                     {
-                        return Redirect(model.RefUrl);
+                        loginInfo.Message = "Success";
+                        loginInfo.Session = GetSessionInfo();
+                        loginInfo.Success = true;
                     }
                 }
             }
+            else
+            {
+                loginInfo.Message = "Wrong user name or password";
+                loginInfo.Session = GetSessionInfo();
+                loginInfo.Success = false;
+            }
 
-            model.LogOnError = true;
-            return View(model);
+            return Json(loginInfo, JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult LogOff()
@@ -239,6 +245,15 @@
             }
 
             return Json(new { url = string.Empty }, JsonRequestBehavior.AllowGet);
+        }
+
+        private bool ValidateEmail(string email)
+        {
+            const string domain = "@trustpilot.com";
+
+            return email.EndsWith(domain) &&
+                   email.Count(x => x == '@') == 1 &&
+                   email.Length > domain.Length;
         }
     }
 }

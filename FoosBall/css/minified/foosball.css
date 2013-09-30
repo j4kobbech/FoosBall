@@ -63,43 +63,47 @@ page width. Or, you can specify an exact pixel width. */
 
 /* TAB MENU
 ----------------------------------------------------------*/
-#main-menu {
-  display: none;
+.menu {
   position: absolute;
   top: 42px;
   right: 15px;
-  width: 150px;
   background: none #fff;
   padding: 0;
   margin: 0; }
-  #main-menu li {
-    border-bottom: 1px solid #efefef;
-    list-style: none;
-    display: list-item;
-    padding: 10px 15px;
-    margin: 0;
-    width: 100%;
-    cursor: pointer; }
-    #main-menu li:hover {
-      background: #f2f2f2;
-      text-decoration: none; }
-    #main-menu li.selected {
-      font-weight: bold; }
-    #main-menu li:last-child {
-      border-bottom: none; }
-    #main-menu li a, #main-menu li a:hover {
-      text-decoration: none; }
+  .menu#login-menu {
+    width: 200px; }
+  .menu#main-menu {
+    width: 150px; }
+    .menu#main-menu li {
+      border-bottom: 1px solid #efefef;
+      list-style: none;
+      display: list-item;
+      padding: 10px 15px;
+      margin: 0;
+      width: 100%;
+      cursor: pointer; }
+      .menu#main-menu li:hover {
+        background: #f2f2f2;
+        text-decoration: none; }
+      .menu#main-menu li.selected {
+        font-weight: bold; }
+      .menu#main-menu li:last-child {
+        border-bottom: none; }
+      .menu#main-menu li a, .menu#main-menu li a:hover {
+        text-decoration: none; }
 
 .menu-arrow {
-  display: none;
   position: absolute;
   top: 38px;
-  right: 18px;
   width: 0;
   height: 0;
   border-left: 5px solid transparent;
   border-right: 5px solid transparent;
   border-bottom: 5px solid white; }
+  .menu-arrow.main-menu-arrow {
+    right: 18px; }
+  .menu-arrow.login-menu-arrow {
+    right: 120px; }
 
 .menu-list-button {
   position: relative;
@@ -274,7 +278,7 @@ input[type="text"], input[type="password"], input[type="email"] {
   height: 1.5em;
   padding: 2px;
   width: 98%; }
-  input[type="text"]#Email.short, input[type="password"]#Email.short, input[type="email"]#Email.short {
+  input[type="text"].short, input[type="password"].short, input[type="email"].short {
     width: 60px !important; }
 
 input[type="submit"], input[type="button"], button {
@@ -404,12 +408,13 @@ input[type="checkbox"] {
 #list-of-emails textarea {
   width: 100%; }
 
-.home {
+.home, .features {
   background: none #fff;
   border-radius: 5px;
   padding: 15px 20px; }
-  .home p {
-    text-align: center; }
+
+.home p {
+  text-align: center; }
 
 #welcome-message {
   text-align: center; }
@@ -591,7 +596,7 @@ input[type="checkbox"] {
     float: right;
     width: 45%; }
 
-.Players .player {
+.players .player {
   position: relative;
   background: none #fff;
   -moz-border-radius: 5px;
@@ -601,19 +606,19 @@ input[type="checkbox"] {
   padding: 10px 15px;
   margin: 30px auto;
   background-color: rgba(255, 255, 255, 0.6); }
-  .Players .player:nth-child(1) {
+  .players .player:nth-child(1) {
     background: url("https://s3-eu-west-1.amazonaws.com/images.trustpilot.com/static/foosball/icon_medal_gold.png"); }
-  .Players .player:nth-child(2) {
+  .players .player:nth-child(2) {
     background: url("https://s3-eu-west-1.amazonaws.com/images.trustpilot.com/static/foosball/icon_medal_silver.png"); }
-  .Players .player:nth-child(3) {
+  .players .player:nth-child(3) {
     background: url("https://s3-eu-west-1.amazonaws.com/images.trustpilot.com/static/foosball/icon_medal_bronze.png"); }
-  .Players .player:nth-child(-n+3) {
+  .players .player:nth-child(-n+3) {
     background-color: rgba(255, 255, 255, 0.85);
     background-repeat: no-repeat;
     background-position: 11px 20px;
     background-size: 50px 50px;
     height: 75px; }
-  .Players .player .ranking {
+  .players .player .ranking {
     float: left;
     font-size: 26px;
     font-weight: bold;
@@ -621,23 +626,23 @@ input[type="checkbox"] {
     margin-right: 0;
     margin-top: 9px;
     width: 40px; }
-  .Players .player .avatar {
+  .players .player .avatar {
     float: left;
     margin: -30px 10px 0 -5px; }
-    .Players .player .avatar .gravatar {
+    .players .player .avatar .gravatar {
       width: 52px;
       height: auto;
       border-radius: 50%; }
-  .Players .player .info {
+  .players .player .info {
     float: left;
     margin-top: 4px; }
-    .Players .player .info .name {
+    .players .player .info .name {
       width: 200px;
       float: left; }
-    .Players .player .info .score, .Players .player .info .ratio {
+    .players .player .info .score, .players .player .info .ratio {
       margin: 0 0 0 15px;
       float: left; }
-    .Players .player .info sup {
+    .players .player .info sup {
       color: #999999;
       font-size: 10px;
       margin-left: 2px; }

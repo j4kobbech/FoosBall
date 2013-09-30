@@ -73,7 +73,11 @@
         {
             using (Profiler.Step("Calculating Player Statistics"))
             {
-                if (playerId != null)
+                if (playerId == null)
+                {
+                    return new HttpStatusCodeResult(403, "Invalid request");
+                }
+                else
                 {
                     var playerCollection = Dbh.GetCollection<Player>("Players");
                     var matches =

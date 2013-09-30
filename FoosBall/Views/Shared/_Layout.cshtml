@@ -15,28 +15,40 @@
         @ViewBag.Title
     </title>
 
-    <link href="@Url.Content("~/css/foosball.min.css")" rel="stylesheet" type="text/css" />
-    
-    <script src="@Url.Content("~/Javascript/lib/md5.js")"></script>
+    <link href="@Url.Content("~/css/minified/foosball.min.css")" rel="stylesheet" type="text/css" />
+    @*
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
-    <script>
-        if (typeof jQuery == 'undefined') {
-            document.write(unescape('%3Cscript src="@Url.Content("~/Javascript/lib/jquery.min.js")" type="text/javascript"%3E%3C/script%3E'));
-        }
-    </script>
+    <script src="/js/lib/jquery.signalR-1.0.0.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0rc1/angular.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0rc1/angular-resource.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0rc1/angular-route.min.js"></script>
-    <script>
-        if (typeof angular === 'undefined') {
-            document.write(unescape('%3Cscript src="@Url.Content("~/Javascript/lib/angular.min.js")" type="text/javascript"%3E%3C/script%3E'));
-            document.write(unescape('%3Cscript src="@Url.Content("~/Javascript/lib/angular-resource.min.js")" type="text/javascript"%3E%3C/script%3E'));
-            document.write(unescape('%3Cscript src="@Url.Content("~/Javascript/lib/angular-route.min.js")" type="text/javascript"%3E%3C/script%3E'));
-        }
-    </script>
-    <script src="@Url.Content("~/Javascript/angular/app.js")"></script>
+    <script src="/js/lib/md.min5.js"></script>
+    <script src="/js/lib/highcharts.js"></script>
+    *@
+    <script src="/js/lib/jquery.js"></script>
+    <script src="/js/lib/jquery.signalR-1.0.0.js"></script>
+    <script src="/js/lib/angular.js"></script>
+    <script src="/js/lib/angular-resource.js"></script>
+    <script src="/js/lib/angular-route.js"></script>
+    <script src="/js/lib/md5.js"></script>
+    <script src="/js/lib/highcharts.js"></script>
+
+    <script src="/js/foosBall.js"></script>
+    <script src="/js/angular/app.js"></script>
+    <script src="/js/angular/account.controller.js"></script> 
+    <script src="/js/angular/admin.controller.js"></script>
+    <script src="/js/angular/base.controller.js"></script> 
+    <script src="/js/angular/home.controller.js"></script> 
+    <script src="/js/angular/matches.controller.js"></script>
+    <script src="/js/angular/players.controller.js"></script>
+    <script src="/js/angular/playerstats.controller.js"></script>
+    <script src="/js/angular/stats.controller.js"></script> 
+    @*<script src="/js/minified/app.min.js"></script>*@
+
+    <script src="/signalr/hubs"></script>
+
 </head>
-<body>
+<body ng-controller="BaseController">
     @{
         var currentUser = (Player)HttpContext.Current.Session["User"];
         if (currentUser != null && !string.IsNullOrWhiteSpace(currentUser.Id))
@@ -51,54 +63,65 @@
 
     <img src="https://s3-eu-west-1.amazonaws.com/images.trustpilot.com/static/foosball/background.jpg" id="bg" class="bgwidth" alt="background image"/>
     
-    <header>
-        <a href="@Url.Action("Index","Home")">
-        <div id="app-title">
-            <div class="logo-picture">
-                <img src="https://s3-eu-west-1.amazonaws.com/images.trustpilot.com/static/foosball/icon_football.png" alt="logo"/>
-            </div>
-            <div class="logo-text">
-                @if (ViewBag.Settings.Environment.ToString() != "Production")
-                {
-                    @ViewBag.Settings.Environment.ToString()  
-                }
-                @ViewBag.Settings.Name
-            </div>
-        </div>
-        </a>
-        <nav>
-            <div class="menu-arrow"></div>
-            <ul id="main-menu">
-                <li class="Home">@Html.ActionLink("Home", "Index", "Home")</li>
-                <li class="Players">@Html.ActionLink("Scoreboard", "Index", "Players")</li>
-                <li class="Matches">@Html.ActionLink("Matches", "Index", "Matches")</li>
-                <li class="Stats">@Html.ActionLink("Stats", "Index", "Stats")</li>
-                <li class="Features">@Html.ActionLink("Features", "Features", "Home")</li>
-                @if (Session["IsLoggedIn"].ToString().ToLower() == "true")
-                {
-                    if (Session["Admin"].ToString().ToLower() == "true")
+    <header ng-cloak>
+        <a href ng-href="/#/">
+            <div id="app-title">
+                <div class="logo-picture">
+                    <img src="https://s3-eu-west-1.amazonaws.com/images.trustpilot.com/static/foosball/icon_football.png" alt="logo"/>
+                </div>
+                <div class="logo-text">
+                    @if (ViewBag.Settings.Environment.ToString() != "Production")
                     {
-                        <li class="Admin">@Html.ActionLink("Admin", "Index", "Admin")</li>
-                    }                           
-                }
+                        @ViewBag.Settings.Environment.ToString()  
+                    }
+                    @ViewBag.Settings.Name
+                </div>
+            </div>
+        </a>
+
+        <nav data-debug="{uiSettings.{hideMainMenu}}" >
+            <div class="main-menu-arrow menu-arrow" ng-hide="uiSettings.hideMainMenu"></div>
+            <ul id="main-menu" class="menu" ng-hide="uiSettings.hideMainMenu">
+                <li class="Home"><a ng-click="uiSettings.hideMainMenu = !uiSettings.hideMainMenu" ng-href="/#/">Home</a></li>
+                <li class="Scoreboard"><a ng-click="uiSettings.hideMainMenu = !uiSettings.hideMainMenu" ng-href="/#/players">Scoreboard</a></li>
+                <li class="Matches"><a ng-click="uiSettings.hideMainMenu = !uiSettings.hideMainMenu" ng-href="/#/matches">Matches</a></li>
+                <li class="Stats"><a ng-click="uiSettings.hideMainMenu = !uiSettings.hideMainMenu" ng-href="/#/stats">Stats</a></li>
+                <li class="Features"><a ng-click="uiSettings.hideMainMenu = !uiSettings.hideMainMenu" ng-href="/#/features">Features</a></li>
+                <li ng-if="session.IsLoggedIn && session.IsAdmin" ng-click="uiSettings.hideMainMenu = !uiSettings.hideMainMenu" class="Admin">@Html.ActionLink("Admin", "Index", "Admin")</li>
             </ul> 
         </nav>
-        <div class="login-display">
-            @Html.Partial("_LogOnPartial")
+
+        <div data-debug="{{uiSettings.hideLogonMenu}}" class="login-menu-arrow menu-arrow" ng-hide="uiSettings.hideLogonMenu"></div>
+        <div id="login-menu" class="menu" ng-hide="uiSettings.hideLogonMenu">
+            <div ng-include="'/partials/logon.html'"></div>
         </div>
+
+        <div class="login-display">
+            <div ng-if="session.IsLoggedIn" class="menu-account-info">
+                Hi {{session.User.Name}}
+                [ <a href ng-href="/#/user-profile">Account</a> &middot; <a href ng-click="logout()">Log out</a> ]
+            </div>
+
+            <div ng-if="!session.IsLoggedIn" class="menu-login-info">
+                <a href ng-click="showLogonMenu()">Log on</a> or <a ng-href="/#/sign-up">Sign up</a>
+            </div>
+
+            <div class="menu-list-button">
+                <a href ng-click="showMainMenu()"></a>
+            </div>
+        </div>
+
     </header>
 
-    <div id="page" class="@ViewContext.RouteData.Values["controller"] clearfix">
+    <div ng-cloak id="page" class="clearfix">
         <section id="main">
+            <div ng-view></div>
             @RenderBody()
         </section>
     </div>
 
     <!-- Deferred Javascript -->
-    <script src="@Url.Content("~/Javascript/lib/jquery.signalR-1.0.0.min.js")"></script>
-    <script src="/signalr/hubs"></script>
-    <script src="@Url.Content("~/Javascript/FoosBall.js")"></script>
-    <script src="@Url.Content("~/Javascript/Shared.js")"></script>
+    <script src="/js/Shared.js"></script>
     @RenderSection("Javascript", false)
     @MiniProfiler.RenderIncludes()       
 </body>

@@ -17,15 +17,17 @@
     };
 
     $scope.getPlayers();
+
+    function preparePlayer(player, index) {
+        player.GravatarUrl = 'http://www.gravatar.com/avatar/' + hex_md5(player.Email) + '?d=mm';
+        player.Ranking = index + 1;
+        player.Rating1 = parseFloat(player.Rating).toFixed(0);
+        player.Rating2 = parseFloat(player.Rating).toFixed(2);
+        player.Ratio1 = parseFloat(player.Ratio).toFixed(2);
+        player.Ratio2 = parseFloat(player.Ratio).toFixed(4);
+
+        return player;
+    }
 }
 
-function preparePlayer(player, index) {
-    player.GravatarUrl = 'http://www.gravatar.com/avatar/' + hex_md5(player.Email) + '?d=mm';
-    player.Ranking = index + 1;
-    player.Rating1 = parseFloat(player.Rating).toFixed(0);
-    player.Rating2 = parseFloat(player.Rating).toFixed(2);
-    player.Ratio1 = parseFloat(player.Ratio).toFixed(2);
-    player.Ratio2 = parseFloat(player.Ratio).toFixed(4);
-
-    return player;
-}
+PlayersController.$inject = ['$scope', '$resource'];

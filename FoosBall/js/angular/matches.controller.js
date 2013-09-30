@@ -73,7 +73,67 @@
 
     $scope.getMatches($scope.pageSize, $scope.matches.length);
     $scope.getPlayers();
+
+    function writeMatchPredictions() {
+
+        var $redTeam = $('#team-red-players'),
+            $blueTeam = $('#team-blue-players'),
+            $redTeamPrediction = $('.score-prediction', $redTeam),
+            $blueTeamPrediction = $('.score-prediction', $blueTeam),
+            redPlayer1Rating = $('[name="redPlayer1"]', $redTeam).find(':selected').attr('data-player-rating'),
+            redPlayer2Rating = $('[name="redPlayer2"]', $redTeam).find(':selected').attr('data-player-rating'),
+            bluePlayer1Rating = $('[name="bluePlayer1"]', $blueTeam).find(':selected').attr('data-player-rating'),
+            bluePlayer2Rating = $('[name="bluePlayer2"]', $blueTeam).find(':selected').attr('data-player-rating'),
+            redPlayerRatings = parseInt(nvl(redPlayer1Rating, 0)) + parseInt(nvl(redPlayer2Rating, 0)),
+            bluePlayerRatings = parseInt(nvl(bluePlayer1Rating, 0)) + parseInt(nvl(bluePlayer2Rating, 0)),
+            winnerRating = Math.max(redPlayerRatings, bluePlayerRatings),
+            loserRating = Math.min(redPlayerRatings, bluePlayerRatings);
+
+        if (redPlayerRatings !== 0 && bluePlayerRatings !== 0) {
+            $.ajax({
+                url: 'Matches/GetRating',
+                data: {
+                    winnerRating: winnerRating,
+                    loserRating: loserRating,
+                },
+                type: 'get',
+                success: function (rating) {
+                    var roundedRedRating = Math.round(redPlayerRatings),
+                        roundedBlueRating = Math.round(bluePlayerRatings),
+                        roundedWinnerChance = Math.round(100 * rating.ExpectedScore),
+                        roundedLoserChance = Math.round(100 - (100 * rating.ExpectedScore)),
+                        roundedWinnerGain = Math.round(rating.RatingModifier),
+                        roundedLoserGain = Math.round(rating.KModifier - rating.RatingModifier);
+
+                    if (redPlayerRatings === winnerRating) {
+                        $redTeamPrediction.find('.rating').text(roundedRedRating);
+                        $redTeamPrediction.find('.chance').text(roundedWinnerChance);
+                        $redTeamPrediction.find('.gain').text(roundedWinnerGain);
+                        $blueTeamPrediction.find('.rating').text(roundedBlueRating);
+                        $blueTeamPrediction.find('.chance').text(roundedLoserChance);
+                        $blueTeamPrediction.find('.gain').text(roundedLoserGain);
+                    } else {
+                        $blueTeamPrediction.find('.rating').text(roundedBlueRating);
+                        $blueTeamPrediction.find('.chance').text(roundedWinnerChance);
+                        $blueTeamPrediction.find('.gain').text(roundedWinnerGain);
+                        $redTeamPrediction.find('.rating').text(roundedRedRating);
+                        $redTeamPrediction.find('.chance').text(roundedLoserChance);
+                        $redTeamPrediction.find('.gain').text(roundedLoserGain);
+                    }
+
+                    $redTeamPrediction.removeClass('hide');
+                    $blueTeamPrediction.removeClass('hide');
+                }
+            });
+        } else {
+            $redTeamPrediction.addClass('hide');
+            $blueTeamPrediction.addClass('hide');
+        }
+    }
+
 }
+
+MatchesController.$inject = ['$scope', '$resource'];
 
 function SubmitMatchController($scope, $resource) {
     $scope.submitMatch = function () {
@@ -96,6 +156,8 @@ function SubmitMatchController($scope, $resource) {
     };
 }
 
+SubmitMatchController.$inject = ['$scope', '$resource'];
+
 function prepareMatch(match) {
     var time = parseInt(match.GameOverTime.replace(/\D/g, ""));
     var date = new Date(time);
@@ -105,61 +167,4 @@ function prepareMatch(match) {
     match.GameOverDate = date.toDateString().replace(/(\w{3}) (\w{3}) (\d{2}) (\d{2})(\d{2})/g, date.getDate() + " $2 " + " $5");
     match.GameOverTime = date.toLocaleTimeString().replace(/(\d{2})(\.)(\d{2})(\.)(\d{2})/g, ", $1:$3");
     return match;
-}
-
-function writeMatchPredictions() {
-    
-    var $redTeam = $('#team-red-players'),
-        $blueTeam = $('#team-blue-players'),
-        $redTeamPrediction = $('.score-prediction', $redTeam),
-        $blueTeamPrediction = $('.score-prediction', $blueTeam),
-        redPlayer1Rating = $('[name="redPlayer1"]', $redTeam).find(':selected').attr('data-player-rating'),
-        redPlayer2Rating = $('[name="redPlayer2"]', $redTeam).find(':selected').attr('data-player-rating'),
-        bluePlayer1Rating = $('[name="bluePlayer1"]', $blueTeam).find(':selected').attr('data-player-rating'),
-        bluePlayer2Rating = $('[name="bluePlayer2"]', $blueTeam).find(':selected').attr('data-player-rating'),
-        redPlayerRatings = parseInt(nvl(redPlayer1Rating, 0)) + parseInt(nvl(redPlayer2Rating, 0)),
-        bluePlayerRatings = parseInt(nvl(bluePlayer1Rating, 0)) + parseInt(nvl(bluePlayer2Rating, 0)),
-        winnerRating = Math.max(redPlayerRatings, bluePlayerRatings),
-        loserRating = Math.min(redPlayerRatings, bluePlayerRatings);
-
-    if (redPlayerRatings !== 0 && bluePlayerRatings !== 0) {
-        $.ajax({
-            url: 'Matches/GetRating',
-            data: {
-                winnerRating: winnerRating,
-                loserRating: loserRating,
-            },
-            type: 'get',
-            success: function(rating) {
-                var roundedRedRating = Math.round(redPlayerRatings),
-                    roundedBlueRating = Math.round(bluePlayerRatings),
-                    roundedWinnerChance = Math.round(100 * rating.ExpectedScore),
-                    roundedLoserChance = Math.round(100 - (100 * rating.ExpectedScore)),
-                    roundedWinnerGain = Math.round(rating.RatingModifier),
-                    roundedLoserGain = Math.round(rating.KModifier - rating.RatingModifier);
-
-                if (redPlayerRatings === winnerRating) {
-                    $redTeamPrediction.find('.rating').text(roundedRedRating);
-                    $redTeamPrediction.find('.chance').text(roundedWinnerChance);
-                    $redTeamPrediction.find('.gain').text(roundedWinnerGain);
-                    $blueTeamPrediction.find('.rating').text(roundedBlueRating);
-                    $blueTeamPrediction.find('.chance').text(roundedLoserChance);
-                    $blueTeamPrediction.find('.gain').text(roundedLoserGain);
-                } else {
-                    $blueTeamPrediction.find('.rating').text(roundedBlueRating);
-                    $blueTeamPrediction.find('.chance').text(roundedWinnerChance);
-                    $blueTeamPrediction.find('.gain').text(roundedWinnerGain);
-                    $redTeamPrediction.find('.rating').text(roundedRedRating);
-                    $redTeamPrediction.find('.chance').text(roundedLoserChance);
-                    $redTeamPrediction.find('.gain').text(roundedLoserGain);
-                }
-
-                $redTeamPrediction.removeClass('hide');
-                $blueTeamPrediction.removeClass('hide');
-            }
-        });
-    } else {
-        $redTeamPrediction.addClass('hide');
-        $blueTeamPrediction.addClass('hide');
-    }
 }

@@ -80,54 +80,62 @@ page width. Or, you can specify an exact pixel width. */
 
 /* TAB MENU
 ----------------------------------------------------------*/
-#main-menu {
-    display: none;
+.menu {
     position: absolute;
     top: 42px;
     right: 15px;
-    width: 150px;
     background: none #fff;
     padding: 0;
     margin: 0;
+    &#login-menu {
+        width: 200px;
+    }
+    &#main-menu {
+        width: 150px;
 
-    li {
-        border-bottom: 1px solid $seperator-color;
-        list-style: none;
-        display: list-item; 
-        padding: 10px 15px;
-        margin: 0;
-        width: 100%;
-        cursor: pointer;
+        li {
+            border-bottom: 1px solid $seperator-color;
+            list-style: none;
+            display: list-item; 
+            padding: 10px 15px;
+            margin: 0;
+            width: 100%;
+            cursor: pointer;
 
-        &:hover {
-            background: darken(#fff, 5);
-            text-decoration: none;
-        }
+            &:hover {
+                background: darken(#fff, 5);
+                text-decoration: none;
+            }
 
-        &.selected { 
-            font-weight: bold;
-        }
+            &.selected { 
+                font-weight: bold;
+            }
 
-        &:last-child {
-            border-bottom: none;
-        }
+            &:last-child {
+                border-bottom: none;
+            }
 
-        a, a:hover {
-            text-decoration: none;
+            a, a:hover {
+                text-decoration: none;
+            }
         }
     }
 }
 
 .menu-arrow {
-    display: none;
     position: absolute;
     top: 38px;
-    right: 18px;
     width: 0; 
     height: 0; 
     border-left: 5px solid transparent;
     border-right: 5px solid transparent;
     border-bottom: 5px solid white;
+    &.main-menu-arrow {
+        right: 18px;
+    }
+    &.login-menu-arrow {
+        right: 120px;
+    }
 }
 
 .menu-list-button {
@@ -335,7 +343,7 @@ input[type="text"], input[type="password"], input[type="email"] {
     padding: 2px;
     width: 98%;
 
-    &#Email.short {
+    &.short {
         width: 60px!important;
     }
 }

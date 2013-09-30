@@ -1,12 +1,13 @@
-.home {
+.home, .features {
     background: none #fff;
     border-radius: 5px;
     padding: 15px 20px;
+}
+.home {
     p {
         text-align: center;
     }
 }
-
 #welcome-message {
     text-align: center;
 }

@@ -3,14 +3,6 @@
     // Menu highlighting and animation 
     //
     var $menu = $('#main-menu');
-    var $menuarrow = $('.menu-arrow');
-
-    // open/close the main menu
-    $('.login-display').on('click', '.menu-list-button', function(event) {
-        event.preventDefault();
-        $menu.toggle();
-        $menuarrow.toggle();
-    });
 
     // redirect on menu-item click
     $menu.on('click', 'li', function (event) {

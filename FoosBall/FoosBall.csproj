@@ -137,13 +137,14 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Main\EventHub.cs" />
+    <Compile Include="Models\Base\LoginInfo.cs" />
     <Compile Include="Models\Base\EventType.cs" />
+    <Compile Include="Models\Base\SessionInfo.cs" />
     <Compile Include="Models\Custom\CustomSelectListItem.cs" />
     <Compile Include="Models\Custom\RatingDifference.cs" />
     <Compile Include="Models\Custom\Streak.cs" />
     <Compile Include="Models\Custom\Streaks.cs" />
     <Compile Include="Models\ViewModels\EventViewModel.cs" />
-    <Compile Include="Models\ViewModels\FeaturesViewModel.cs" />
     <Compile Include="ViewHelpers\Md5Extensions.cs" />
     <Compile Include="Main\AppConfig.cs" />
     <Compile Include="Main\Events.cs" />
@@ -164,7 +165,6 @@
     <Compile Include="Models\Domain\AutoLogin.cs" />
     <Compile Include="Models\ViewModels\LogOnViewModel.cs" />
     <Compile Include="Models\ViewModels\MatchesViewModel.cs" />
-    <Compile Include="Models\ViewModels\HomeViewModel.cs" />
     <Compile Include="Models\Domain\Match.cs" />
     <Compile Include="Models\Domain\Player.cs" />
     <Compile Include="Models\Domain\Team.cs" />
@@ -173,40 +173,52 @@
     <Compile Include="Models\ViewModels\PlayerBaseDataViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="css\foosball.css">
-      <DependentUpon>foosball.scss</DependentUpon>
-    </Content>
-    <Content Include="css\foosball.min.css">
-      <DependentUpon>foosball.scss</DependentUpon>
-    </Content>
+    <Content Include="css\minified\foosball.css" />
+    <Content Include="css\minified\foosball.min.css" />
     <Content Include="Global.asax" />
-    <Content Include="Javascript\Admin.js">
+    <Content Include="js\Admin.js">
       <Compile>True</Compile>
       <Minify>False</Minify>
     </Content>
-    <Content Include="Javascript\angular\playerstats.controllers.js" />
-    <Content Include="Javascript\angular\stats.controllers.js" />
-    <Content Include="Javascript\angular\players.controllers.js" />
-    <Content Include="Javascript\angular\home.controllers.js" />
-    <Content Include="Javascript\foosball.js">
+    <Content Include="js\angular\base.controller.js" />
+    <Content Include="js\angular\account.controller.js" />
+    <Content Include="js\angular\admin.controller.js" />
+    <Content Include="js\angular\playerstats.controller.js" />
+    <Content Include="js\angular\stats.controller.js" />
+    <Content Include="js\angular\players.controller.js" />
+    <Content Include="js\angular\home.controller.js" />
+    <Content Include="js\foosball.js">
       <Compile>True</Compile>
       <Minify>False</Minify>
       <IncludedFiles>Javascript\lib\md5.js|Javascript\lib\highcharts.js|Javascript\angular\app.js|Javascript\angular\matches.controllers.js|Javascript\Base.js|Javascript\Shared.js|Javascript\LogOn.js|Javascript\Home.js|Javascript\PlayerStats.js|Javascript\Register.js|Javascript\Stats.js|Javascript\Admin.js|Javascript\lib\jquery.signalR-1.0.0.js</IncludedFiles>
     </Content>
-    <Content Include="Javascript\lib\angular-resource.min.js" />
-    <Content Include="Javascript\lib\angular-route.min.js" />
-    <Content Include="Javascript\lib\angular.min.js" />
-    <Content Include="Javascript\lib\jquery.signalR-1.0.0.js" />
-    <Content Include="Javascript\lib\jquery.signalR-1.0.0.min.js" />
-    <Content Include="Javascript\angular\matches.controllers.js" />
-    <Content Include="Javascript\angular\app.js" />
-    <Content Include="Javascript\lib\md5.js" />
-    <Content Include="Javascript\Shared.js" />
-    <Content Include="Javascript\lib\highcharts.js" />
-    <Content Include="Javascript\LogOn.js" />
-    <Content Include="Javascript\lib\jquery.min.js" />
-    <Content Include="Javascript\Register.js" />
-    <Content Include="Javascript\PlayerStats.js" />
+    <Content Include="js\lib\angular-resource.js" />
+    <Content Include="js\lib\angular-route.js" />
+    <Content Include="js\lib\angular.js" />
+    <Content Include="js\lib\jquery.js" />
+    <Content Include="js\lib\jquery.signalR-1.0.0.js" />
+    <Content Include="js\angular\matches.controller.js" />
+    <Content Include="js\angular\app.js">
+      <Compile>True</Compile>
+      <Minify>False</Minify>
+      <IncludedFiles>js\lib\jquery.js|js\lib\jquery.signalR-1.0.0.js|js\lib\angular.js|js\lib\angular-resource.js|js\lib\angular-route.js|js\lib\md5.js|js\lib\highcharts.js|js\foosball.js|js\angular\base.controller.js|js\angular\account.controller.js|js\angular\home.controller.js|js\angular\matches.controller.js|js\angular\players.controller.js|js\angular\playerstats.controller.js|js\angular\stats.controller.js|js\angular\admin.controller.js</IncludedFiles>
+      <OutputFolder>..\minified</OutputFolder>
+    </Content>
+    <Content Include="js\lib\md5.js" />
+    <Content Include="js\Shared.js" />
+    <Content Include="js\lib\highcharts.js" />
+    <Content Include="partials\admin.html" />
+    <Content Include="partials\user-register.html" />
+    <Content Include="partials\logon.html" />
+    <Content Include="partials\user-edit.html" />
+    <Content Include="partials\stats-player.html" />
+    <Content Include="partials\stats.html" />
+    <Content Include="partials\_match-list.html" />
+    <Content Include="partials\_register-match.html" />
+    <Content Include="partials\matches.html" />
+    <Content Include="partials\players.html" />
+    <Content Include="partials\home.html" />
+    <Content Include="partials\features.html" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -219,7 +231,6 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Account\LogOn.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
-    <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_LogOnPartial.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
@@ -232,19 +243,14 @@
     </Content>
     <Content Include="Views\Admin\Index.cshtml" />
     <Content Include="Views\Stats\Player.cshtml" />
-    <Content Include="Views\Stats\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="js\lib\minified\" />
+    <Folder Include="js\minified\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Matches\Index.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Players\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
@@ -262,9 +268,6 @@
       <CompileStyle>Nested</CompileStyle>
       <DebugInfo>False</DebugInfo>
     </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Home\Features.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Shared\_PlayerBaseData.cshtml" />
@@ -313,12 +316,6 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Shared\_PlayerCreateEventFeedListItem.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Shared\_MatchResolveEventFeedListItem.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Views\Shared\_MatchTemplate.cshtml" />
   </ItemGroup>
   <ItemGroup>
@@ -327,6 +324,31 @@
       <Minify>True</Minify>
       <CompileStyle>Nested</CompileStyle>
       <DebugInfo>False</DebugInfo>
+      <OutputFolder>.\minified</OutputFolder>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="js\lib\jquery.signalR-1.0.0.min.js.map">
+      <DependentUpon>jquery.signalR-1.0.0.js</DependentUpon>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Home\Index.cshtml">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="Views\Matches\Index.cshtml">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="Views\Stats\Index.cshtml">
+      <SubType>Code</SubType>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Players\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="js\lib\jquery.min.js.map">
+      <DependentUpon>jquery.js</DependentUpon>
     </Content>
   </ItemGroup>
   <PropertyGroup>

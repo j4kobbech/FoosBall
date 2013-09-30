@@ -1,12 +1,4 @@
-﻿@model PlayerStatsViewModel
-@{
-    ViewBag.Title = "Player Stats";
-}
-@section Javascript
-{ 
-}
-
-<div ng-cloak ng-controller="PlayerStatsController" class="statistics player clearfix">
+﻿<div ng-cloak ng-controller="PlayerStatsController" class="statistics player clearfix">
     <div class="avatar">
         <img class="gravatar" alt="{{playerStats.Player.Name}}" title="{{playerStats.Player.Name}}" ng-src="{{playerStats.Player.GravatarUrl}}" />
     </div>

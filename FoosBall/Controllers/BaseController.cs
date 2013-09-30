@@ -3,11 +3,11 @@
     using System;
     using System.Text;
     using System.Web;
+    using System.Web.Helpers;
     using System.Web.Mvc;
-
-    using FoosBall.Main;
-    using FoosBall.Models.Domain;
-
+    using Main;
+    using Models.Base;
+    using Models.Domain;
     using MongoDB.Driver;
     using MongoDB.Driver.Builders;
 
@@ -27,7 +27,7 @@
         }
 
         protected Config Settings { get; set; }
-
+        
         public static string CalculateMd5(string input, Encoding useEncoding)
         {
             var cryptoService = new System.Security.Cryptography.MD5CryptoServiceProvider();
@@ -48,6 +48,36 @@
         public static string GetAuthToken(Player player)
         {
             return Md5.CalculateMd5(player.Id + player.Email + "FoosBall4Ever");
+        }
+
+        public JsonResult GetSession()
+        {
+            return Json(GetSessionInfo(), JsonRequestBehavior.AllowGet);
+        }
+
+        protected SessionInfo GetSessionInfo()
+        {
+            SessionInfo session;
+            if (Session["IsLoggedIn"] == null || Session["IsLoggedIn"].ToString() == "false")
+            {
+                session = new SessionInfo()
+                {
+                    IsAdmin = false,
+                    IsLoggedIn = false,
+                    User = null
+                };
+            }
+            else
+            {
+                session = new SessionInfo()
+                {
+                    IsAdmin = (bool)Session["Admin"],
+                    IsLoggedIn = (bool)Session["IsLoggedIn"],
+                    User = (Player)Session["User"]
+                };
+            }
+
+            return session;
         }
 
         // COOKIE DOUGH

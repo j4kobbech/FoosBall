@@ -30,19 +30,22 @@
     <script src="/js/lib/angular.js"></script>
     <script src="/js/lib/angular-resource.js"></script>
     <script src="/js/lib/angular-route.js"></script>
+    <script src="/js/lib/angular-animate.js"></script>
     <script src="/js/lib/md5.js"></script>
     <script src="/js/lib/highcharts.js"></script>
+    <script src="/js/lib/event.js"></script>
 
     <script src="/js/foosBall.js"></script>
     <script src="/js/angular/app.js"></script>
-    <script src="/js/angular/account.controller.js"></script> 
     <script src="/js/angular/admin.controller.js"></script>
     <script src="/js/angular/base.controller.js"></script> 
     <script src="/js/angular/home.controller.js"></script> 
+    <script src="/js/angular/login.controller.js"></script> 
     <script src="/js/angular/matches.controller.js"></script>
     <script src="/js/angular/players.controller.js"></script>
     <script src="/js/angular/playerstats.controller.js"></script>
     <script src="/js/angular/stats.controller.js"></script> 
+    <script src="/js/angular/user.controller.js"></script> 
     @*<script src="/js/minified/app.min.js"></script>*@
 
     <script src="/signalr/hubs"></script>
@@ -82,18 +85,18 @@
         <nav data-debug="{uiSettings.{hideMainMenu}}" >
             <div class="main-menu-arrow menu-arrow" ng-hide="uiSettings.hideMainMenu"></div>
             <ul id="main-menu" class="menu" ng-hide="uiSettings.hideMainMenu">
-                <li class="Home"><a ng-click="uiSettings.hideMainMenu = !uiSettings.hideMainMenu" ng-href="/#/">Home</a></li>
-                <li class="Scoreboard"><a ng-click="uiSettings.hideMainMenu = !uiSettings.hideMainMenu" ng-href="/#/players">Scoreboard</a></li>
-                <li class="Matches"><a ng-click="uiSettings.hideMainMenu = !uiSettings.hideMainMenu" ng-href="/#/matches">Matches</a></li>
-                <li class="Stats"><a ng-click="uiSettings.hideMainMenu = !uiSettings.hideMainMenu" ng-href="/#/stats">Stats</a></li>
-                <li class="Features"><a ng-click="uiSettings.hideMainMenu = !uiSettings.hideMainMenu" ng-href="/#/features">Features</a></li>
-                <li ng-if="session.IsLoggedIn && session.IsAdmin" ng-click="uiSettings.hideMainMenu = !uiSettings.hideMainMenu" class="Admin">@Html.ActionLink("Admin", "Index", "Admin")</li>
+                <li ng-click="uiSettings.hideMainMenu = !uiSettings.hideMainMenu" class="Home"><a ng-href="/#/">Home</a></li>
+                <li ng-click="uiSettings.hideMainMenu = !uiSettings.hideMainMenu" class="Scoreboard"><a ng-href="/#/players">Scoreboard</a></li>
+                <li ng-click="uiSettings.hideMainMenu = !uiSettings.hideMainMenu" class="Matches"><a ng-href="/#/matches">Matches</a></li>
+                <li ng-click="uiSettings.hideMainMenu = !uiSettings.hideMainMenu" class="Stats"><a ng-href="/#/stats">Stats</a></li>
+                <li ng-click="uiSettings.hideMainMenu = !uiSettings.hideMainMenu" class="Features"><a ng-href="/#/features">Features</a></li>
+                <li ng-click="uiSettings.hideMainMenu = !uiSettings.hideMainMenu" ng-if="session.IsLoggedIn && session.IsAdmin" ng-click="uiSettings.hideMainMenu = !uiSettings.hideMainMenu" class="Admin">@Html.ActionLink("Admin", "Index", "Admin")</li>
             </ul> 
         </nav>
 
         <div data-debug="{{uiSettings.hideLogonMenu}}" class="login-menu-arrow menu-arrow" ng-hide="uiSettings.hideLogonMenu"></div>
         <div id="login-menu" class="menu" ng-hide="uiSettings.hideLogonMenu">
-            <div ng-include="'/partials/logon.html'"></div>
+            <div ng-include="'/partials/_logon.html'"></div>
         </div>
 
         <div class="login-display">

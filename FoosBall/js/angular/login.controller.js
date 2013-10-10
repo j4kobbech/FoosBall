@@ -1,4 +1,4 @@
-﻿function AccountController($scope) {
+﻿function LoginController($scope) {
     $scope.submitLogin = function () {
         var requestParameters = {
             email: $scope.email,
@@ -12,7 +12,7 @@
             data: requestParameters,
             success: function (loginInfo) {
                 $scope.$apply(function() {
-                    angular.forEach(loginInfo.Session, function (value, key) {
+                    angular.forEach(loginInfo.Data, function (value, key) {
                         $scope.session[key] = value;
                     });
                     $scope.uiSettings.hideMainMenu = true;
@@ -25,4 +25,4 @@
     };
 }
 
-AccountController.$inject = ['$scope'];
+LoginController.$inject = ['$scope'];

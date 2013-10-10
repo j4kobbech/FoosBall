@@ -6,7 +6,7 @@
     $scope.pageSize = 10;
     $scope.hideForm = true;
     $scope.matches = [];
-    $scope.hex_md5 = hex_md5;
+    $scope.hex_md5 = md5.hex_md5;
     $scope.currentUserId = currentUserTag ? currentUserTag.value : '';
 
     $scope.cancelMatch = function(index) {

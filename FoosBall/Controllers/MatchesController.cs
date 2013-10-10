@@ -19,7 +19,7 @@
             return View();
         }
 
-        [HttpGet]
+        [HttpGet] 
         public ActionResult GetPlayers()
         {
             // Fetch all players to display in a <select>

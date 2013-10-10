@@ -1,6 +1,6 @@
 ﻿function PlayerStatsController($scope, $resource, $location) {
     $scope.playerStats = [];
-    $scope.hex_md5 = hex_md5;
+    $scope.hex_md5 = md5.hex_md5;
 
     // Start fetching player statistics, return a promise
     $scope.getPlayerStats = function() {
@@ -35,7 +35,7 @@
 
     function preparePlayerStats(playerStats) {
         var statsUrl = '/#/playerstats?playerId=';
-        playerStats.Player.GravatarUrl = 'http://www.gravatar.com/avatar/' + hex_md5(playerStats.Player.Email) + '?d=mm';
+        playerStats.Player.GravatarUrl = 'http://www.gravatar.com/avatar/' + md5.hex_md5(playerStats.Player.Email) + '?d=mm';
         playerStats.Player.Url = statsUrl + playerStats.Player.Id;
         playerStats.Bff.Player.Url = statsUrl + playerStats.Bff.Player.Id;
         playerStats.Rbff.Player.Url = statsUrl + playerStats.Rbff.Player.Id;

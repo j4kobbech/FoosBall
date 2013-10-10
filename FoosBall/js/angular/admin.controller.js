@@ -2,4 +2,4 @@
 
 }
 
-AccountController.$inject = ['$scope', '$resource'];
+AdminController.$inject = ['$scope', '$resource'];

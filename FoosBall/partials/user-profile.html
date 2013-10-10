@@ -1,0 +1,37 @@
+﻿<div class="user-profile" class="user-profile">
+    <form ng-if="session.IsLoggedIn" name="editUserForm" ng-submit="submitUserDetails()" ng-controller="UserController" ng-model="user">
+        <fieldset>
+            <legend>{{user.Name}}'s account</legend>
+
+            <a href ng-href="http://www.gravatar.com"><img id="profile-gravatar" alt="Gravatar picture" ng-src="{{user.GravatarUrl}}"/></a>
+            <br />
+            <br />
+            <label for="email">Email:</label>
+            <input ng-model="user.Email" type="email" name="email" required autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Email"/>
+            <br />
+            <br />
+            <label for="name">Name:</label>
+            <input ng-model="user.Name" value="{{user.Name}}" type="text" name="name" required autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Name" />
+            <br />
+            <br />
+
+            <label for="new-password">New password:</label>
+            <input ng-model="user.NewPassword" type="password" name="new-password" value="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="New password"/>
+            <br />
+            <br />
+
+            <span ng-show="user.NewPassword">
+                <label for="old-password">Old password:</label>
+                <input ng-model="user.OldPassword" type="password" name="old-password" value="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Old password" />
+                <br />
+                <br />
+            </span>
+
+            <span ng-hide="!showValidationMessage" class="error validation-message">{{updateMessage}}</span>
+            <br />
+            <br />
+            
+            <input type="submit" value="Save Player" class="submit-button button" id="edit-player-button"/>
+        </fieldset>
+    </form>
+</div>

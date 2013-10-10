@@ -1,11 +1,11 @@
 ﻿namespace FoosBall.Models.Base
 {
-    public class LoginInfo
+    public class AjaxResponse
     {
-        public SessionInfo Session { get; set; }
-
         public bool Success { get; set; }
 
         public string Message { get; set; }
+    
+        public dynamic Data { get; set; }
     }
 }

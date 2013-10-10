@@ -5,6 +5,7 @@
     using System.Web;
     using System.Web.Helpers;
     using System.Web.Mvc;
+    using ControllerHelpers;
     using Main;
     using Models.Base;
     using Models.Domain;
@@ -50,12 +51,12 @@
             return Md5.CalculateMd5(player.Id + player.Email + "FoosBall4Ever");
         }
 
-        public JsonResult GetSession()
+        public JsonResult GetSession(bool refresh = false)
         {
-            return Json(GetSessionInfo(), JsonRequestBehavior.AllowGet);
+            return Json(GetSessionInfo(refresh), JsonRequestBehavior.AllowGet);
         }
 
-        protected SessionInfo GetSessionInfo()
+        protected SessionInfo GetSessionInfo(bool refresh = false)
         {
             SessionInfo session;
             if (Session["IsLoggedIn"] == null || Session["IsLoggedIn"].ToString() == "false")
@@ -69,12 +70,27 @@
             }
             else
             {
-                session = new SessionInfo()
+
+                if (refresh)
                 {
-                    IsAdmin = (bool)Session["Admin"],
-                    IsLoggedIn = (bool)Session["IsLoggedIn"],
-                    User = (Player)Session["User"]
-                };
+                    var player = (Player) Session["User"];
+                    var refreshedPlayer = DbHelper.GetPlayer(player.Id);
+                    session = new SessionInfo()
+                    {
+                        IsAdmin = Settings.AdminAccount.Contains(refreshedPlayer.Email),
+                        IsLoggedIn = (bool)Session["IsLoggedIn"],
+                        User = refreshedPlayer
+                    };
+                }
+                else
+                {
+                    session = new SessionInfo()
+                    {
+                        IsAdmin = (bool)Session["Admin"],
+                        IsLoggedIn = (bool)Session["IsLoggedIn"],
+                        User = (Player)Session["User"]
+                    };
+                }
             }
 
             return session;

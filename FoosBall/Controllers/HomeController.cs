@@ -6,6 +6,7 @@
     {
         public ActionResult Index()
         {
+            var dingo = this.Request;
             return View();
         }
         

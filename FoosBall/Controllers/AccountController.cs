@@ -1,7 +1,7 @@
 ﻿namespace FoosBall.Controllers
 {
+    using System;
     using System.Linq;
-    using System.Security.Cryptography;
     using System.Web.Mvc;
     using ControllerHelpers;
     using Main;
@@ -13,6 +13,14 @@
     
     public class AccountController : BaseController
     {
+        [HttpGet]
+        public ActionResult GetPlayer()
+        {
+            var currentUser = (Player)Session["User"];
+
+            return Json(DbHelper.GetPlayer(currentUser.Id), JsonRequestBehavior.AllowGet);
+        }
+
         public ActionResult LogOn()
         {
             if (Session["IsLoggedIn"] == null || Session["IsLoggedIn"].ToString() == "false")
@@ -52,19 +60,13 @@
             return RedirectToAction("Index", "Home");
         }
 
-        [HttpGet]
-        public ActionResult GetLogonStatus()
-        {
-            return View("_LogOnPartial");
-        }
-
         [HttpPost]
         public ActionResult LogOn(string email, string password, string refUrl, bool rememberMe = false)
         {
             var loginEmail = (email + "@" + Settings.Domain).ToLower();
             var playerCollection = Dbh.GetCollection<Player>("Players");
             var player = playerCollection.FindOne(Query.EQ("Email", loginEmail));
-            var loginInfo = new LoginInfo();
+            var loginInfo = new AjaxResponse();
 
             if (player != null)
             {
@@ -73,7 +75,7 @@
                     if (Login(player))
                     {
                         loginInfo.Message = "Success";
-                        loginInfo.Session = GetSessionInfo();
+                        loginInfo.Data = GetSessionInfo();
                         loginInfo.Success = true;
                     }
                 }
@@ -81,7 +83,7 @@
             else
             {
                 loginInfo.Message = "Wrong user name or password";
-                loginInfo.Session = GetSessionInfo();
+                loginInfo.Data = GetSessionInfo(refresh: true);
                 loginInfo.Success = false;
             }
 
@@ -144,65 +146,48 @@
             return this.Redirect(Url.Action("Index", "Players") + "#" + newPlayer.Id);
         }
 
-        [HttpGet]
-        public ActionResult Edit(string id)
-        {
-            var currentUser = (Player)Session["User"];
-            var player = DbHelper.GetPlayer(id);
-
-            if (currentUser != null && (currentUser.Id == player.Id || this.Settings.AdminAccount.Contains(currentUser.Email)))
-            {
-                var refUrl = HttpContext.Request.UrlReferrer != null
-                                 ? HttpContext.Request.UrlReferrer.AbsoluteUri
-                                 : "/Players";
-
-                return this.View(new PlayerBaseDataViewModel
-                                     {
-                                         Player = player, 
-                                         Settings = this.Settings,
-                                         ReferralUrl = refUrl
-                                     });
-            }
-
-            return this.RedirectToAction("Index", "Home");
-        }
-
         [HttpPost]
-        public ActionResult Edit(PlayerBaseDataViewModel viewModel)
+        public ActionResult Edit(string email, string name, string oldPassword = "", string newPassword = "")
         {
-            viewModel.SaveSuccess = false;
+            var response = new AjaxResponse { Success = false };
+            var currentUser = (Player)Session["User"];
+            var player = DbHelper.GetPlayer(currentUser.Id);
+            var newMd5Password = Md5.CalculateMd5(newPassword);
 
-            if (ModelState.IsValid)
+            if (player == null)
             {
-                var currentUser = (Player)Session["User"];
-                viewModel.Player.Email += "@" + this.Settings.Domain;
-
-                if (currentUser != null
-                    && (currentUser.Id == viewModel.Player.Id || this.Settings.AdminAccount.Contains(currentUser.Email)))
-                {
-                    var player = DbHelper.GetPlayer(viewModel.Player.Id);
-
-                    player.Email = string.IsNullOrEmpty(viewModel.Player.Email)
-                                        ? player.Email
-                                        : viewModel.Player.Email;
-                    player.Name = string.IsNullOrEmpty(viewModel.Player.Name)
-                                        ? player.Name
-                                        : viewModel.Player.Name;
-                    player.Password = string.IsNullOrEmpty(viewModel.Player.Password)
-                                        ? player.Password
-                                        : Md5.CalculateMd5(viewModel.Player.Password);
-
-                    DbHelper.SavePlayer(player);
-                    viewModel.Player = player;
-                    viewModel.SaveSuccess = true;
-                }
-
-                viewModel.Settings = this.Settings;
-
-                return this.View("Edit", viewModel);
+                response.Message = "You have to be logged in to change user information";
+                return Json(response);
             }
 
-            return this.RedirectToAction("Index", "Home");
+            if (!ValidateEmail(email))
+            {
+                response.Message = "You must provide a valid trustpilot email";
+                return Json(response);
+            }
+
+            player.Email = string.IsNullOrEmpty(email) ? player.Email : email;
+            player.Name = string.IsNullOrEmpty(name) ? player.Name : name;
+
+            if (!string.IsNullOrEmpty(newPassword))
+            {
+                if (Md5.CalculateMd5(oldPassword) == player.Password)
+                {
+                    player.Password = newMd5Password;
+                }
+                else
+                {
+                    response.Message = "The old password is not correct";
+                    return Json(response);
+                }
+            }
+
+            DbHelper.SavePlayer(player);
+            response.Success = true;
+            response.Message = "User updated succesfully";
+            response.Data = GetSession(refresh: true);
+
+            return Json(response);
         }
 
         [HttpPost]
@@ -251,7 +236,8 @@
         {
             const string domain = "@trustpilot.com";
 
-            return email.EndsWith(domain) &&
+            return !string.IsNullOrEmpty(email) &&
+                   email.EndsWith(domain) &&
                    email.Count(x => x == '@') == 1 &&
                    email.Length > domain.Length;
         }

@@ -1,10 +1,8 @@
 ﻿namespace FoosBall.ControllerHelpers
 {
     using System;
-
-    using FoosBall.Main;
-    using FoosBall.Models.Domain;
-
+    using Main;
+    using Models.Domain;
     using MongoDB.Bson;
     using MongoDB.Driver;
     using MongoDB.Driver.Builders;

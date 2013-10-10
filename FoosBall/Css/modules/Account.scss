@@ -1,16 +1,5 @@
-.register, .logon {
-    background: none #fff;
-    border-radius: 5px;
-    padding: 15px 20px;
-}
-
-label { 
-    display: block; 
-    &[for="RememberMe"] {
-        display: inline;
+.user-profile {
+    label {
+        display: block;
     }
-}
-
-#profile-gravatar {
-    @include gravatar-large
 }

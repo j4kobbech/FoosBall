@@ -34,12 +34,14 @@
         [HttpGet]
         public ActionResult GetMatches(int numberOfMatches = PageSize, int startFromMatch = 0)
         {
+            var fetchNumberOfMatches = numberOfMatches == 0 ? int.MaxValue : numberOfMatches;
+
             // Fetch all FoosBall matches
             var playedMatches = Dbh.GetCollection<Match>("Matches")
                     .Find(Query.GT("GameOverTime", DateTime.Parse("01/01/2012")))
                     .OrderByDescending(x => x.GameOverTime)
                     .Skip(startFromMatch)
-                    .Take(numberOfMatches);
+                    .Take(fetchNumberOfMatches);
 
             return Json(playedMatches, JsonRequestBehavior.AllowGet);
         }

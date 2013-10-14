@@ -1,13 +1,23 @@
 ﻿angular.
     module('FoosBall', ['ngRoute', 'ngResource']).
     // The session service provides methods for users to login, logout and getting server session 
+    service('api', function ($resource) {
+        this.getAllMatches = function () {
+            var url = '/Matches/GetMatches?numberOfMatches=0'; // "numberOfMatches=0" fetches all matches
+            
+            var AllMatches = $resource(url);
+            var promise = AllMatches.query().$promise;
+
+            return promise;
+        };
+    }).
     service('session', function ($resource) {
         var self = this;
 
         this.getSession = function (refresh) {
             var url = '/Base/GetSession';
             url += (refresh) ? '?refresh=true' : '';
-            
+
             var Session = $resource(url);
             var promise = Session.get().$promise;
 
@@ -28,7 +38,7 @@
                 });
             });
         };
-        
+
         this.logout = function (scope, callback) {
             var AccoutLogoff = $resource('/Account/LogOff'),
                 logoffPromise = AccoutLogoff.get().$promise;
@@ -41,15 +51,15 @@
                         scope.session[key] = value;
                     });
                 });
-                
+
                 if (callback) {
                     callback();
                 }
             });
         };
-        
+
     }).
-    config(['$routeProvider', function($routeProvider) {
+    config(['$routeProvider', function ($routeProvider) {
         $routeProvider
             .when('/', { templateUrl: '/partials/home.html' })
             .when('/features', { templateUrl: '/partials/features.html' })

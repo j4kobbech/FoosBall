@@ -181,6 +181,7 @@
       <Minify>False</Minify>
     </Content>
     <Content Include="js\angular\base.controller.js" />
+    <Content Include="js\angular\getmatches.controller.js" />
     <Content Include="js\angular\login.controller.js" />
     <Content Include="js\angular\admin.controller.js" />
     <Content Include="js\angular\user.controller.js" />

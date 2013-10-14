@@ -7,3 +7,8 @@
     <p>This app is slowly moving into a full featured AngularJS single page application.</p>
     <p>It's a wonder that <i>anything</i> works ...</p>
 </div>
+
+<!-- Test Get All Matches -->
+<ul ng-controller="GetMatchesController">
+    <li ng-repeat="match in matches">{{match.RedPlayer1.Name}}</li>
+</ul>

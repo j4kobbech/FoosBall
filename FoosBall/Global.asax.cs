@@ -1,8 +1,7 @@
 ﻿namespace FoosBall
 {
-    using System.Collections.Generic;
-    using System.Web;
     using System.Web.Mvc;
+    using System.Web.Optimization;
     using System.Web.Routing;
     using Main;
 
@@ -29,6 +28,7 @@
         protected void Application_Start()
         {
             AreaRegistration.RegisterAllAreas();
+            BundleConfig.RegisterBundles(BundleTable.Bundles);
 
             // Initialize App configuration
             AppConfig.InitalizeConfig();
@@ -39,15 +39,10 @@
 
         protected void Application_BeginRequest()
         {
-            //if (Request.IsLocal)
-            //{ 
-            //    MiniProfiler.Start();
-            //} 
         }
 
         protected void Application_EndRequest()
         {
-            //MiniProfiler.Stop();
         }
     }
 }

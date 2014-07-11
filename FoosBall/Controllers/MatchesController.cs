@@ -3,6 +3,7 @@
     using System;
     using System.Linq;
     using System.Web.Mvc;
+    using Foosball.Main;
     using Main;
     using Models.Base;
     using Models.Domain;
@@ -44,6 +45,7 @@
 
         // POST: /Matches/RegisterMatch
         [HttpPost]
+        [AuthorisationFilter(Role.User)]
         public ActionResult SubmitMatch(Match newMatch)
         {
             newMatch.RedPlayer1 = newMatch.RedPlayer1 == null ? new Player() : new Player(newMatch.RedPlayer1.Id);
@@ -59,31 +61,26 @@
         [HttpPost]
         public ActionResult Delete(string id)
         {
-            var currentUser = (User)Session["User"];
+            var currentUser = Main.Session.GetCurrentUser();
 
             if (currentUser != null)
             {
                 var matchCollection = Dbh.GetCollection<Match>("Matches");
-                var query = Query.EQ("_id", BsonObjectId.Parse(id));
-                var match = matchCollection.FindOne(query);
-
-                Events.SubmitEvent(EventType.MatchDelete, match, currentUser.Id);
-                matchCollection.Remove(query);
+                matchCollection.Remove(Query.EQ("_id", BsonObjectId.Parse(id)));
             }
 
-            return RedirectToAction("Index");
+            return new HttpStatusCodeResult(200);
         }
 
         // POST: /Matches/RegisterMatch
         private Match RegisterMatch(Match newMatch)
         {
-            var currentUser = (User)Session["User"];
+            var currentUser = Main.Session.GetCurrentUser();
             var basicMatch = CreateMatch(currentUser, newMatch);
             var resolvedMatch = ResolveMatch(basicMatch);
             var matchCollection = Dbh.GetCollection<Match>("Matches");
 
             matchCollection.Save(resolvedMatch);
-            Events.SubmitEvent(EventType.MatchResolve, resolvedMatch, currentUser.Id);
             return resolvedMatch;
         }
 
@@ -170,7 +167,7 @@
                         playerCollection.FindOne(Query.EQ("_id", BsonObjectId.Parse(match.BluePlayer2.Id)));
                 }
 
-                var currentUser = (User)Session["User"];
+                var currentUser = Main.Session.GetCurrentUser();
                 if (currentUser != null)
                 {
                     // Get the scores

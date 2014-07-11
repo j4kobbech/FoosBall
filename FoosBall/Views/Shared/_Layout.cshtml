@@ -1,24 +1,19 @@
-﻿<!DOCTYPE html>
+﻿@using System.Web.Optimization
+<!DOCTYPE html>
 <html data-ng-app="FoosBall" data-ng-controller="BaseController">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <meta name="robots" content="noindex">
     <link rel="shortcut icon" href="https://s3-eu-west-1.amazonaws.com/images.trustpilot.com/static/foosball/favicon.ico" type="image/x-icon" />
-    <title data-ng-bind="appSettings.AppNameWithEnvironment"></title>
+    <title data-ng-bind="appSettings.AppNameWithEnvironment">&#x022EF;&#x022EF;&#x029BF;</title>
     <link data-ng-href="{{staticResources.cssUrl}}" href="/css/minified/foosball.css" rel="stylesheet" type="text/css" />
     <!-- start Mixpanel -->
     <script type="text/javascript">(function (e, b) { if (!b.__SV) { var a, f, i, g; window.mixpanel = b; b._i = []; b.init = function (a, e, d) { function f(b, h) { var a = h.split("."); 2 == a.length && (b = b[a[0]], h = a[1]); b[h] = function () { b.push([h].concat(Array.prototype.slice.call(arguments, 0))) } } var c = b; "undefined" !== typeof d ? c = b[d] = [] : d = "mixpanel"; c.people = c.people || []; c.toString = function (b) { var a = "mixpanel"; "mixpanel" !== d && (a += "." + d); b || (a += " (stub)"); return a }; c.people.toString = function () { return c.toString(1) + ".people (stub)" }; i = "disable track track_pageview track_links track_forms register register_once alias unregister identify name_tag set_config people.set people.set_once people.increment people.append people.track_charge people.clear_charges people.delete_user".split(" "); for (g = 0; g < i.length; g++) f(c, i[g]); b._i.push([a, e, d]) }; b.__SV = 1.2; a = e.createElement("script"); a.type = "text/javascript"; a.async = !0; a.src = ("https:" === e.location.protocol ? "https:" : "http:") + '//cdn.mxpnl.com/libs/mixpanel-2.2.min.js'; f = e.getElementsByTagName("script")[0]; f.parentNode.insertBefore(a, f) } })(document, window.mixpanel || []); mixpanel.init("e9c49ca4308f0173d728ef488633351b");</script>
     <!-- end Mixpanel -->
 </head>
 <body>
-    <div id="request-notification">
-        The foosball app has a desktop notification feature in Chrome and Safari - you should try it out.<br />
-        <input class="button" id="notify-me" value="Got it!" />
-    </div>
-
     <img src="/css/foosball-background.jpg" data-ng-src="{{staticResources.backgroundImageUrl}}" id="bg" class="bgwidth" alt="background image" />
-
     <header>
         <a href="#" data-ng-href="/#/">
             <div id="app-title">
@@ -40,12 +35,12 @@
 
         @* LOGIN/ACCOUNT STATUS *@
         <div class="login-display">
-            <div data-ng-cloak data-ng-if="session.IsLoggedIn" class="menu-account-info">
-                Hi {{session.User.Name}}
+            <div data-ng-cloak data-ng-if="session.isLoggedIn" class="menu-account-info">
+                Hi {{session.userName}}
                 [ <a href="#" data-ng-href="/#/user-profile">Account</a> <span data-ng-if="session.IsAdmin">&middot; <a data-ng-href="/#/admin">Admin</a></span> &middot; <a href="#" data-ng-click="logout()">Log out</a> ]
             </div>
 
-            <div data-ng-if="!session.IsLoggedIn" class="menu-login-info">
+            <div data-ng-if="!session.isLoggedIn" class="menu-login-info">
                 <a href="#" ng-href="/#/login">Log on</a> or <a href="#" ng-href="/#/signup">Sign up</a>
             </div>
         </div>
@@ -59,11 +54,9 @@
 
     @* Thirdparty Javascript *@
     <script src="/js/lib/jquery.js"></script>
-    <script src="/Scripts/jquery.signalR-2.0.0.js"></script>
     <script src="/js/lib/angular.js"></script>
     <script src="/js/lib/angular-resource.js"></script>
     <script src="/js/lib/angular-route.js"></script>
-    <script src="/js/lib/angular-animate.js"></script>
     <script src="/js/lib/md5.js"></script>
     <script src="/js/lib/highcharts.js"></script>
     <script src="/js/lib/event.js"></script>
@@ -75,7 +68,6 @@
     <script src="/js/services/session.service.js"></script>
     <script src="/js/services/advancedstats.service.js"></script>
     <script src="/js/services/staticresources.service.js"></script>
-    <script src="/js/directives/time-left-to-edit.directive.js"></script>
     <script src="/js/directives/foosball-score.directive.js"></script>
     <script src="/js/controllers/base.controller.js"></script>
     <script src="/js/controllers/admin.controller.js"></script>
@@ -88,7 +80,11 @@
     <script src="/js/controllers/submitmatch.controller.js"></script>
     <script src="/js/controllers/user.controller.js"></script>
     <script src="/js/controllers/advancedstats.controller.js"></script>
-    <script src="/signalr/hubs"></script>
-    <script src="/js/Shared.js"></script>
+    <!--
+    -->
+    
+    <!--
+    <script async src="/bundles/all"></script>
+    -->
 </body>
 </html>

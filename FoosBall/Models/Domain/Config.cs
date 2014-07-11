@@ -12,10 +12,7 @@
         {
             this.Name = "FoosBall";
             this.Domain = string.Empty;
-            this.AdminAccounts = new List<string>()
-                {
-                    "jbe@trustpilot.com"
-                };
+            this.AdminAccounts = new List<string>();
         }
 
         public string Name { get; set; }

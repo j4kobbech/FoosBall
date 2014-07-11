@@ -9,13 +9,9 @@
             <label>Administrators</label>
             <input data-ng-model="config.AdminAccounts" type="text" />
 
-            <label>Email domain registriction</label>
+            <label>Email domain restriction</label>
             <input data-ng-model="config.Domain" type="text" disabled="disabled"/>
 
-            <label>Notification url</label>
-            <div>This url will get a POST request with match details after every match.</div>
-            <input data-ng-model="config.NotificationUrl" type="text" />
-            
             <input type="submit" class="button" value="Save configuration" />
         </fieldset>
     </form>

@@ -1,4 +1,4 @@
-﻿FoosBall.controller('SignupController', ['$scope', '$resource', 'session', function ($scope, $resource, session) {
+﻿FoosBall.controller('SignupController', ['$scope', '$resource', '$location', 'session', function ($scope, $resource, $location, session) {
     $scope.signupMessage = "";
     $scope.showSignupMessage = false;
 
@@ -13,25 +13,23 @@
         var newUser = new User(requestParameters);
         var newUserPromise = newUser.$save();
 
-        newUserPromise.then(function(responseData) {
-            if (!responseData) {
-                return;
-            }
-
-            if (responseData.Success === true) {
-                var sessionPromise = session.getSession(true);
-
-                sessionPromise.then(function(sessionInfo) {
-                    angular.forEach(sessionInfo, function(value, key) {
-                        $scope.$parent.session[key] = value;
-                    });
+        newUserPromise.then(function(signupResponse) {
+            if (signupResponse && signupResponse.Success) {
+                session.authenticateUser({
+                    email: $scope.email,
+                    password: $scope.password,
+                    rememberMe: $scope.rememberMe || false
+                }).then(function () {
+                    $scope.session.isLoggedIn = session.isLoggedIn();
+                    $scope.session.userName = signupResponse.Data.AccessToken.UserName;
+                    $location.path('/');
                 });
-
-                clearSignupForm($scope);
+            } else {
+                $scope.signupMessage = signupResponse.Message;
+                $scope.showSignupMessage = true;
             }
 
-            $scope.signupMessage = responseData.Message;
-            $scope.showSignupMessage = true;
+            clearSignupForm($scope);
         });
     };
     

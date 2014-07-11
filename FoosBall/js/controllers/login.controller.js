@@ -1,27 +1,23 @@
-﻿FoosBall.controller('LoginController', ['$scope', 'session', function($scope, session) {
+﻿FoosBall.controller('LoginController', ['$scope', 'session', '$location', function ($scope, session, $location) {
     $scope.loginMessage = "";
     $scope.showLoginMessage = false;
 
     $scope.submitLogin = function() {
-        var loginPromise = session.login({
+        var authPromise = session.authenticateUser({
             email: $scope.email,
             password: $scope.password,
             rememberMe: $scope.rememberMe || false
         });
 
-        loginPromise.then(function(responseData) {
-            if (!responseData) {
-                return;
-            }
-            
-            if (responseData.Success === true) {
-                window.angular.forEach(responseData.Data, function (value, key) {
-                    $scope.session[key] = value;
-                });
-
+        authPromise.then(function (authenticateResponse) {
+            if (authenticateResponse && authenticateResponse.Success) {
+                $scope.session.isLoggedIn = session.isLoggedIn();
+                $scope.session.userName = authenticateResponse.Data.AccessToken.UserName;
                 clearLogonForm($scope);
+
+                $location.path('/');
             } else {
-                $scope.loginMessage = responseData.Message;
+                $scope.loginMessage = authenticateResponse.Message;
                 $scope.showLoginMessage = true;
             }
         });

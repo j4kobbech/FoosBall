@@ -28,6 +28,7 @@
     <OldToolsVersion>4.0</OldToolsVersion>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
+    <WebGreaseLibPath>..\packages\WebGrease.1.5.2\lib</WebGreaseLibPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -47,31 +48,13 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Microsoft.AspNet.SignalR.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Microsoft.AspNet.SignalR.Core.2.0.0\lib\net45\Microsoft.AspNet.SignalR.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.AspNet.SignalR.SystemWeb, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Microsoft.AspNet.SignalR.SystemWeb.2.0.0\lib\net45\Microsoft.AspNet.SignalR.SystemWeb.dll</HintPath>
+    <Reference Include="Antlr3.Runtime">
+      <HintPath>..\packages\Antlr.3.4.1.9004\lib\Antlr3.Runtime.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="Microsoft.Owin">
-      <HintPath>..\packages\Microsoft.Owin.2.0.0\lib\net45\Microsoft.Owin.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Owin.Host.SystemWeb, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Microsoft.Owin.Host.SystemWeb.2.0.0\lib\net45\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Owin.Security">
-      <HintPath>..\packages\Microsoft.Owin.Security.2.0.0\lib\net45\Microsoft.Owin.Security.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
-    </Reference>
-    <Reference Include="MiniProfiler">
-      <HintPath>..\packages\MiniProfiler.2.0.2\lib\net40\MiniProfiler.dll</HintPath>
     </Reference>
     <Reference Include="MongoDB.Bson, Version=1.6.0.4624, Culture=neutral, PublicKeyToken=f686731cfb9cc103, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -102,6 +85,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Microsoft.AspNet.Mvc.5.1.2\lib\net45\System.Web.Mvc.dll</HintPath>
     </Reference>
+    <Reference Include="System.Web.Optimization">
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Microsoft.AspNet.Razor.3.1.2\lib\net45\System.Web.Razor.dll</HintPath>
@@ -120,11 +106,19 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.1.2\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
     </Reference>
+    <Reference Include="WebGrease">
+      <HintPath>..\packages\WebGrease.1.5.2\lib\WebGrease.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="ControllerHelpers\DbHelper.cs" />
     <Compile Include="ControllerHelpers\StatsControllerHelpers.cs" />
+    <Compile Include="Main\AuthenticateFilterAttribute.cs" />
+    <Compile Include="Main\Session.cs" />
+    <Compile Include="Models\Base\AccessToken.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\SessionController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -134,59 +128,34 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Main\EventHub.cs" />
-    <Compile Include="Main\Startup.cs" />
     <Compile Include="Main\Validation.cs" />
-    <Compile Include="Main\WebHookNotification.cs" />
     <Compile Include="Models\Base\LoginInfo.cs" />
     <Compile Include="Models\Base\EventType.cs" />
     <Compile Include="Models\Base\AppSettings.cs" />
-    <Compile Include="Models\Base\SessionInfo.cs" />
+    <Compile Include="Models\Base\Role.cs" />
     <Compile Include="Models\Custom\CustomSelectListItem.cs" />
     <Compile Include="Models\Custom\RatingDifference.cs" />
     <Compile Include="Models\Custom\Streak.cs" />
     <Compile Include="Models\Custom\Streaks.cs" />
     <Compile Include="Models\Domain\User.cs" />
     <Content Include="css\foosball-background.jpg" />
+    <Content Include="css\gravatar-default-image.jpg" />
     <Content Include="css\icon_football.png" />
     <Content Include="css\minified\foosball.min.css" />
-    <Content Include="js\app\foosball.app.combined.js">
-      <DependentUpon>foosball.app.js</DependentUpon>
-    </Content>
-    <Content Include="js\app\foosball.app.min.js">
-      <DependentUpon>foosball.app.js</DependentUpon>
-    </Content>
-    <Content Include="js\controllers\advancedstats.controller.js" />
     <Content Include="js\directives\foosball-score.directive.js" />
-    <Content Include="js\directives\time-left-to-edit.directive.js" />
-    <Content Include="js\lib\angular-1.2.15\angular-animate.js" />
-    <Content Include="js\lib\angular-1.2.15\angular-animate.min.js" />
-    <Content Include="js\lib\angular-1.2.15\angular-cookies.js" />
-    <Content Include="js\lib\angular-1.2.15\angular-cookies.min.js" />
-    <Content Include="js\lib\angular-1.2.15\angular-csp.css" />
-    <Content Include="js\lib\angular-1.2.15\angular-loader.js" />
-    <Content Include="js\lib\angular-1.2.15\angular-loader.min.js" />
-    <Content Include="js\lib\angular-1.2.15\angular-mocks.js" />
-    <Content Include="js\lib\angular-1.2.15\angular-resource.js" />
-    <Content Include="js\lib\angular-1.2.15\angular-resource.min.js" />
-    <Content Include="js\lib\angular-1.2.15\angular-route.js" />
-    <Content Include="js\lib\angular-1.2.15\angular-route.min.js" />
-    <Content Include="js\lib\angular-1.2.15\angular-sanitize.js" />
-    <Content Include="js\lib\angular-1.2.15\angular-sanitize.min.js" />
-    <Content Include="js\lib\angular-1.2.15\angular-scenario.js" />
-    <Content Include="js\lib\angular-1.2.15\angular-touch.js" />
-    <Content Include="js\lib\angular-1.2.15\angular-touch.min.js" />
-    <Content Include="js\lib\angular-1.2.15\angular.js" />
-    <Content Include="js\lib\angular-1.2.15\angular.min.js" />
-    <Content Include="js\lib\angular-1.2.15\version.txt" />
-    <Content Include="js\services\advancedstats.service.js" />
+    <Content Include="js\lib\angular-resource.js" />
+    <Content Include="js\lib\angular-route.js" />
+    <Content Include="js\lib\angular.js" />
+    <Content Include="js\lib\event.js" />
+    <Content Include="js\lib\highcharts.js" />
+    <Content Include="js\lib\jquery.js" />
+    <Content Include="js\lib\jquery.min.js.map" />
+    <Content Include="js\lib\md5.js" />
     <Content Include="js\services\staticresources.service.js" />
     <Content Include="js\services\appsettings.service.js" />
     <Content Include="js\services\session.service.js" />
     <Content Include="js\services\api.service.js" />
-    <Content Include="partials\advanced-stats.html" />
     <Compile Include="Main\AppConfig.cs" />
-    <Compile Include="Main\Events.cs" />
     <Compile Include="Models\Base\Environment.cs" />
     <Compile Include="Models\Base\BaseViewModel.cs" />
     <Compile Include="Models\Domain\Config.cs" />
@@ -194,11 +163,11 @@
     <Compile Include="Main\Rating.cs" />
     <Compile Include="Main\Md5.cs" />
     <Compile Include="Models\Domain\Event.cs" />
+    <Compile Include="Models\ViewModels\SessionInfo.cs" />
     <Compile Include="Models\ViewModels\StatsAggregateViewModel.cs" />
     <Compile Include="Models\PlayerStatsAggregate.cs" />
     <Compile Include="Models\ViewModels\PlayerStatsViewModel.cs" />
     <Compile Include="Models\Base\FoosBallDoc.cs" />
-    <Compile Include="Models\Domain\AutoLogin.cs" />
     <Compile Include="Models\Domain\Match.cs" />
     <Compile Include="Models\Domain\Player.cs" />
     <Compile Include="Models\Domain\Team.cs" />
@@ -226,21 +195,6 @@
       <IncludedFiles>Javascript\lib\md5.js|Javascript\lib\highcharts.js|Javascript\angular\app.js|Javascript\angular\matches.controllers.js|Javascript\Base.js|Javascript\Shared.js|Javascript\LogOn.js|Javascript\Home.js|Javascript\PlayerStats.js|Javascript\Register.js|Javascript\Stats.js|Javascript\Admin.js|Javascript\lib\jquery.signalR-1.0.0.js</IncludedFiles>
     </Content>
     <Content Include="js\controllers\matches.controller.js" />
-    <Content Include="js\lib\angular-animate.js" />
-    <Content Include="js\lib\angular-resource.js" />
-    <Content Include="js\lib\angular-route.js" />
-    <Content Include="js\lib\angular.js" />
-    <Content Include="js\lib\event.js" />
-    <Content Include="js\lib\highcharts.js" />
-    <Content Include="js\lib\jquery.js" />
-    <Content Include="js\lib\md5.js" />
-    <Content Include="js\lib\minified\angular-resource.min.js" />
-    <Content Include="js\lib\minified\angular-route.min.js" />
-    <Content Include="js\lib\minified\angular.min.js" />
-    <Content Include="js\lib\minified\jquery.min.js" />
-    <Content Include="js\lib\minified\jquery.signalR-1.0.0.min.js" />
-    <Content Include="js\lib\minified\md5.min.js" />
-    <Content Include="js\Shared.js" />
     <Content Include="partials\admin.html" />
     <Content Include="partials\login.html" />
     <Content Include="partials\signup.html" />
@@ -252,9 +206,6 @@
     <Content Include="partials\matches.html" />
     <Content Include="partials\players.html" />
     <Content Include="partials\home.html" />
-    <Content Include="js\lib\jquery.min.js.map" />
-    <Content Include="Scripts\jquery.signalR-2.0.0.js" />
-    <Content Include="Scripts\jquery.signalR-2.0.0.min.js" />
     <Content Include="Views\Shared\_Layout.cshtml">
       <SubType>Code</SubType>
     </Content>
@@ -278,7 +229,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="js\minified\" />
     <Folder Include="ViewHelpers\" />
   </ItemGroup>
   <ItemGroup>
@@ -359,18 +309,6 @@
       <CompileStyle>Nested</CompileStyle>
       <DebugInfo>False</DebugInfo>
     </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="js\lib\angular-1.2.15\angular-animate.min.js.map" />
-    <Content Include="js\lib\angular-1.2.15\angular-cookies.min.js.map" />
-    <Content Include="js\lib\angular-1.2.15\angular-loader.min.js.map" />
-    <Content Include="js\lib\angular-1.2.15\angular-resource.min.js.map" />
-    <Content Include="js\lib\angular-1.2.15\angular-route.min.js.map" />
-    <Content Include="js\lib\angular-1.2.15\angular-sanitize.min.js.map" />
-    <Content Include="js\lib\angular-1.2.15\angular-touch.min.js.map" />
-    <Content Include="js\lib\angular-1.2.15\angular.min.js.map" />
-    <Content Include="js\lib\angular-1.2.15\errors.json" />
-    <Content Include="js\lib\angular-1.2.15\version.json" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Shared\Index.cshtml" />

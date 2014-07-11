@@ -1,7 +1,7 @@
-﻿<input data-ng-hide="session.IsLoggedIn" data-ng-disabled="true" type="button" class="button" value="Please log in to create a Match" />
-<input data-ng-hide="!session.IsLoggedIn" data-ng-click="hideForm=!hideForm" type="button" class="button" value="Create a Match" />
+﻿<input data-ng-hide="session.isLoggedIn" data-ng-disabled="true" type="button" class="button" value="Please log in to create a Match" />
+<input data-ng-hide="!session.isLoggedIn" data-ng-click="hideForm=!hideForm" type="button" class="button" value="Create a Match" />
 
-<form data-ng-cloak data-ng-if="session.IsLoggedIn" name="resolveMatchForm" data-ng-submit="submitMatch()" data-ng-model="match" data-ng-controller="SubmitMatchController">
+<form data-ng-cloak data-ng-if="session.isLoggedIn" name="resolveMatchForm" data-ng-submit="submitMatch()" data-ng-model="match" data-ng-controller="SubmitMatchController">
     <div data-ng-hide="hideForm" id="match-form" class="clearfix">
         <div id="team-red-players" class="team">
             <div class="team-name">Red Team

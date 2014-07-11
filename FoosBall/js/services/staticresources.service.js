@@ -5,9 +5,9 @@
         var localUrl = '/css/foosball-background.jpg';
 
         if (!$scope.appSettings.Environment || $scope.appSettings.Environment === 'Local') {
-            return remoteUrl;
-        } else {
             return localUrl;
+        } else {
+            return remoteUrl;
         }
     };
 
@@ -16,9 +16,9 @@
         var localUrl = '/css/icon_football.png';
 
         if (!$scope.appSettings.Environment || $scope.appSettings.Environment === 'Local') {
-            return remoteUrl;
-        } else {
             return localUrl;
+        } else {
+            return remoteUrl;
         }
     };
 
@@ -27,9 +27,9 @@
         var localUrl = '/css/minified/foosball.css';
 
         if (!$scope.appSettings.Environment || $scope.appSettings.Environment === 'Local') {
-            return remoteUrl;
-        } else {
             return localUrl;
+        } else {
+            return remoteUrl;
         }
     };
 }]);

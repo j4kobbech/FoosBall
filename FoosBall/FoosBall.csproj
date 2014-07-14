@@ -141,6 +141,8 @@
     <Content Include="css\foosball-background.jpg" />
     <Content Include="css\foosball-icon.png" />
     <Content Include="css\minified\foosball.min.css" />
+    <Content Include="css\pingpong-background.jpg" />
+    <Content Include="css\pingpong-icon.png" />
     <Content Include="js\directives\foosball-score.directive.js" />
     <Content Include="js\lib\angular-resource.js" />
     <Content Include="js\lib\angular-route.js" />

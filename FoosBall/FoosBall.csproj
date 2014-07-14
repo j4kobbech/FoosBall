@@ -139,7 +139,7 @@
     <Compile Include="Models\Custom\Streaks.cs" />
     <Compile Include="Models\Domain\User.cs" />
     <Content Include="css\foosball-background.jpg" />
-    <Content Include="css\icon_foosball.png" />
+    <Content Include="css\foosball-icon.png" />
     <Content Include="css\minified\foosball.min.css" />
     <Content Include="js\directives\foosball-score.directive.js" />
     <Content Include="js\lib\angular-resource.js" />
@@ -228,6 +228,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="css\NewFolder1\" />
     <Folder Include="ViewHelpers\" />
   </ItemGroup>
   <ItemGroup>

@@ -19,6 +19,8 @@
 
         public string Domain { get; set; }
 
+        public string SportName { get; set; }
+
         public string NotificationUrl { get; set; }
 
         public List<string> AdminAccounts { get; set; } 

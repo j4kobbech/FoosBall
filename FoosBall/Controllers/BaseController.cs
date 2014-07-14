@@ -24,6 +24,7 @@
             var appSettings = new AppSettings
             {
                 AppName = this.Settings.Name,
+                SportName = this.Settings.SportName,
                 Environment = this.Settings.Environment.ToString()
             };
 

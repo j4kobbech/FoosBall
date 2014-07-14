@@ -20,12 +20,10 @@
         $scope.appSettings.ready = true;
         $scope.appSettings.AppNameWithEnvironment = getAppNameWithEnvironment($scope.appSettings.AppName, $scope.appSettings.Environment);
 
-        $scope.staticResources.backgroundImageUrl = staticResources.getBackgroundImageUrl($scope);
-        $scope.staticResources.footballIconUrl = staticResources.getFootballIconUrl($scope);
-        $scope.staticResources.cssUrl = staticResources.getCssUrl($scope);
+        $scope.staticResources.backgroundImageUrl = staticResources.getBackgroundImageUrl($scope.appSettings);
+        $scope.staticResources.iconUrl = staticResources.getIconUrl($scope.appSettings);
     });
 
-    
     function getAppNameWithEnvironment(appName, environment) {
         var env = environment.toLowerCase() === 'production' ? "" : (environment + " ");
         return (env + appName);

@@ -139,8 +139,7 @@
     <Compile Include="Models\Custom\Streaks.cs" />
     <Compile Include="Models\Domain\User.cs" />
     <Content Include="css\foosball-background.jpg" />
-    <Content Include="css\gravatar-default-image.jpg" />
-    <Content Include="css\icon_football.png" />
+    <Content Include="css\icon_foosball.png" />
     <Content Include="css\minified\foosball.min.css" />
     <Content Include="js\directives\foosball-score.directive.js" />
     <Content Include="js\lib\angular-resource.js" />

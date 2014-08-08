@@ -40,5 +40,15 @@
 
             return Dbh.GetCollection<User>("Users").Save(user);
         }
+
+        public static SafeModeResult SavePlayer(Player user)
+        {
+            if (user == null)
+            {
+                throw new Exception("player parameter cannot be null");
+            }
+
+            return Dbh.GetCollection<Player>("Players").Save(user);
+        }
     }
 }

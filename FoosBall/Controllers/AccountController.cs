@@ -189,6 +189,7 @@
             var user = DbHelper.GetUser(currentUser.Id);
             var newMd5Password = Md5.CalculateMd5(newPassword);
             var validation = new Validation();
+            var player = Dbh.GetCollection<Player>("Players").FindOne(Query.EQ("Email", user.Email));
 
             if (user == null)
             {
@@ -204,6 +205,8 @@
 
             user.Email = string.IsNullOrEmpty(email) ? user.Email : email;
             user.Name = string.IsNullOrEmpty(name) ? user.Name : name;
+            player.Email = user.Email;
+            player.Name = user.Name;
 
             if (!string.IsNullOrEmpty(newPassword))
             {
@@ -219,6 +222,8 @@
             }
 
             DbHelper.SaveUser(user);
+            DbHelper.SavePlayer(player);
+
             response.Success = true;
             response.Message = "User updated succesfully";
             response.Data = GetSession(refresh: true);

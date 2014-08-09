@@ -138,11 +138,12 @@
     <Compile Include="Models\Custom\Streak.cs" />
     <Compile Include="Models\Custom\Streaks.cs" />
     <Compile Include="Models\Domain\User.cs" />
-    <Content Include="css\foosball-background.jpg" />
-    <Content Include="css\foosball-icon.png" />
+    <Content Include="css\images\app-loader-black.gif" />
+    <Content Include="css\images\foosball-background.jpg" />
+    <Content Include="css\images\foosball-icon.png" />
     <Content Include="css\minified\foosball.min.css" />
-    <Content Include="css\pingpong-background.jpg" />
-    <Content Include="css\pingpong-icon.png" />
+    <Content Include="css\images\pingpong-background.jpg" />
+    <Content Include="css\images\pingpong-icon.png" />
     <Content Include="js\directives\foosball-score.directive.js" />
     <Content Include="js\lib\angular-resource.js" />
     <Content Include="js\lib\angular-route.js" />
@@ -207,6 +208,7 @@
     <Content Include="partials\matches.html" />
     <Content Include="partials\players.html" />
     <Content Include="partials\home.html" />
+    <Content Include="robots.txt" />
     <Content Include="Views\Shared\_Layout.cshtml">
       <SubType>Code</SubType>
     </Content>
@@ -230,7 +232,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="css\NewFolder1\" />
     <Folder Include="ViewHelpers\" />
   </ItemGroup>
   <ItemGroup>

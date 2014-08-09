@@ -10,7 +10,8 @@
     {
         public Config()
         {
-            this.Name = "FoosBall";
+            this.Name = string.Empty;
+            this.SportName = string.Empty;
             this.Domain = string.Empty;
             this.AdminAccounts = new List<string>();
         }

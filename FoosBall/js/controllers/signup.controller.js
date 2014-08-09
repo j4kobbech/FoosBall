@@ -22,13 +22,13 @@
                     $scope.session.isLoggedIn = session.isLoggedIn();
                     $scope.session.userName = signupResponse.Data.AccessToken.UserName;
                     $location.path('/');
+
+                    clearSignupForm($scope);
                 });
             } else {
                 $scope.signupMessage = signupResponse.Message;
                 $scope.showSignupMessage = true;
             }
-
-            clearSignupForm($scope);
         });
     };
     

@@ -21,6 +21,7 @@
                             "~/js/services/session.service.js",
                             "~/js/services/staticresources.service.js",
                             "~/js/directives/foosball-score.directive.js",
+                            "~/js/directives/focus-me.directive.js",
                             "~/js/controllers/base.controller.js",
                             "~/js/controllers/admin.controller.js",
                             "~/js/controllers/login.controller.js",

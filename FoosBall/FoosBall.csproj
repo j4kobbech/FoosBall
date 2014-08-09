@@ -143,6 +143,7 @@
     <Content Include="css\minified\foosball.min.css" />
     <Content Include="css\pingpong-background.jpg" />
     <Content Include="css\pingpong-icon.png" />
+    <Content Include="js\directives\focus-me.directive.js" />
     <Content Include="js\directives\foosball-score.directive.js" />
     <Content Include="js\lib\angular-resource.js" />
     <Content Include="js\lib\angular-route.js" />

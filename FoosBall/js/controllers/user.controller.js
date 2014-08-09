@@ -1,15 +1,14 @@
 ﻿FoosBall.controller('UserController', ['$scope', '$resource', 'session', function($scope, $resource, session) {
     $scope.user = {};
-    $scope.updateMessage;
+    $scope.updateMessage = "";
     $scope.showValidationMessage = false;
 
-    getPlayer();
+    getCurrentUserInfo();
     
-    function getPlayer() {
-        var User = $resource('Account/GetUser');
-        var promise = User.get().$promise;
+    function getCurrentUserInfo() {
+        var userInfoPromise = session.getCurrentUser();
 
-        promise.then(function(user) {
+        userInfoPromise.then(function (user) {
             $scope.user = user;
         });
     }
@@ -31,14 +30,7 @@
 
             promise.then(function(responseData) {
                 if (!!responseData && responseData.Success === true) {
-                    getPlayer();
-                    var sessionPromise = session.getSession(true);
-
-                    sessionPromise.then(function(sessionInfo) {
-                        angular.forEach(sessionInfo, function(value, key) {
-                            $scope.$parent.session[key] = value;
-                        });
-                    });
+                    getCurrentUserInfo();
 
                     $scope.editUserForm.$setPristine();
                     $scope.updateMessage = responseData.Message;

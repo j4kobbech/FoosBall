@@ -23,7 +23,6 @@
                     Email = player.Email,
                     Password  = player.Password,
                     Deactivated = player.Deactivated,
-                    RememberMe = player.RememberMe
                 };
 
                 Console.WriteLine(player.Name);

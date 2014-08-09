@@ -12,12 +12,8 @@
     using MongoDB.Bson;
     using MongoDB.Driver.Builders;
 
-    using StackExchange.Profiling;
-
     public class StatsController : BaseController
     {
-        protected readonly MiniProfiler Profiler = MiniProfiler.Current;
-
         public ActionResult GetStatistics()
         {
             var viewModel = new StatsAggregateViewModel
@@ -61,82 +57,79 @@
 
         public ActionResult GetPlayerStatistics(string playerId)
         {
-            using (Profiler.Step("Calculating Player Statistics"))
+            if (playerId == null)
             {
-                if (playerId == null)
+                return new HttpStatusCodeResult(403, "Invalid request");
+            }
+            else
+            {
+                var playerCollection = Dbh.GetCollection<Player>("Players");
+                var matches =
+                    Dbh.GetCollection<Match>("Matches")
+                        .FindAll()
+                        .SetSortOrder(SortBy.Ascending("GameOverTime"))
+                        .ToList()
+                        .Where(match => match.ContainsPlayer(playerId))
+                        .Where(match => match.GameOverTime != DateTime.MinValue);
+
+                var playedMatches = matches as List<Match> ?? matches.ToList();
+                var player = playerCollection.FindOne(Query.EQ("_id", BsonObjectId.Parse(playerId)));
+                var stats = new PlayerStatsViewModel
                 {
-                    return new HttpStatusCodeResult(403, "Invalid request");
-                }
-                else
+                    Player = player,
+                    PlayedMatches = playedMatches.OrderByDescending(x => x.GameOverTime),
+                    LatestMatch = playedMatches.Last()
+                };
+
+                if (playedMatches.Count == 0)
                 {
-                    var playerCollection = Dbh.GetCollection<Player>("Players");
-                    var matches =
-                        Dbh.GetCollection<Match>("Matches")
-                           .FindAll()
-                           .SetSortOrder(SortBy.Ascending("GameOverTime"))
-                           .ToList()
-                           .Where(match => match.ContainsPlayer(playerId))
-                           .Where(match => match.GameOverTime != DateTime.MinValue);
-
-                    var playedMatches = matches as List<Match> ?? matches.ToList();
-                    var player = playerCollection.FindOne(Query.EQ("_id", BsonObjectId.Parse(playerId)));
-                    var stats = new PlayerStatsViewModel
-                    {
-                        Player = player,
-                        PlayedMatches = playedMatches.OrderByDescending(x => x.GameOverTime),
-                        LatestMatch = playedMatches.Last()
-                    };
-
-                    if (playedMatches.Count == 0)
-                    {
-                        return Json(stats, JsonRequestBehavior.AllowGet);
-                    }
-
-                    var bff = StatsControllerHelpers.GetBestFriendForever(playerId, playedMatches);
-                    var rbff = StatsControllerHelpers.GetRealBestFriendForever(playerId, playedMatches);
-                    var eae = StatsControllerHelpers.GetEvilArchEnemy(playerId, playedMatches);
-                    var preferredColor = StatsControllerHelpers.GetPreferredColor(playerId, playedMatches);
-                    var winningColor = StatsControllerHelpers.GetWinningColor(playerId, playedMatches);
-                    var highestRating = StatsControllerHelpers.GetHighestRating(playerId, playedMatches);
-                    var lowestRating = StatsControllerHelpers.GetLowestRating(playerId, playedMatches);
-                    var longestWinningStreak = StatsControllerHelpers.GetPlayersLongestWinningStreak(playerId, playedMatches);
-                    var longestLosingStreak = StatsControllerHelpers.GetPlayersLongestLosingStreak(playerId, playedMatches);
-                    
-                    foreach (var match in playedMatches)
-                    {
-                        stats.Played++;
-                        stats.Won = match.WonTheMatch(playerId) ? ++stats.Won : stats.Won;
-                        stats.Lost = !match.WonTheMatch(playerId) ? ++stats.Lost : stats.Lost;
-                        stats.Ranking = playerCollection.FindAll()
-                                                        .SetSortOrder(SortBy.Descending("Rating"))
-                                                        .Where(x => x.Played > 0 && x.Deactivated == false)
-                                                        .ToList()
-                                                        .FindIndex(x => x.Id == playerId) + 1;
-
-                        stats.TotalNumberOfPlayers = (int)playerCollection.Count(Query.GT("Played", 0));
-                    }
-                    
-                    stats.Bff = bff.OrderByDescending(x => x.Value.Occurrences)
-                                   .Select(x => x.Value)
-                                   .FirstOrDefault();
-                    stats.Rbff = rbff.OrderByDescending(x => x.Value.Occurrences).Select(x => x.Value).FirstOrDefault();
-                    stats.Eae = eae.OrderByDescending(x => x.Value.Occurrences)
-                                   .ThenByDescending(x => x.Value.GoalDiff)
-                                   .Select(x => x.Value)
-                                   .FirstOrDefault();
-                    stats.PreferredColor = preferredColor.OrderByDescending(x => x.Value.Occurrences)
-                                                         .Select(x => x.Value)
-                                                         .FirstOrDefault();
-                    stats.WinningColor = winningColor.OrderByDescending(x => x.Value.Occurrences)
-                                                     .Select(x => x.Value)
-                                                     .FirstOrDefault();
-                    stats.HighestRating = highestRating;
-                    stats.LowestRating = lowestRating;
-                    stats.LongestWinningStreak = longestWinningStreak;
-                    stats.LongestLosingStreak = longestLosingStreak;
-
                     return Json(stats, JsonRequestBehavior.AllowGet);
                 }
+
+                var bff = StatsControllerHelpers.GetBestFriendForever(playerId, playedMatches);
+                var rbff = StatsControllerHelpers.GetRealBestFriendForever(playerId, playedMatches);
+                var eae = StatsControllerHelpers.GetEvilArchEnemy(playerId, playedMatches);
+                var preferredColor = StatsControllerHelpers.GetPreferredColor(playerId, playedMatches);
+                var winningColor = StatsControllerHelpers.GetWinningColor(playerId, playedMatches);
+                var highestRating = StatsControllerHelpers.GetHighestRating(playerId, playedMatches);
+                var lowestRating = StatsControllerHelpers.GetLowestRating(playerId, playedMatches);
+                var longestWinningStreak = StatsControllerHelpers.GetPlayersLongestWinningStreak(playerId, playedMatches);
+                var longestLosingStreak = StatsControllerHelpers.GetPlayersLongestLosingStreak(playerId, playedMatches);
+                    
+                foreach (var match in playedMatches)
+                {
+                    stats.Played++;
+                    stats.Won = match.WonTheMatch(playerId) ? ++stats.Won : stats.Won;
+                    stats.Lost = !match.WonTheMatch(playerId) ? ++stats.Lost : stats.Lost;
+                    stats.Ranking = playerCollection.FindAll()
+                                                    .SetSortOrder(SortBy.Descending("Rating"))
+                                                    .Where(x => x.Played > 0 && x.Deactivated == false)
+                                                    .ToList()
+                                                    .FindIndex(x => x.Id == playerId) + 1;
+
+                    stats.TotalNumberOfPlayers = (int)playerCollection.Count(Query.GT("Played", 0));
+                }
+                    
+                stats.Bff = bff.OrderByDescending(x => x.Value.Occurrences)
+                                .Select(x => x.Value)
+                                .FirstOrDefault();
+                stats.Rbff = rbff.OrderByDescending(x => x.Value.Occurrences).Select(x => x.Value).FirstOrDefault();
+                stats.Eae = eae.OrderByDescending(x => x.Value.Occurrences)
+                                .ThenByDescending(x => x.Value.GoalDiff)
+                                .Select(x => x.Value)
+                                .FirstOrDefault();
+                stats.PreferredColor = preferredColor.OrderByDescending(x => x.Value.Occurrences)
+                                                        .Select(x => x.Value)
+                                                        .FirstOrDefault();
+                stats.WinningColor = winningColor.OrderByDescending(x => x.Value.Occurrences)
+                                                    .Select(x => x.Value)
+                                                    .FirstOrDefault();
+                stats.HighestRating = highestRating;
+                stats.LowestRating = lowestRating;
+                stats.LongestWinningStreak = longestWinningStreak;
+                stats.LongestLosingStreak = longestLosingStreak;
+
+                return Json(stats, JsonRequestBehavior.AllowGet);
             }
         }
 

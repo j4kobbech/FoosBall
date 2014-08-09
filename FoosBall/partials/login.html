@@ -8,10 +8,6 @@
             <input data-ng-model="password" name="password" required="true" type="password" name="password" value="" placeholder="Password" autocapitalize="off" autocorrect="off" />
         </div>
         <br>
-        <div>
-            <input name="rememberMe" data-ng-model="rememberMe" type="checkbox" value="" />
-            <label for="rememberMe">Remember me</label>
-        </div>
 
         <div ng-hide="!showLoginMessage" class="error validation-message">{{loginMessage}}</div>
         <input class="button" type="submit" value="Log On" />

@@ -1,4 +1,4 @@
-﻿FoosBall.service('advancedStats', ['api', '$resource', '$q', function (api, $resource, $q) {
+﻿FoosBall.service('advancedStats', [function () {
     this.stats = {
         rank: {
             teamAPlayer1: 0,

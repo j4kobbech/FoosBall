@@ -10,14 +10,12 @@
         public User()
         {
             Deactivated = false;
-            RememberMe = true;
         }
 
         public User(string id)
         {
             Id = id;
             Deactivated = false;
-            RememberMe = true;
         }
 
         public string Name { get; set; }
@@ -27,8 +25,6 @@
         public string Password { get; set; }
 
         public bool Deactivated { get; set; }
-
-        public bool RememberMe { get; set; }
 
         public string GravatarUrl
         {

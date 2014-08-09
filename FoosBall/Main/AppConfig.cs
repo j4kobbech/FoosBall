@@ -2,9 +2,8 @@
 {
     using System.Configuration;
     using System.Linq;
-
-    using FoosBall.Models.Base;
-    using FoosBall.Models.Domain;
+    using Models.Base;
+    using Models.Domain;
 
     public static class AppConfig
     {
@@ -14,14 +13,17 @@
             var config = configCollection.FindAll().FirstOrDefault();
             var environment = GetEnvironment();
 
-            if (config == null)
+            if (config != null)
             {
-                config = new Config
-                {
-                    Environment = environment
-                };
-                configCollection.Save(config);
+                return;
             }
+
+            config = new Config
+            {
+                Environment = environment
+            };
+
+            configCollection.Save(config);
         }
 
         public static Environment GetEnvironment()

@@ -11,6 +11,26 @@
     {
         private static readonly MongoDatabase Dbh = new Db().Dbh;
 
+        public static User GetUserByEmail(string email)
+        {
+            if (string.IsNullOrEmpty(email))
+            {
+                throw new Exception("email parameter cannot be null or empty");
+            }
+
+            return Dbh.GetCollection<User>("Users").FindOne(Query.EQ("Email", email));
+        }
+
+        public static Player GetPlayerByEmail(string email)
+        {
+            if (string.IsNullOrEmpty(email))
+            {
+                throw new Exception("email parameter cannot be null or empty");
+            }
+
+            return Dbh.GetCollection<Player>("Players").FindOne(Query.EQ("Email", email));
+        }
+
         public static User GetUser(string id)
         {
             if (string.IsNullOrEmpty(id))

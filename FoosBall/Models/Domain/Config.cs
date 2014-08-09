@@ -10,17 +10,17 @@
     {
         public Config()
         {
-            this.Name = "FoosBall";
+            this.Name = string.Empty;
+            this.SportName = string.Empty;
             this.Domain = string.Empty;
-            this.AdminAccounts = new List<string>()
-                {
-                    "jbe@trustpilot.com"
-                };
+            this.AdminAccounts = new List<string>();
         }
 
         public string Name { get; set; }
 
         public string Domain { get; set; }
+
+        public string SportName { get; set; }
 
         public string NotificationUrl { get; set; }
 

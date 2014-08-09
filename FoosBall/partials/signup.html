@@ -1,15 +1,15 @@
 ﻿<div class="signup" data-ng-controller="SignupController">
     <form name="signupForm" data-ng-submit="submitSignup()">
         <div>
-            <input data-ng-model="email" name="email" required="true" type="text" placeholder="Email" value="" />
+            <input data-ng-model="email" data-focus-me name="email" required="required" type="email" placeholder="Email" value="" autocapitalize="off" autocorrect="off" autofocus />
         </div>
         <br>
         <div>
-            <input data-ng-model="name" name="name" required="true" type="text" placeholder="Your name" value="" />
+            <input data-ng-model="name" name="name" required="required" type="text" placeholder="Your name" value="" />
         </div>
         <br>
         <div>
-            <input data-ng-model="password" name="password" required="true" type="password" name="password" value="" placeholder="Password" autocapitalize="off" autocorrect="off" />
+            <input data-ng-model="password" name="password" required="required" type="password" value="" placeholder="Password" autocapitalize="off" autocorrect="off" />
         </div>
         <br>
         <div class="error validation-message" data-ng-hide="!showSignupMessage">{{signupMessage}}</div>

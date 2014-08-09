@@ -1,11 +1,11 @@
 ﻿<div class="login" data-ng-controller="LoginController">
     <form name="loginForm" data-ng-submit="submitLogin()">
         <div>
-            <input data-ng-model="email" name="email" required="true" type="text" placeholder="Email" value="" />
+            <input data-focus-me data-ng-model="email" name="email" required="required" type="text" placeholder="Email" value="" autofocus />
         </div>
         <br>
         <div>
-            <input data-ng-model="password" name="password" required="true" type="password" name="password" value="" placeholder="Password" autocapitalize="off" autocorrect="off" />
+            <input data-ng-model="password" name="password" required="required" type="password" value="" placeholder="Password" autocapitalize="off" autocorrect="off" />
         </div>
         <br>
 

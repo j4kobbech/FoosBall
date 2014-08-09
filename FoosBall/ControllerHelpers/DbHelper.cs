@@ -15,10 +15,20 @@
         {
             if (string.IsNullOrEmpty(email))
             {
-                throw new Exception("id parameter cannot be null or empty");
+                throw new Exception("email parameter cannot be null or empty");
             }
 
             return Dbh.GetCollection<User>("Users").FindOne(Query.EQ("Email", email));
+        }
+
+        public static Player GetPlayerByEmail(string email)
+        {
+            if (string.IsNullOrEmpty(email))
+            {
+                throw new Exception("email parameter cannot be null or empty");
+            }
+
+            return Dbh.GetCollection<Player>("Players").FindOne(Query.EQ("Email", email));
         }
 
         public static User GetUser(string id)

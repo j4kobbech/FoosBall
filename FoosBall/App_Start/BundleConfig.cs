@@ -19,7 +19,6 @@
                             "~/js/services/api.service.js",
                             "~/js/services/appsettings.service.js",
                             "~/js/services/session.service.js",
-                            "~/js/services/advancedstats.service.js",
                             "~/js/services/staticresources.service.js",
                             "~/js/directives/foosball-score.directive.js",
                             "~/js/controllers/base.controller.js",
@@ -31,8 +30,7 @@
                             "~/js/controllers/signup.controller.js",
                             "~/js/controllers/stats.controller.js",
                             "~/js/controllers/submitmatch.controller.js",
-                            "~/js/controllers/user.controller.js",
-                            "~/js/controllers/advancedstats.controller.js"));
+                            "~/js/controllers/user.controller.js"));
 
             BundleTable.EnableOptimizations = true;
         }

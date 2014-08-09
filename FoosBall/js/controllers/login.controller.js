@@ -6,7 +6,6 @@
         var authPromise = session.authenticateUser({
             email: $scope.email,
             password: $scope.password,
-            rememberMe: $scope.rememberMe || false
         });
 
         authPromise.then(function (authenticateResponse) {

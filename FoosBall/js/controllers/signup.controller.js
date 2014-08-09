@@ -18,7 +18,6 @@
                 session.authenticateUser({
                     email: $scope.email,
                     password: $scope.password,
-                    rememberMe: $scope.rememberMe || false
                 }).then(function () {
                     $scope.session.isLoggedIn = session.isLoggedIn();
                     $scope.session.userName = signupResponse.Data.AccessToken.UserName;

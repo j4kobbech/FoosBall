@@ -32,8 +32,6 @@
 
         public bool Deactivated { get; set; }
 
-        public bool RememberMe { get; set; }
-
         public string StatsUrl
         {
             get

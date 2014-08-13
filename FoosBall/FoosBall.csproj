@@ -152,6 +152,7 @@
     <Content Include="css\minified\foosball.min.css" />
     <Content Include="css\images\pingpong-background.jpg" />
     <Content Include="css\images\pingpong-icon.png" />
+    <Content Include="js\controllers\activateuser.controller.js" />
     <Content Include="js\directives\foosball-score.directive.js" />
     <Content Include="js\lib\angular-resource.js" />
     <Content Include="js\lib\angular-route.js" />
@@ -206,6 +207,7 @@
     </Content>
     <Content Include="js\controllers\matches.controller.js" />
     <Content Include="partials\admin.html" />
+    <Content Include="partials\activate-user.html" />
     <Content Include="partials\login.html" />
     <Content Include="partials\signup.html" />
     <Content Include="partials\user-profile.html" />

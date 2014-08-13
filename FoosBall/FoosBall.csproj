@@ -123,6 +123,7 @@
     <Compile Include="Main\AuthenticateFilterAttribute.cs" />
     <Compile Include="Main\Session.cs" />
     <Compile Include="Main\Email.cs" />
+    <Compile Include="Models\Base\ActivationLink.cs" />
     <Compile Include="Models\Base\AccessToken.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\SessionController.cs" />

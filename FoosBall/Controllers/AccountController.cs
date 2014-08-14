@@ -45,8 +45,12 @@
                 Password = userPassword,
             };
 
+            var activationLinkCollection = Dbh.GetCollection<ActivationLink>("ActivationLinks");
+            var activationLink = new ActivationLink(newUser.Id);
+            activationLinkCollection.Save(activationLink);
             playerCollection.Save(newPlayer);
             userCollection.Save(newUser);
+            
 
             var accessToken = Main.Session.CreateNewAccessTokenOnUser(newUser);
             Main.Session.SaveAccessToken(accessToken);

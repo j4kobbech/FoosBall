@@ -36,4 +36,10 @@
         var promise = Replay.save().$promise;
         return promise;
     };
+    this.activateUser = function(userId, token) {
+        var url = 'Account/Activate?userId=' + userId + '&token=' + token;
+        var Activate = $resource(url);
+        var promise = Activate.get().$promise;
+        return promise;
+    }
 }]);

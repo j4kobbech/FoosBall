@@ -38,9 +38,6 @@ FoosBall.config(['$routeProvider', function ($routeProvider) {
             templateUrl: '/partials/admin.html',
             controller: 'AdminController'
         })
-        .when('/activate-user', {
-            templateUrl: '/partials/activate-user.html'
-        })
         .otherwise({
              redirectTo: '/'
         });

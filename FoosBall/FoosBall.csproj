@@ -121,9 +121,9 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="ControllerHelpers\DbHelper.cs" />
     <Compile Include="ControllerHelpers\StatsControllerHelpers.cs" />
+    <Compile Include="Controllers\TeamsController.cs" />
     <Compile Include="Main\AuthenticateFilterAttribute.cs" />
     <Compile Include="Main\Session.cs" />
-    <Compile Include="Main\Email.cs" />
     <Compile Include="Models\Base\AccessToken.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\SessionController.cs" />
@@ -145,13 +145,19 @@
     <Compile Include="Models\Custom\RatingDifference.cs" />
     <Compile Include="Models\Custom\Streak.cs" />
     <Compile Include="Models\Custom\Streaks.cs" />
+    <Compile Include="Models\Domain\TeamName.cs" />
     <Compile Include="Models\Domain\User.cs" />
     <Content Include="css\images\app-loader-black.gif" />
     <Content Include="css\images\foosball-background.jpg" />
     <Content Include="css\images\foosball-icon.png" />
-    <Content Include="css\minified\foosball.min.css" />
     <Content Include="css\images\pingpong-background.jpg" />
     <Content Include="css\images\pingpong-icon.png" />
+    <Content Include="css\minified\foosball.css" />
+    <Content Include="css\minified\foosball.min.css">
+      <DependentUpon>foosball.css</DependentUpon>
+    </Content>
+    <Content Include="js\controllers\createteam.controller.js" />
+    <Content Include="js\controllers\teams.controller.js" />
     <Content Include="js\directives\foosball-score.directive.js" />
     <Content Include="js\lib\angular-resource.js" />
     <Content Include="js\lib\angular-route.js" />
@@ -184,7 +190,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="css\minified\foosball.css" />
     <Content Include="Global.asax" />
     <Content Include="js\app\foosball.app.js">
       <Compile>True</Compile>
@@ -207,11 +212,14 @@
     <Content Include="js\controllers\matches.controller.js" />
     <Content Include="partials\admin.html" />
     <Content Include="partials\login.html" />
+    <Content Include="partials\teams.html" />
     <Content Include="partials\signup.html" />
     <Content Include="partials\user-profile.html" />
     <Content Include="partials\stats-player.html" />
     <Content Include="partials\stats.html" />
+    <Content Include="partials\_team-list.html" />
     <Content Include="partials\_match-list.html" />
+    <Content Include="partials\_register-team.html" />
     <Content Include="partials\_register-match.html" />
     <Content Include="partials\matches.html" />
     <Content Include="partials\players.html" />
@@ -323,6 +331,15 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Shared\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="css\modules\Teams.scss" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="compilerconfig.json" />
+    <None Include="compilerconfig.json.defaults">
+      <DependentUpon>compilerconfig.json</DependentUpon>
+    </None>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

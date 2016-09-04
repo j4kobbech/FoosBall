@@ -143,7 +143,7 @@
 
 /* SaveMatchResult View
 ----------------------------------------------------------*/
-#match-form {
+#match-form, #team-form { 
     background: none #fff;
     border-radius: 5px;
     margin-top: 20px;
@@ -152,9 +152,7 @@
 .team {
     width: 40%;
 }
-.team-scores {
-    width: 20%;
-}
+
 .team-score {
     font-size: 22px;
     height: 40px;

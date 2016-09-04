@@ -13,7 +13,7 @@
         public int BlueScore { get; set; }
 
         public double DistributedRating { get; set; }
-        
+
         public Player RedPlayer1 { get; set; }
         
         public Player RedPlayer2 { get; set; }

@@ -1,12 +1,12 @@
-/* The box-model */
+﻿/* The box-model */
 * {
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
   box-sizing: border-box; }
 
 body {
-  background-color: #222222;
-  color: #222222;
+  background-color: #222;
+  color: #222;
   font-size: 0.75em;
   font-family: proxima-nova, 'Helvetica Neue', Arial, Helvetica, sans-serif;
   margin: 0;
@@ -14,10 +14,10 @@ body {
   width: 100%; }
 
 a {
-  color: black;
+  color: #000;
   text-decoration: none; }
   a:visited, a:active {
-    color: black; }
+    color: #000; }
   a:hover {
     text-decoration: underline; }
 
@@ -46,7 +46,7 @@ h5, h6 {
   font-size: 1em; }
 
 .dimmed {
-  color: #999999; }
+  color: #999; }
 
 /* PRIMARY LAYOUT ELEMENTS
 ----------------------------------------------------------*/
@@ -88,7 +88,7 @@ page width. Or, you can specify an exact pixel width. */
   font-size: 15px;
   float: right;
   margin: 20px 10px 0 0;
-  color: #999999; }
+  color: #999; }
   .login-display a {
     color: #fff;
     text-decoration: none; }
@@ -195,7 +195,7 @@ fieldset {
   -moz-border-radius: 10px;
   -webkit-border-radius: 10px;
   border-radius: 10px;
-  border: 2px solid #222222;
+  border: 2px solid #222;
   margin: 0 0 1.5em 0;
   -moz-box-shadow: 1px 2px 10px 0px #787878 ;
   -webkit-box-shadow: 1px 2px 10px 0px #787878 ;
@@ -257,12 +257,12 @@ input[type="submit"], input[type="button"], button {
     -webkit-box-shadow: inset 0px 1px 0px 0px #bbb;
     box-shadow: inset 0px 1px 0px 0px #bbb;
     border: 1px solid #bbb;
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #dddddd), color-stop(1, #cccccc));
-    background: -moz-linear-gradient(top, #dddddd 5%, #cccccc 100%);
-    background: -webkit-linear-gradient(top, #dddddd 5%, #cccccc 100%);
-    background: -o-linear-gradient(top, #dddddd 5%, #cccccc 100%);
-    background: -ms-linear-gradient(top, #dddddd 5%, #cccccc 100%);
-    background: linear-gradient(to bottom, #dddddd 5%, #cccccc 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #ddd), color-stop(1, #ccc));
+    background: -moz-linear-gradient(top, #ddd 5%, #ccc 100%);
+    background: -webkit-linear-gradient(top, #ddd 5%, #ccc 100%);
+    background: -o-linear-gradient(top, #ddd 5%, #ccc 100%);
+    background: -ms-linear-gradient(top, #ddd 5%, #ccc 100%);
+    background: linear-gradient(to bottom, #ddd 5%, #ccc 100%);
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ddd', endColorstr='#ccc',GradientType=0);
     color: #aaa; }
     input[type="submit"][disabled="disabled"]:active, input[type="button"][disabled="disabled"]:active, button[disabled="disabled"]:active {
@@ -349,12 +349,15 @@ html[xmlns] .clearfix {
   font-size: 16px;
   font-weight: bold;
   margin: 15px 0px 5px 0px; }
+
 #admin input {
   margin: 0px auto 10px auto; }
   #admin input[type="text"] {
     height: 25px; }
+
 #admin .players-configuration .name-col {
   width: 250px; }
+
 #admin .players-configuration .email-col {
   width: 200px; }
 
@@ -380,6 +383,72 @@ html[xmlns] .clearfix {
     font-weight: normal;
     font-size: 1.0em;
     text-decoration: underline; }
+
+/* Create Team View
+----------------------------------------------------------*/
+#team-form {
+  background: none #fff;
+  border-radius: 5px;
+  margin-top: 20px;
+  padding: 15px 20px; }
+  #team-form .new-team {
+    width: 100%; }
+
+#team-list .team {
+  margin: 40px auto 0 auto;
+  width: 50%; }
+
+#team-list .team-names {
+  position: relative;
+  background: none rgba(255, 255, 255, 0.75);
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+  width: 100%;
+  margin: 0 auto;
+  height: 90px;
+  padding: 10px 15px; }
+  #team-list .team-names.red {
+    text-align: left; }
+    #team-list .team-names.red .gravatars {
+      left: 10px; }
+      #team-list .team-names.red .gravatars img {
+        float: left;
+        margin-right: 5px; }
+  #team-list .team-names.blue {
+    text-align: right; }
+    #team-list .team-names.blue .gravatars {
+      right: 10px; }
+      #team-list .team-names.blue .gravatars img {
+        float: right;
+        margin-left: 5px; }
+  #team-list .team-names.winner {
+    background: none white;
+    font-weight: bold; }
+  #team-list .team-names .names {
+    display: none;
+    margin: 35px 0 0 0;
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis; }
+    @media only screen and (min-width: 350px) {
+      #team-list .team-names .names {
+        display: block; } }
+  #team-list .team-names .rating-distribution.red {
+    float: right; }
+  #team-list .team-names .rating-distribution.blue {
+    float: left; }
+  #team-list .team-names .gravatars {
+    position: absolute;
+    top: -20px; }
+    #team-list .team-names .gravatars img {
+      border-radius: 50%;
+      width: 48px;
+      height: auto; }
+      @media only screen and (min-width: 350px) {
+        #team-list .team-names .gravatars img {
+          width: 52px; } }
 
 #match-list {
   min-height: 590px; }
@@ -454,7 +523,7 @@ html[xmlns] .clearfix {
       text-align: center;
       top: 40px;
       z-index: 10;
-      color: #222222; }
+      color: #222; }
       @media only screen and (min-width: 350px) {
         .team-scores .score .red, .team-scores .score .blue {
           position: relative;
@@ -489,7 +558,7 @@ html[xmlns] .clearfix {
 
 /* SaveMatchResult View
 ----------------------------------------------------------*/
-#match-form {
+#match-form, #team-form {
   background: none #fff;
   border-radius: 5px;
   margin-top: 20px;
@@ -497,9 +566,6 @@ html[xmlns] .clearfix {
 
 .team {
   width: 40%; }
-
-.team-scores {
-  width: 20%; }
 
 .team-score {
   font-size: 22px;
@@ -587,12 +653,12 @@ html[xmlns] .clearfix {
       margin: 0 0 0 15px;
       float: left; }
     .players .player .info sup {
-      color: #999999;
+      color: #999;
       font-size: 10px;
       margin-left: 2px; }
 
 #profile-gravatar {
-  border: 4px solid #dddddd;
+  border: 4px solid #ddd;
   height: 80px;
   margin: 4px; }
 
@@ -683,7 +749,7 @@ html[xmlns] .clearfix {
     background: -o-linear-gradient(left, rgba(255, 255, 255, 0) 0%, white 25%, white 50%, white 75%, rgba(255, 255, 255, 0) 100%);
     background: -ms-linear-gradient(left, rgba(255, 255, 255, 0) 0%, white 25%, white 50%, white 75%, rgba(255, 255, 255, 0) 100%);
     background: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, white 25%, white 50%, white 75%, rgba(255, 255, 255, 0) 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00ffffff', endColorstr='#00ffffff',GradientType=1 ); }
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00ffffff', endColorstr='#00ffffff',GradientType=1 ); }
   .adv-statistics .stat-data-container .data-label {
     width: 110px;
     background: none #333;
@@ -717,6 +783,7 @@ html[xmlns] .clearfix {
 
 .team-color .red {
   color: red; }
+
 .team-color .blue {
   color: blue; }
 

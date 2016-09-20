@@ -22,10 +22,10 @@ FoosBall.config(['$routeProvider', function ($routeProvider) {
             templateUrl: '/partials/stats-player.html',
             controller: 'PlayerStatsController'
         })
-        .when('/teams', {
-            templateUrl: '/partials/teams.html',
-            controller: 'TeamsController'
-        })
+        //.when('/teams', {
+        //    templateUrl: '/partials/teams.html',
+        //    controller: 'TeamsController'
+        //})
         .when('/matches', {
             templateUrl: '/partials/matches.html',
             controller: 'MatchesController'

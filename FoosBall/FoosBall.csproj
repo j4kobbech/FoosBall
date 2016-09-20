@@ -121,7 +121,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="ControllerHelpers\DbHelper.cs" />
     <Compile Include="ControllerHelpers\StatsControllerHelpers.cs" />
-    <Compile Include="Controllers\TeamsController.cs" />
+    <Compile Include="Controllers\TournamentController.cs" />
     <Compile Include="Main\AuthenticateFilterAttribute.cs" />
     <Compile Include="Main\Session.cs" />
     <Compile Include="Models\Base\AccessToken.cs" />
@@ -156,8 +156,29 @@
     <Content Include="css\minified\foosball.min.css">
       <DependentUpon>foosball.css</DependentUpon>
     </Content>
+    <Content Include="css\tournament\assets\css\font-awesome.min.css" />
+    <Content Include="css\tournament\assets\css\ie8.css" />
+    <Content Include="css\tournament\assets\css\ie9.css" />
+    <Content Include="css\tournament\assets\css\images\foosball-video-picture.jpg" />
+    <Content Include="css\tournament\assets\css\main.css" />
+    <Content Include="css\tournament\assets\fonts\fontawesome-webfont.svg" />
+    <Content Include="css\tournament\assets\js\ie\html5shiv.js" />
+    <Content Include="css\tournament\assets\js\ie\PIE.htc" />
+    <Content Include="css\tournament\assets\js\ie\respond.min.js" />
+    <Content Include="css\tournament\assets\js\jquery.min.js" />
+    <Content Include="css\tournament\assets\js\jquery.scrollex.min.js" />
+    <Content Include="css\tournament\assets\js\jquery.scrolly.min.js" />
+    <Content Include="css\tournament\assets\js\main.js" />
+    <Content Include="css\tournament\assets\js\skel.min.js" />
+    <Content Include="css\tournament\assets\js\util.js" />
+    <Content Include="css\tournament\images\1-prize.jpg" />
+    <Content Include="css\tournament\images\2-prize.jpg" />
+    <Content Include="css\tournament\images\3-prize.jpg" />
+    <Content Include="css\tournament\images\B90.jpg" />
+    <Content Include="css\tournament\images\rules1.jpg" />
+    <Content Include="css\tournament\images\rules2.JPG" />
+    <Content Include="css\tournament\images\rules3.jpg" />
     <Content Include="js\controllers\createteam.controller.js" />
-    <Content Include="js\controllers\teams.controller.js" />
     <Content Include="js\directives\foosball-score.directive.js" />
     <Content Include="js\lib\angular-resource.js" />
     <Content Include="js\lib\angular-route.js" />
@@ -212,7 +233,6 @@
     <Content Include="js\controllers\matches.controller.js" />
     <Content Include="partials\admin.html" />
     <Content Include="partials\login.html" />
-    <Content Include="partials\teams.html" />
     <Content Include="partials\signup.html" />
     <Content Include="partials\user-profile.html" />
     <Content Include="partials\stats-player.html" />
@@ -340,6 +360,38 @@
     <None Include="compilerconfig.json.defaults">
       <DependentUpon>compilerconfig.json</DependentUpon>
     </None>
+    <Content Include="css\tournament\assets\fonts\fontawesome-webfont.eot" />
+    <Content Include="css\tournament\assets\fonts\fontawesome-webfont.ttf" />
+    <Content Include="css\tournament\assets\fonts\fontawesome-webfont.woff" />
+    <Content Include="css\tournament\assets\fonts\fontawesome-webfont.woff2" />
+    <Content Include="css\tournament\assets\fonts\FontAwesome.otf" />
+    <Content Include="css\tournament\assets\sass\base\_page.scss" />
+    <Content Include="css\tournament\assets\sass\base\_typography.scss" />
+    <Content Include="css\tournament\assets\sass\components\_box.scss" />
+    <Content Include="css\tournament\assets\sass\components\_button.scss" />
+    <Content Include="css\tournament\assets\sass\components\_features.scss" />
+    <Content Include="css\tournament\assets\sass\components\_form.scss" />
+    <Content Include="css\tournament\assets\sass\components\_icon.scss" />
+    <Content Include="css\tournament\assets\sass\components\_image.scss" />
+    <Content Include="css\tournament\assets\sass\components\_list.scss" />
+    <Content Include="css\tournament\assets\sass\components\_section.scss" />
+    <Content Include="css\tournament\assets\sass\components\_spotlight.scss" />
+    <Content Include="css\tournament\assets\sass\components\_statistics.scss" />
+    <Content Include="css\tournament\assets\sass\components\_table.scss" />
+    <Content Include="css\tournament\assets\sass\ie8.scss" />
+    <Content Include="css\tournament\assets\sass\ie9.scss" />
+    <Content Include="css\tournament\assets\sass\layout\_footer.scss" />
+    <Content Include="css\tournament\assets\sass\layout\_header.scss" />
+    <Content Include="css\tournament\assets\sass\layout\_main.scss" />
+    <Content Include="css\tournament\assets\sass\layout\_nav.scss" />
+    <Content Include="css\tournament\assets\sass\layout\_wrapper.scss" />
+    <Content Include="css\tournament\assets\sass\libs\_functions.scss" />
+    <Content Include="css\tournament\assets\sass\libs\_mixins.scss" />
+    <Content Include="css\tournament\assets\sass\libs\_skel.scss" />
+    <Content Include="css\tournament\assets\sass\libs\_vars.scss" />
+    <Content Include="css\tournament\assets\sass\main.scss" />
+    <None Include="Properties\PublishProfiles\FoosballPublish.pubxml" />
+    <Content Include="Views\Tournament\Index.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

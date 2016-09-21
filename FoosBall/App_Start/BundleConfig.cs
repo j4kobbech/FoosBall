@@ -25,11 +25,13 @@
                             "~/js/controllers/base.controller.js",
                             "~/js/controllers/admin.controller.js",
                             "~/js/controllers/login.controller.js",
+                            //"~/js/controllers/teams.controller.js",
                             "~/js/controllers/matches.controller.js",
                             "~/js/controllers/players.controller.js",
                             "~/js/controllers/playerstats.controller.js",
                             "~/js/controllers/signup.controller.js",
                             "~/js/controllers/stats.controller.js",
+                            "~/js/controllers/createteam.controller.js",
                             "~/js/controllers/submitmatch.controller.js",
                             "~/js/controllers/user.controller.js"));
 

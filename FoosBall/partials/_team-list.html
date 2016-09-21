@@ -1,0 +1,25 @@
+﻿<div id="team-list">
+    <div data-ng-cloak data-ng-repeat="team in teams" class="team clearfix">
+        <!-- Selects for team red -->
+        <div class="team-names">
+            <span class="gravatars">
+                <a class="player1" href="/#/playerstats?playerId={{team.Team.Players[0].Id}}">
+                    <img class="gravatar" alt="Gravatar picture" data-ng-src="{{team.Team.Players[0].GravatarUrl}}"/>
+                </a>
+                
+                <a data-ng-if="team.Team.Players[1].Id !== null" class="player2" href="/#/playerstats?playerId={{team.Team.Players[1].Id}}">
+                    <img class="gravatar" alt="Gravatar picture" data-ng-src="{{team.Team.Players[1].GravatarUrl}}"/>
+                </a>
+            </span>
+            <span class="names">
+                <a class="player1" href="/#/playerstats?playerId={{team.Team.Players[0].Id}}">
+                    {{team.Team.Players[0].Name}}
+                </a>
+                <br />
+                <a class="player2" href="/#/playerstats?playerId={{team.Team.Players[1].Id}}">
+                    {{team.Team.Players[1].Name}}
+                </a>
+            </span>
+        </div>
+    </div>
+</div>

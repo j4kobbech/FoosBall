@@ -2,11 +2,11 @@
 {
     using System.Collections.Generic;
     using Base;
-
-    public class League : FoosBallDoc
+    
+    public class TeamName : FoosBallDoc
     {
         public string Name { get; set; }
 
-        public List<string> Administrators { get; set; }
+        public Team Team { get; set; }
     }
 }

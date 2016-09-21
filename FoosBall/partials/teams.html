@@ -1,0 +1,9 @@
+﻿<div data-ng-controller="TeamsController">
+    <div class="foosball-spinner" data-ng-show="!teamsDataReady"></div>
+    <div data-ng-show="teamsDataReady">
+        <div data-ng-include="'/partials/_register-team.html'"></div>
+        <div id="team-list">
+            <div data-ng-include="'/partials/_team-list.html'"></div>
+        </div>
+    </div>
+</div>

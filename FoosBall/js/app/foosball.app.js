@@ -22,6 +22,10 @@ FoosBall.config(['$routeProvider', function ($routeProvider) {
             templateUrl: '/partials/stats-player.html',
             controller: 'PlayerStatsController'
         })
+        //.when('/teams', {
+        //    templateUrl: '/partials/teams.html',
+        //    controller: 'TeamsController'
+        //})
         .when('/matches', {
             templateUrl: '/partials/matches.html',
             controller: 'MatchesController'
@@ -37,9 +41,6 @@ FoosBall.config(['$routeProvider', function ($routeProvider) {
         .when('/admin', {
             templateUrl: '/partials/admin.html',
             controller: 'AdminController'
-        })
-        .when('/activate-user', {
-            templateUrl: '/partials/activate-user.html'
         })
         .otherwise({
              redirectTo: '/'

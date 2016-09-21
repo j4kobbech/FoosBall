@@ -384,72 +384,7 @@ html[xmlns] .clearfix {
     font-size: 1.0em;
     text-decoration: underline; }
 
-/* Create Team View
-----------------------------------------------------------*/
-#team-form {
-  background: none #fff;
-  border-radius: 5px;
-  margin-top: 20px;
-  padding: 15px 20px; }
-  #team-form .new-team {
-    width: 100%; }
-
-#team-list .team {
-  margin: 40px auto 0 auto;
-  width: 50%; }
-
-#team-list .team-names {
-  position: relative;
-  background: none rgba(255, 255, 255, 0.75);
-  -moz-border-radius: 5px;
-  -webkit-border-radius: 5px;
-  border-radius: 5px;
-  width: 100%;
-  margin: 0 auto;
-  height: 90px;
-  padding: 10px 15px; }
-  #team-list .team-names.red {
-    text-align: left; }
-    #team-list .team-names.red .gravatars {
-      left: 10px; }
-      #team-list .team-names.red .gravatars img {
-        float: left;
-        margin-right: 5px; }
-  #team-list .team-names.blue {
-    text-align: right; }
-    #team-list .team-names.blue .gravatars {
-      right: 10px; }
-      #team-list .team-names.blue .gravatars img {
-        float: right;
-        margin-left: 5px; }
-  #team-list .team-names.winner {
-    background: none white;
-    font-weight: bold; }
-  #team-list .team-names .names {
-    display: none;
-    margin: 35px 0 0 0;
-    width: 100%;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis; }
-    @media only screen and (min-width: 350px) {
-      #team-list .team-names .names {
-        display: block; } }
-  #team-list .team-names .rating-distribution.red {
-    float: right; }
-  #team-list .team-names .rating-distribution.blue {
-    float: left; }
-  #team-list .team-names .gravatars {
-    position: absolute;
-    top: -20px; }
-    #team-list .team-names .gravatars img {
-      border-radius: 50%;
-      width: 48px;
-      height: auto; }
-      @media only screen and (min-width: 350px) {
-        #team-list .team-names .gravatars img {
-          width: 52px; } }
-
+/*@import "modules/Teams.scss";*/
 #match-list {
   min-height: 590px; }
 

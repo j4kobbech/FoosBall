@@ -1,7 +1,5 @@
 ﻿namespace FoosBall.Controllers
 {
-    using System;
-    using System.Linq;
     using System.Web.Mvc;
     using ControllerHelpers;
     using Foosball.Main;
@@ -9,8 +7,6 @@
     using Models.Base;
     using Models.Domain;
     using MongoDB.Bson;
-    using MongoDB.Driver.Builders;
-
     public class AccountController : BaseController
     {
         [HttpPost]
@@ -45,9 +41,6 @@
                 Password = userPassword,
             };
 
-            var activationLinkCollection = Dbh.GetCollection<ActivationLink>("ActivationLinks");
-            var activationLink = new ActivationLink(newUser.Id);
-            activationLinkCollection.Save(activationLink);
             playerCollection.Save(newPlayer);
             userCollection.Save(newUser);
             
@@ -111,43 +104,6 @@
             response.Message = "User updated succesfully";
 
             return Json(response);
-        }
-
-        [HttpGet]
-        public JsonResult Activate(string userId, string token)
-        {
-            var response = new AjaxResponse{Success = true};
-
-            if (string.IsNullOrWhiteSpace(userId) || string.IsNullOrWhiteSpace(token))
-            {
-                response.Success = false;
-                response.Message = "Missing userId or token";
-            }
-
-            var query = Query.And(Query.EQ("Token", token), Query.EQ("UserId", userId));
-            var activationLinkCollection = Dbh.GetCollection<ActivationLink>("ActivationLinks");
-            var activationLink = activationLinkCollection.Find(query).FirstOrDefault();
-
-            if (activationLink != null)
-            {
-                if (activationLink.Expires < DateTime.Now)
-                {
-                    response.Success = false;
-                    response.Message = "Expired";
-                }
-
-                response.Message = "Activation Successful";
-                activationLinkCollection.Remove(query);
-            }
-            else
-            {
-                response.Success = false;
-                response.Message = "Not found";
-            }
-
-
-
-            return Json(response, JsonRequestBehavior.AllowGet);
         }
     }
 }

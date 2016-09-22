@@ -1,0 +1,7 @@
+[
+  {
+    "outputFile": "css/minified/foosball.css",
+    "inputFile": "css/foosball.scss",
+    "sourceMap": false
+  }
+]

@@ -8,5 +8,7 @@ FoosBall/Migration/*.json
 *.orig
 *.ncrunchsolution
 *.user
+.nuget
 FoosBall.sln.DotSettings.user
+.vs
 .sass-cache/

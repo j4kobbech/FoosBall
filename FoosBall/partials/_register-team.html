@@ -1,0 +1,30 @@
+﻿<input data-ng-hide="session.isLoggedIn" data-ng-disabled="true" type="button" class="button" value="Please log in to create a Team" />
+<input data-ng-hide="!session.isLoggedIn" data-ng-click="hideForm=!hideForm" type="button" class="button" value="Create a Team" />
+
+<form data-ng-cloak data-ng-if="session.isLoggedIn" name="createTeamForm" data-ng-submit="createTeam()" data-ng-model="team" data-ng-controller="CreateTeamController">
+    <div data-ng-hide="hideForm" id="team-form" class="clearfix">
+        <div id="team-players" class="new-team">
+            <div class="team-name">Red Team
+            </div>
+            <div class="form-input">
+                <input type="text" name="Name" value="" required data-ng-model="team.Name"/>
+            </div>
+            <div class="form-input">
+                <select name="player1" required data-ng-model="team.Team.Players[0].Id" data-ng-focus="onPlayerSelectFocus($event)" data-ng-change="onPlayerSelectChange()" >
+                    <option></option>
+                    <option data-ng-repeat="player in players" value="{{player.Id}}">{{player.Name}}</option>
+                </select>
+            </div>
+            <br />
+            <div class="form-input">
+                <select name="player2" required data-ng-model="team.Team.Players[1].Id" data-ng-focus="onPlayerSelectFocus($event)" data-ng-change="onPlayerSelectChange()" >
+                    <option></option>
+                    <option data-ng-repeat="player in players" value="{{player.Id}}">{{player.Name}}</option>
+                </select>
+            </div>
+            <div class="form-button">
+                <input type="submit" data-ng-disabled="createTeamForm.$invalid" value="Create Team" class="submit-button button" id="create-team-button" />
+            </div>
+        </div>
+    </div>
+</form>

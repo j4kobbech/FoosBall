@@ -1,0 +1,93 @@
+/* Create Team View
+----------------------------------------------------------*/
+#team-form { 
+    background: none #fff;
+    border-radius: 5px;
+    margin-top: 20px;
+    padding: 15px 20px;
+
+    .new-team {
+        width: 100%;
+    }
+}
+
+#team-list {
+    .team {
+        margin: 40px auto 0 auto;
+        width: 50%;
+    }
+
+    .team-names {
+        position: relative;
+        background: none rgba(255,255,255,.75);
+        @include round-border-small;
+        width: 100%;
+        margin: 0 auto;
+        height: 90px;
+        padding: 10px 15px;
+
+        &.red {
+            text-align: left;
+
+            .gravatars {
+                left: 10px;
+
+                img {
+                    float: left;
+                    margin-right: 5px;
+                }
+            }
+        }
+        &.blue {
+            text-align: right;
+
+            .gravatars {
+                right: 10px;
+
+                img {
+                    float: right;
+                    margin-left: 5px;
+                }
+            }
+        }
+
+        &.winner {
+            background: none rgba(255,255,255,1);
+            font-weight: bold;
+        }
+
+        .names { 
+            display: none;
+            margin: 35px 0 0 0;
+            width: 100%;
+            @include ellipsis;
+            @media only screen and (min-width : 350px) {
+                display: block;
+            }
+        }
+
+        .rating-distribution {
+            &.red {
+                float:  right;
+            }
+            &.blue {
+                float:  left;
+            }
+        }
+
+        .gravatars {
+            position: absolute;
+            top: -20px;
+
+            img {
+                border-radius: 50%;
+                width: 48px;
+                height: auto;
+
+                @media only screen and (min-width : 350px) {
+                    width: 52px;
+                }
+            }
+        }
+    }
+}
